@@ -1,0 +1,25 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FB212721-4BDE-485B-D4C9-C8EEFB7E0F77}") = "project-sprout", "Assembly-CSharp.csproj", "{B4919241-1948-CC3B-AC98-7AB85D695D74}"
+EndProject
+Project("{FB212721-4BDE-485B-D4C9-C8EEFB7E0F77}") = "project-sprout", "Assembly-CSharp-Editor.csproj", "{2B409DED-1FE0-EEE2-CDAC-B0C307AF3181}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B4919241-1948-CC3B-AC98-7AB85D695D74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4919241-1948-CC3B-AC98-7AB85D695D74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4919241-1948-CC3B-AC98-7AB85D695D74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4919241-1948-CC3B-AC98-7AB85D695D74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B409DED-1FE0-EEE2-CDAC-B0C307AF3181}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B409DED-1FE0-EEE2-CDAC-B0C307AF3181}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B409DED-1FE0-EEE2-CDAC-B0C307AF3181}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B409DED-1FE0-EEE2-CDAC-B0C307AF3181}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
