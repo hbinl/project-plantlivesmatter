@@ -2870,7 +2870,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 19900000, guid: ed1c797ec3736704db03a0d64d010e33, type: 2}
       propertyPath: m_SortingOrder
-      value: 27
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: ed1c797ec3736704db03a0d64d010e33, type: 2}
       propertyPath: m_IsActive
