@@ -43,8 +43,12 @@ public class Coin : MonoBehaviour {
 		Destroy(this.gameObject);
 	}
 
-	public void OnMouseDown()
+	public void OnMouseOver()
 	{
-		Debug.Log("Coin Clicked");
+		// if right click to the coin and not clicking any ui object
+		if (Input.GetMouseButtonDown(0) && !UIUtilities.isCursorOnUI())
+		{
+			Debug.Log("Coin Clicked");
+		}
 	}
 }

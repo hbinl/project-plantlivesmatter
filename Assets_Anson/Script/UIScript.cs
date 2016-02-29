@@ -3,16 +3,6 @@ using System.Collections;
 
 public class UIScript : MonoBehaviour {
 
-	Object anObject;
-
-	void Update () {
-//		if (Input.GetMouseButtonDown(0))
-//		{
-////			Debug.Log(Input.mousePosition);
-////			transform.position = new Vector3(Input.mousePosition.x,Input.mousePosition.y ,0f);
-//		}
-	}
-
 	public void ShowTreeUI()
 	{
 		this.gameObject.SetActive(true);
@@ -31,5 +21,7 @@ public class UIScript : MonoBehaviour {
 	public void KillOnClick()
 	{
 		Debug.Log("Kill Clicked!");
+		Destroy(GameControl.selectedTree);
+		this.HideTreeUI();
 	}
 }

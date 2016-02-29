@@ -9,7 +9,7 @@ public class TreeScript : MonoBehaviour {
 
 	public Coin m_coin;
 
-	public GameControl gameControl;
+	public UIScript uiActivation;
 
 	public void Start() 
 	{
@@ -28,6 +28,8 @@ public class TreeScript : MonoBehaviour {
 		{
 			timer -= Time.deltaTime;
 		}
+
+
 	}
 
 	public void InstantiateCoin()
@@ -60,16 +62,29 @@ public class TreeScript : MonoBehaviour {
 	public void DestroyTree()
 	{
 		//Destroy tree object, add sound and animation
+
+		//if the UI is still pointing to this object and it will be destroy
+		// then the UI also need to be disabled
+		if (this.gameObject == GameControl.selectedTree)
+			uiActivation.HideTreeUI();
+
 		Destroy(this.gameObject);
 	}
 
-	public void OnMouseDown()
+	public void OnMouseOver()
 	{
-		gameControl.ShowTreeUI();
-	}
-		
-	public void OnMouseExit()
-	{
-//		gameControl.HideTreeUI();
+		// if right click on the tree and is not clicking any UI
+		if (Input.GetMouseButtonDown(0) && !UIUtilities.isCursorOnUI())
+		{
+			GameControl.selectedTree = this.gameObject;
+			uiActivation.transform.position = new Vector3(Input.mousePosition.x,Input.mousePosition.y ,0f);
+			uiActivation.ShowTreeUI();
+		}
+
+		// if left click on the tree
+		if (Input.GetMouseButtonDown(1))
+		{
+			uiActivation.HideTreeUI();
+		}
 	}
 }
