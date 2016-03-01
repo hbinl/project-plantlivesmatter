@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class Tree : MonoBehaviour {
+public class TreeSci : MonoBehaviour {
     private string stage;
 
     public string ini_stage
@@ -36,9 +36,9 @@ public class Tree : MonoBehaviour {
         set { goldNum = value; }
     }
 
-    private double co2Rate;
+    private float co2Rate;
 
-    public double ini_co2Rate
+    public float ini_co2Rate
     {
         get { return co2Rate; }
         set { co2Rate = value; }
@@ -52,8 +52,14 @@ public class Tree : MonoBehaviour {
         co2Rate = 0.001f;
     }
 
-    public double UpdatePolRate()
+    public float ReducePolRate()
     {
         return co2Rate;
+    }
+
+    public void OnMouseDown()
+    {
+        Debug.Log("Click");
+        Destroy(this.gameObject);
     }
 }
