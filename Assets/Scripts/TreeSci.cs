@@ -3,7 +3,16 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class TreeSci : MonoBehaviour {
+    public float timer;
+    public float defaultTimer = 4f;
+    public Coin m_coin;
+    private double hp;
+    private float co2Rate;
+    private string status;
     private string stage;
+    private int goldNum;
+
+    public meterController meterCon;
 
     public string ini_stage
     {
@@ -11,16 +20,11 @@ public class TreeSci : MonoBehaviour {
         set { stage = value; }
     }
 
-    private string status;
-
     public string ini_status
     {
         get { return status; }
         set { status = value; }
     }
-
-    private double hp;
-    public Text hp_text;
 
     public double ini_hp
     {
@@ -28,7 +32,6 @@ public class TreeSci : MonoBehaviour {
         set { hp = value; }
     }
 
-    private int goldNum;
 
     public int ini_goldNum
     {
@@ -36,7 +39,6 @@ public class TreeSci : MonoBehaviour {
         set { goldNum = value; }
     }
 
-    private float co2Rate;
 
     public float ini_co2Rate
     {
@@ -50,6 +52,29 @@ public class TreeSci : MonoBehaviour {
         stage = "Adult";
         status = "Healthy";
         co2Rate = 0.001f;
+        timer = defaultTimer;
+    }
+
+    public void Update()
+    {
+        if (timer <= 0f)
+        {
+            InstantiateCoin();
+            timer = defaultTimer;
+            GameControl.UpdatePolRate(.1f);
+        }
+        else
+        {
+            timer -= Time.deltaTime;
+        }
+    }
+
+    public void InstantiateCoin()
+    {
+        //Instantiate Coin
+        Vector3 newLocation = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z - 1f);
+        Instantiate(m_coin, newLocation, Quaternion.identity);
+
     }
 
     public float ReducePolRate()
@@ -57,9 +82,18 @@ public class TreeSci : MonoBehaviour {
         return co2Rate;
     }
 
-    public void OnMouseDown()
+    public void DamageTree(float damagePoint)
     {
-        Debug.Log("Click");
+        hp -= damagePoint;
+        if (hp <= 0f)
+        {
+            DestroyTree();
+        }
+    }
+
+    public void DestroyTree()
+    {
+        //Destroy tree object, add sound and animation
         Destroy(this.gameObject);
     }
 }

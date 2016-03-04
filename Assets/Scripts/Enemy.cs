@@ -7,8 +7,11 @@ public class Enemy : MonoBehaviour {
 	public bool faceDirectionRight;
 
 	public bool moveable;
+    public bool alive;
 	public float movementSpeed;
 
+    public Enemy villain;
+    
 	public void Start() 
 	{
 		health = 100f;
@@ -20,8 +23,8 @@ public class Enemy : MonoBehaviour {
 
 	public void Update()
 	{
-		Move();
-	}
+		Move();  
+    }
 
 	public void Move()
 	{
@@ -30,14 +33,13 @@ public class Enemy : MonoBehaviour {
 		RaycastHit2D hit = Physics2D.Linecast(start,end);
 		if (hit.transform != null)
 		{
-			Debug.Log(hit.transform);
-			hit.transform.GetComponent<TreeScript>().DamageTree(1f);
+			hit.transform.GetComponent<TreeSci>().DamageTree(1f);
 		}
 		else
 		{
 			transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
 		}
-	}
+    }
 
 	public void DamageEnemy(float damagePoint) 
 	{

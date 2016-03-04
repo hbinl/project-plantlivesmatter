@@ -9,13 +9,14 @@ public class meterController : MonoBehaviour
 
     void Start()
     {
-        polRate = 50;
-        meterPointer.value = 0.5f;
+        polRate = GameControl.polRate;
+        meterPointer.value = polRate;
     }
-
+    /*
     public void UpdatePolRate(float newPolRate)
     {
         polRate -= newPolRate;
         meterPointer.value -= newPolRate / 100;
     }
+    */
 }
