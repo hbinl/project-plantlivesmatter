@@ -5,17 +5,19 @@ using System.Collections.Generic;
 public class GameControl : MonoBehaviour {
     public List<List<TreeSci>> treeGrid = new List<List<TreeSci>>();
     public List<TreeSci> row0 = new List<TreeSci>();
-    
-   // private float polRate;
-    private int counter = 0;
-    public static meterController meterCon;
+    private List<float> spawnPos = new List<float> { 11.0f, 0.0f };
+
+    // private float polRate;
+    private int cloneNumber;
     public TreeSci tree;
+    public static GameObject selectedObject;
     public Enemy villain;
     public bool alive;
-    public Enemy villainObj;
-
+    public meterController meterCon;
     public static float Co2Value;
     public static float polRate;
+    public static float highScore;
+    public static int coinValue;
 
     void Start()
     {
@@ -24,49 +26,21 @@ public class GameControl : MonoBehaviour {
 
         CreateFullTrees();
         alive = true;
-        CreateEnemy();
+        cloneNumber = 0;
+        CreateRandom(cloneNumber);
+        //CreateEnemy();
     }
 
 	// Update is called once per frame
 	void Update () {
-
-	    for (int i = 0 ; i < 3; i++)
-        {
-            for (int j = 0; j < 5; j++)
-            {
-               // polRate = treeGrid[i][j].ReducePolRate();
-              //  meterCon.UpdatePolRate(polRate);
-            }
-        }
-        if (villainObj.transform.position.x < -10.0f)
-        {
-            alive = false;
-            counter -= 1;
-            villainObj.DestroyEnemy();
-            Debug.Log("LOL");
-        }
-        if (alive)
-        {
-            CreateEnemy();
-            Debug.Log("LALA");
-        }
-    }
-
-    public void CreateEnemy()
-    {
-        float spawnPosX = 11.0f;
-        float spawnPosY = Random.Range(1.5f, -2);
-        Vector3 spawnPos = new Vector3(spawnPosX, spawnPosY, -1.0f);
-        villainObj = Instantiate(villain, spawnPos, Quaternion.identity) as Enemy;
-        counter += 1;
-        alive = true;
+        meterCon.UpdateMeterPointer(polRate);
     }
 
     void CreateFullTrees()
     {
-        float x_pos_offset = -3.5f;
-        float y_pos_offset = 2f;
-        float x_gap = 1.7f;
+        float x_pos_offset = -3.7f;
+        float y_pos_offset = 1.2f;
+        float x_gap = 1.8f;
         float x_pos = x_pos_offset;
         float y_pos = y_pos_offset;
         for (int i = 0; i < 3; i++)
@@ -76,25 +50,48 @@ public class GameControl : MonoBehaviour {
             {
                 TreeSci anObj;
                 anObj = Instantiate(tree, new Vector3(x_pos, y_pos, (i * -1)), Quaternion.identity) as TreeSci;
+                anObj.gameObject.SetActive(false);
                 row0.Add(anObj);
                 x_pos += x_gap;
             }
             List<TreeSci> row = new List<TreeSci>(row0);
             treeGrid.Add(row);
             x_pos = x_pos_offset - ((i+1) * 0.4f);
-            x_gap += 0.25f;
-            y_pos = y_pos_offset - ((i+1) * 1.7f);
+            x_gap += 0.2f;
+            y_pos = y_pos_offset - ((i+1) * 1.4f);
+        }
+    }
+    
+    public void CreateRandom(int cloneNumber)
+    {
+        if (cloneNumber < 3)
+        {
+            int random_row = Random.Range(0, 2);
+            int random_column = Random.Range(0, 4);
+            if (!treeGrid[random_row][random_column].gameObject.activeSelf)
+            {
+                cloneNumber += 1;
+                treeGrid[random_row][random_column].gameObject.SetActive(true);
+                float pos_y = treeGrid[random_row][random_column].gameObject.transform.position.y;
+                spawnPos[1] = pos_y;
+                int random_pos_x = Random.Range(-1, 0);
+                if (random_pos_x == -1)
+                    spawnPos[0] *= random_pos_x;
+                Vector3 enemyPos = new Vector3(spawnPos[0], spawnPos[1], -1 * (random_row+1));
+                //StartCoroutine(CreateEnemy(enemyPos));
+            }
+            CreateRandom(cloneNumber);
         }
     }
 
-    //public void RemoveTree(TreeSci selectedTree)
-    //{
-    //    treeGrid.Remove(selectedTree);
-    //}
-    
+   IEnumerator CreateEnemy(Vector3 enemyPos)
+    {
+        Instantiate(villain, enemyPos, Quaternion.identity);
+        yield return new WaitForSeconds(Random.Range(2.0f, 4.0f));
+    }
+
     public static void UpdatePolRate(float newPolRate)
     {
         polRate -= newPolRate;
-        meterCon.meterPointer.value -= newPolRate / 100;
     }
 }

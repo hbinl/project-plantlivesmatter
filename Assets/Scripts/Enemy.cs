@@ -4,44 +4,87 @@ using System.Collections;
 public class Enemy : MonoBehaviour {
 
 	public float health;
-	public bool faceDirectionRight;
+	public bool faceDirectionRight = false;
 
 	public bool moveable;
     public bool alive;
 	public float movementSpeed;
+    public float damageDealt;
+    private UIScript uiActivation;
 
-    public Enemy villain;
-    
-	public void Start() 
+    private Animator animator;
+
+    public void Start() 
 	{
-		health = 100f;
-		faceDirectionRight = true;
-
-		moveable = true;
+        health = 100f;
+        damageDealt = 1f;
+        moveable = true;
 		movementSpeed = 2f;
-	}
+        if (this.gameObject.transform.position.x < 0)
+            faceDirectionRight = true;
+        if (faceDirectionRight)
+        {
+            // Multiply scale by -1 so that the sprite will be flipped
+            Vector3 theScale = transform.localScale;
+            theScale.x *= -1;
+            transform.localScale = theScale;
+        }
+        animator = GetComponent<Animator>();
+        uiActivation = GameObject.Find("UI_Position").GetComponent<UIScript>();
+    }
 
 	public void Update()
 	{
-		Move();  
+		Move(faceDirectionRight);  
     }
 
-	public void Move()
-	{
-		Vector2 start = transform.position;
-		Vector2 end = new Vector2(transform.position.x - .5f,transform.position.y);
-		RaycastHit2D hit = Physics2D.Linecast(start,end);
-		if (hit.transform != null)
-		{
-			hit.transform.GetComponent<TreeSci>().DamageTree(1f);
-		}
-		else
-		{
-			transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
-		}
+    public void Move(bool faceDirectionRight)
+    {
+        Vector2 start, end;
+
+        if (faceDirectionRight)
+        {
+            start = new Vector2(transform.position.x + .7f, transform.position.y);
+            end = new Vector2(transform.position.x + .8f, transform.position.y);
+        }
+        else
+        {
+            start = new Vector2(transform.position.x - .8f, transform.position.y);
+            end = new Vector2(transform.position.x - .9f, transform.position.y);
+        }
+        RaycastHit2D hit = Physics2D.Linecast(start, end);
+
+        //Draw the line
+        Debug.DrawLine(start, end, Color.blue);
+
+        // to check if the enemy hit something to the LEFT
+        if (hit.transform != null)
+        {
+            if (hit.transform.gameObject.tag == "Tree")
+            {
+                animator.SetBool("damageTree", true);
+                hit.transform.GetComponent<TreeSci>().DamageTree(damageDealt);
+            }
+            else
+            {
+                animator.SetBool("damageTree", false);
+                if (faceDirectionRight)
+                    transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
+                else
+                    transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
+            }
+        }
+        else
+        {
+            animator.SetBool("damageTree", false);
+            if (faceDirectionRight)
+                transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
+            else
+                transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
+        }
     }
 
-	public void DamageEnemy(float damagePoint) 
+    public void DamageEnemy(float damagePoint) 
 	{
 		health -= damagePoint;
 		if (health <= 0f)
@@ -52,7 +95,27 @@ public class Enemy : MonoBehaviour {
 
 	public void DestroyEnemy() 
 	{
-		//Destroy tree object, add sound and animation
-		Destroy(this.gameObject);
+        //Destroy tree object, add sound and animation
+        //if the UI is still pointing to this object and it will be destroy
+        // then the UI also need to be disabled
+        Destroy(this.gameObject);
 	}
+
+    public void OnMouseOver()
+    {
+        // if right click on the tree and is not clicking any UI
+        if (Input.GetMouseButtonDown(0) && !UIUtilities.isCursorOnUI())
+        {
+            Debug.Log("Enemy Clicked");
+            GameControl.selectedObject = this.gameObject;
+            uiActivation.transform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f);
+            uiActivation.ShowEnemyUI();
+        }
+
+        // if left click on the tree
+        if (Input.GetMouseButtonDown(1))
+        {
+            uiActivation.HideUI();
+        }
+    }
 }
