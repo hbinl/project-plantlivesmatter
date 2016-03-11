@@ -5,8 +5,8 @@ public class Enemy : MonoBehaviour {
 
 	public float health;
 	public bool faceDirectionRight = false;
-
-	public bool moveable;
+    public bool touchedTree;
+    public bool moveable;
     public bool alive;
 	public float movementSpeed;
     public float damageDealt;
@@ -16,10 +16,11 @@ public class Enemy : MonoBehaviour {
 
     public void Start() 
 	{
+        touchedTree = false;
         health = 100f;
         damageDealt = 1f;
         moveable = true;
-		movementSpeed = 2f;
+		movementSpeed = 1f;
         if (this.gameObject.transform.position.x < 0)
             faceDirectionRight = true;
         if (faceDirectionRight)
@@ -35,7 +36,8 @@ public class Enemy : MonoBehaviour {
 
 	public void Update()
 	{
-		Move(faceDirectionRight);  
+        if (moveable)
+            Move(faceDirectionRight);  
     }
 
     public void Move(bool faceDirectionRight)

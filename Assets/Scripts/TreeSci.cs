@@ -4,8 +4,8 @@ using System.Collections;
 
 public class TreeSci : MonoBehaviour {
 
-    public float timer;
-    public float defaultTimer = 4f;
+    public float aSecond;
+    public float defaultTimer;
     public Coin m_coin;
     private UIScript uiActivation;
     public double hp;
@@ -53,22 +53,31 @@ public class TreeSci : MonoBehaviour {
         stage = "Adult";
         status = "Healthy";
         co2Rate = 0.001f;
-        timer = defaultTimer;
+        aSecond = 1.0f;
+        defaultTimer = 5.0f;
         animator = GetComponent<Animator>();
         uiActivation = GameObject.Find("UI_Position").GetComponent<UIScript>();
     }
 
     public void Update()
     {
-        if (timer <= 0f)
+        if (defaultTimer <= 0f)
         {
             InstantiateCoin();
-            timer = defaultTimer;
-            GameControl.UpdatePolRate(0.1f);
+            defaultTimer = 5.0f;
         }
         else
         {
-            timer -= Time.deltaTime;
+            defaultTimer -= Time.deltaTime;
+        }
+        if (aSecond <= 0)
+        {
+            GameControl.polRate -= 0.1f;
+            aSecond = 1.0f;
+        }
+        else
+        {
+            aSecond -= Time.deltaTime;
         }
     }
 
