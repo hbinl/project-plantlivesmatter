@@ -1,4 +1,4 @@
 # project-plantlivesmatter
 
-- Imagine Cup - Chomsky Normal Four
-- Ivan, Hao Bin, Hanna, Nigel
+- Imagine Cup - Team Tanam
+- Ivan, Hao Bin, Hanna, Anson

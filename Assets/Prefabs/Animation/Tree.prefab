@@ -157,13 +157,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 134710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e4920332ecdcde44adcc2af5a0e2433, type: 3}
+  m_Script: {fileID: 11500000, guid: 268417b51924b475eafe315b53161dca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   aSecond: 0
   defaultTimer: 4
   m_coin: {fileID: 11426986, guid: 38f445e6e17056d4f9d5ac5c682d9c0f, type: 2}
   hp: 0
+  onFire: 0
 --- !u!212 &21217482
 SpriteRenderer:
   m_ObjectHideFlags: 1

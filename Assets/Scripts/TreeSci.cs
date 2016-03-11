@@ -15,6 +15,8 @@ public class TreeSci : MonoBehaviour {
     private int goldNum;
     private Animator animator;
 
+	public bool onFire;
+
     public string ini_stage
     {
         get { return stage; }
@@ -72,6 +74,10 @@ public class TreeSci : MonoBehaviour {
         }
         if (aSecond <= 0)
         {
+			if (onFire)
+			{
+				onFireEffect();
+			}
             GameControl.polRate -= 0.1f;
             aSecond = 1.0f;
         }
@@ -79,6 +85,8 @@ public class TreeSci : MonoBehaviour {
         {
             aSecond -= Time.deltaTime;
         }
+
+
     }
 
     public void InstantiateCoin()
@@ -97,11 +105,19 @@ public class TreeSci : MonoBehaviour {
     public void DamageTree(float damagePoint)
     {
         hp -= damagePoint;
-        animator.SetTrigger("treeFire");
+//        animator.SetTrigger("treeFire");
         if (hp <= 0f)
         {
             GetComponent<BoxCollider2D>().enabled = false;
-            animator.SetTrigger("treeBurnt");
+			if (onFire)
+			{
+				animator.SetTrigger("treeBurnt");
+			}
+			else
+			{
+				animator.SetTrigger("treeFall");
+			}
+			StartCoroutine("Fade");
             DestroyTree();
         }
     }
@@ -115,7 +131,7 @@ public class TreeSci : MonoBehaviour {
         if (this.gameObject == GameControl.selectedObject)
             uiActivation.HideUI();
 
-        Destroy(this.gameObject);
+        Destroy(this.gameObject,2f);
     }
 
     public void OnMouseOver()
@@ -124,7 +140,7 @@ public class TreeSci : MonoBehaviour {
         if (Input.GetMouseButtonDown(0) && !UIUtilities.isCursorOnUI())
         {
             GameControl.selectedObject = this.gameObject;
-            uiActivation.transform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f);
+			uiActivation.transform.position = new Vector3(transform.position.x, transform.position.y, 100f);
             uiActivation.ShowTreeUI();
         }
 
@@ -134,4 +150,19 @@ public class TreeSci : MonoBehaviour {
             uiActivation.HideUI();
         }
     }
+
+	public void onFireEffect()
+	{
+		DamageTree(10f);
+	}
+
+	// for fading out when it is death
+	IEnumerator Fade() {
+		for (float f = 1f; f >= 0; f -= 0.1f) {
+			Color c = GetComponent<SpriteRenderer>().material.color;
+			c.a = f;
+			GetComponent<SpriteRenderer>().material.color = c;
+			yield return new WaitForSeconds(.2f);
+		}
+	}
 }
