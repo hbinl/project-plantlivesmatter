@@ -21,10 +21,12 @@ public class GameControl : MonoBehaviour {
     public static bool timerActive;
     public static float timer;
     public static int suePapers;
+    public static int waveNumber;
     public Text timerText;
     public Text highScoreText;
     public Text suePapersText;
     public Text coinText;
+    public Text waveText;
 
     void Start()
     {
@@ -38,7 +40,8 @@ public class GameControl : MonoBehaviour {
         highScore = 0;
         suePapers = 1;
         timerActive = true;
-        CreateTreeList();
+        waveNumber = 1;
+        //CreateTreeList();
         //CreateEnemy();
         //CreateRandomTree(cloneNumber);
     }
@@ -54,6 +57,16 @@ public class GameControl : MonoBehaviour {
             timer += Time.deltaTime;
             highScore += 1.0f;
         }
+    }
+
+    private IEnumerator GameLoop()
+    {
+        yield return StartCoroutine(Waves());
+    }
+
+    IEnumerator Waves()
+    {
+
     }
 
     Vector3 RandomTreePos(int row, int column)
@@ -178,11 +191,6 @@ public class GameControl : MonoBehaviour {
         yield return new WaitForSeconds(Random.Range(1.0f, 6.0f));
         Instantiate(villain, enemyPos, Quaternion.identity);
     }
-
-    //public static void UpdatePolRate(float newPolRate)
-    //{
-    //    polRate -= newPolRate;
-    //}
 
     void OnGUI()
     {
