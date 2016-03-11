@@ -110,6 +110,7 @@ public class Enemy : MonoBehaviour {
         //if the UI is still pointing to this object and it will be destroy
         // then the UI also need to be disabled
         Destroy(this.gameObject);
+        GameControl.enemyNumber -= 1;
 	}
 
     public void OnMouseOver()

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GameControl : MonoBehaviour {
     public List<List<TreeSci>> treeGrid = new List<List<TreeSci>>();
@@ -8,8 +9,9 @@ public class GameControl : MonoBehaviour {
     private List<float> spawnPos = new List<float> { 11.0f, 0.0f };
 
     // private float polRate;
-    private int cloneNumber;
+    private int treeNumber;
     public TreeSci tree;
+    public GameObject gameOver;
     public static GameObject selectedObject;
     public Enemy villain;
     public bool alive;
@@ -18,22 +20,114 @@ public class GameControl : MonoBehaviour {
     public static float polRate;
     public static float highScore;
     public static int coinValue;
+    public static int waveNumber;
+    public static int enemyNumber;
+    public Text waveText;
 
     void Start()
     {
         Co2Value = 0.5f;
         polRate = 50;
-
+        waveNumber = 1;
+        treeNumber = 0;
         CreateFullTrees();
         alive = true;
-        cloneNumber = 0;
-        CreateRandom(cloneNumber);
+        enemyNumber = 0;
+        CreateRandomTree(treeNumber);
         //CreateEnemy();
     }
 
 	// Update is called once per frame
 	void Update () {
         meterCon.UpdateMeterPointer(polRate);
+    }
+
+    IEnumerator GameLoop()
+    {
+        yield return StartCoroutine(Waves());
+        yield return StartCoroutine(WavesActive());
+        yield return StartCoroutine(End());
+    }
+
+    IEnumerator Waves()
+    {
+        waveText.text = "Wave " + waveNumber;
+        waveNumber += 1;
+        yield return new WaitForSeconds(2f);
+    }
+
+    IEnumerator WavesActive()
+    {
+        for (int i = 0; i < waveNumber; i++)
+        {
+            StartCoroutine(CreateEnemy());
+            enemyNumber += 1;
+        }
+        while (enemyNumber != 0)
+        {
+            yield return null;
+        }
+    }
+
+    IEnumerator End()
+    {
+        gameOver.SetActive(true);
+        yield return new WaitForSeconds(2f);
+    }
+
+    void CreateTreeList()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            row0.Clear();
+            for (int j = 0; j < 5; j++)
+            {
+                row0.Add(null);
+            }
+            treeGrid.Add(row0);
+        }
+    }
+
+    void InsertTreeInList(int row, int column)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 5; j++)
+            {
+                if (i == row && j == column)
+                {
+                    TreeSci anObj;
+                    Vector3 treePos = RandomTreePos(row, column);
+                    anObj = Instantiate(tree, treePos, Quaternion.identity) as TreeSci;
+                    treeGrid[row][column] = anObj;
+                }
+            }
+        }
+    }
+
+    void CreateRandomTree(int number)
+    {
+        while (number < 5)
+        {
+            int row = Random.Range(0, 3);
+            int column = Random.Range(0, 5);
+            Debug.Log("row" + row);
+            Debug.Log("column" + column);
+            if (treeGrid[row][column] == null)
+            {
+                number += 1;
+                InsertTreeInList(row, column);
+                Debug.Log("Created " + number);
+                float pos_y = treeGrid[row][column].gameObject.transform.position.y;
+                spawnPos[1] = pos_y;
+                int random_pos_x = Random.Range(-1, 0);
+                if (random_pos_x == -1)
+                    spawnPos[0] *= random_pos_x;
+                Vector3 enemyPos = new Vector3(spawnPos[0], spawnPos[1], -1 * (row + 1));
+                //StartCoroutine(CreateEnemy(enemyPos));
+            }
+            Debug.Log("repeat");
+        }
     }
 
     void CreateFullTrees()
@@ -61,7 +155,36 @@ public class GameControl : MonoBehaviour {
             y_pos = y_pos_offset - ((i+1) * 1.4f);
         }
     }
-    
+
+    Vector3 RandomTreePos(int row, int column)
+    {
+        float x_pos_offset = -3.7f;
+        float y_pos_offset = 1.2f;
+        float x_gap = 1.8f;
+        float x_pos = x_pos_offset - (row * 0.4f); ;
+        float y_pos = y_pos_offset;
+        x_pos += column * (x_gap + (row * 0.2f));
+        y_pos = y_pos_offset - (row * 1.4f);
+        float z_pos = row * -1;
+        Vector3 treePos = new Vector3(x_pos, y_pos, z_pos);
+        return treePos;
+    }
+
+    Vector3 RandomEnemyPos()
+    {
+        float x_pos = 11f;
+        int random_flip = Random.Range(0, 2);
+        int random_row = Random.Range(0, 3);
+        if (random_flip == 0)
+        {
+            x_pos *= -1;
+        }
+        float y_pos = 1.2f - (random_row * 1.4f);
+        float z_pos = -1 * random_row;
+        Vector3 enemyPos = new Vector3(x_pos, y_pos, z_pos);
+        return enemyPos;
+    }
+
     public void CreateRandom(int cloneNumber)
     {
         if (cloneNumber < 3)
@@ -85,9 +208,10 @@ public class GameControl : MonoBehaviour {
         }
     }
 
-   IEnumerator CreateEnemy(Vector3 enemyPos)
+   IEnumerator CreateEnemy()
     {
 		yield return new WaitForSeconds(2);
+        Vector3 enemyPos = RandomEnemyPos();
         Instantiate(villain, enemyPos, Quaternion.identity);
 //        yield return 2f;
     }
