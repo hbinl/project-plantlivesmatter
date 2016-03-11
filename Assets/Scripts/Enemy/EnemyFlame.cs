@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyFlame : MonoBehaviour {
 
-	public Enemy flameEnemy;
+	private Enemy flameEnemy;
 
 	private Animator animator;
 
@@ -12,6 +12,7 @@ public class EnemyFlame : MonoBehaviour {
 		flameEnemy = GetComponent<Enemy>();
 
 		animator = GetComponent<Animator>();
+		flameEnemy.moveable = true;
 	}
 
 	void Update()
@@ -85,5 +86,19 @@ public class EnemyFlame : MonoBehaviour {
 		{
 			animator.SetBool("damageTree", false);
 		}
+	}
+
+	public void OnMouseOver()
+	{
+		// if right click on the tree and is not clicking any UI
+		if (Input.GetMouseButtonDown(0) && !UIUtilities.isCursorOnUI())
+		{
+			Debug.Log("Enemy Clicked");
+			if (GameControl.useSuePaper())
+			{
+				flameEnemy.DamageEnemy(51f);
+			}
+		}
+
 	}
 }

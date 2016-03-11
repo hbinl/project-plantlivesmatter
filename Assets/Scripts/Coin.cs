@@ -49,7 +49,7 @@ public class Coin : MonoBehaviour {
        // if (!UIUtilities.isCursorOnUI())
        // {
             Debug.Log("Coin collected");
-            GameControl.coinValue += 1;
+            GameControl.coinValue += 10;
             DestroyCoin();
        // }
     }
