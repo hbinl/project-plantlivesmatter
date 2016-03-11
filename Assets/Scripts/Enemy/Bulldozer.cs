@@ -1,30 +1,45 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyChainsaw : MonoBehaviour {
+public class Bulldozer : MonoBehaviour {
 
-	private Enemy chainsawEnemy;
+	private Enemy buldozerEnemy;
 
 	private Animator animator;
 
+	public float delayStartMovement;
+	public float timer;
+
 	// Use this for initialization
 	void Start () {
-		chainsawEnemy = GetComponent<Enemy>();
+		buldozerEnemy = GetComponent<Enemy>();
 
 		animator = GetComponent<Animator>();
-		chainsawEnemy.moveable = true;
+
+		buldozerEnemy.moveable = false;
+		delayStartMovement = 5f;
+
+		timer = 0f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		hitTree();
+		if (timer < delayStartMovement)
+		{
+			timer += Time.deltaTime;
+		}
+		else
+		{
+			buldozerEnemy.moveable = true;
+			Move();
+		}
 	}
 
-	public void hitTree()
+	public void Move()
 	{
 		Vector2 start, end;
 
-		if (chainsawEnemy.faceDirectionRight)
+		if (buldozerEnemy.faceDirectionRight)
 		{
 			start = new Vector2(transform.position.x + .7f, transform.position.y);
 			end = new Vector2(transform.position.x + .8f, transform.position.y);
@@ -41,15 +56,12 @@ public class EnemyChainsaw : MonoBehaviour {
 
 		if (hit.transform != null)
 		{
-			if (hit.transform.gameObject.tag == "Tree" && chainsawEnemy.enemyIsActive)
+			if (hit.transform.gameObject.tag == "Tree" && buldozerEnemy.enemyIsActive)
 			{
 				animator.SetBool("damageTree", true);
-				chainsawEnemy.touchedTree = true;
+				buldozerEnemy.touchedTree = true;
 
-				hit.transform.GetComponent<TreeSci>().DamageTree(chainsawEnemy.damageDealt);
-
-//				// to hit the tree
-//				hit.transform.GetComponent<TreeSci>().DamageTree(1f);
+				hit.transform.GetComponent<TreeSci>().DamageTree(1000f);
 			}
 			else
 			{
@@ -70,7 +82,7 @@ public class EnemyChainsaw : MonoBehaviour {
 			Debug.Log("Enemy Clicked");
 			if (GameControl.useSuePaper())
 			{
-				chainsawEnemy.DamageEnemy(101f);
+				buldozerEnemy.DamageEnemy(33.4f);
 			}
 		}
 

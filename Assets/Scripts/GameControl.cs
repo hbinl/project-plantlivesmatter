@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -13,11 +14,18 @@ public class GameControl : MonoBehaviour {
     public static GameObject selectedObject;
     public Enemy villain;
     public bool alive;
+
     public meterController meterCon;
-    public static float Co2Value;
+	public Text coinText;
+	public Text suePaperText;
+	public Text highscoreText;
+    
+
+	public static float Co2Value;
     public static float polRate;
     public static float highScore;
     public static int coinValue;
+	public static int suePaperValue;
 
     void Start()
     {
@@ -28,12 +36,18 @@ public class GameControl : MonoBehaviour {
         alive = true;
         cloneNumber = 0;
         CreateRandom(cloneNumber);
+
+		suePaperValue = 3;
+		coinValue = 100;
+		highScore = 0f;
         //CreateEnemy();
     }
 
 	// Update is called once per frame
 	void Update () {
         meterCon.UpdateMeterPointer(polRate);
+
+		UpdateGameUI();
     }
 
     void CreateFullTrees()
@@ -96,4 +110,41 @@ public class GameControl : MonoBehaviour {
     {
         polRate -= newPolRate;
     }
+
+	public static bool PurchaseSuePaper()
+	{
+		if (coinValue >= 25)
+		{
+			coinValue -= 25;
+			suePaperValue += 1;
+
+			return true;
+		}
+		else
+		{
+			// should return sth to indicate not enough coin to purchase
+
+			return false;
+		}
+	}
+
+	public static bool useSuePaper()
+	{
+		if (suePaperValue > 0)
+		{
+			suePaperValue -= 1;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public void UpdateGameUI()
+	{
+		coinText.text = coinValue.ToString();
+		suePaperText.text = suePaperValue.ToString();
+		highscoreText.text = highScore.ToString();
+	}
 }

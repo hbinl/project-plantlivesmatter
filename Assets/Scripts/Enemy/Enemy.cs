@@ -10,7 +10,6 @@ public class Enemy : MonoBehaviour {
     public bool alive;
 	public float movementSpeed;
     public float damageDealt;
-    private UIScript uiActivation;
 
 	public bool enemyIsActive;
 
@@ -25,7 +24,6 @@ public class Enemy : MonoBehaviour {
 
         health = 100f;
         damageDealt = 0.1f;
-        moveable = true;
 		movementSpeed = 1f;
         if (this.gameObject.transform.position.x < 0)
             faceDirectionRight = true;
@@ -37,7 +35,6 @@ public class Enemy : MonoBehaviour {
             transform.localScale = theScale;
         }
 //        animator = GetComponent<Animator>();
-        uiActivation = GameObject.Find("UI_Position").GetComponent<UIScript>();
     }
 
 	public void Update()
@@ -112,21 +109,14 @@ public class Enemy : MonoBehaviour {
         Destroy(this.gameObject);
 	}
 
-    public void OnMouseOver()
-    {
-        // if right click on the tree and is not clicking any UI
-        if (Input.GetMouseButtonDown(0) && !UIUtilities.isCursorOnUI())
-        {
-            Debug.Log("Enemy Clicked");
-            GameControl.selectedObject = this.gameObject;
-			uiActivation.transform.position = new Vector3(transform.position.x, transform.position.y, 100f);
-            uiActivation.ShowEnemyUI();
-        }
-
-        // if left click on the tree
-        if (Input.GetMouseButtonDown(1))
-        {
-            uiActivation.HideUI();
-        }
-    }
+//    public void OnMouseOver()
+//    {
+//        // if right click on the tree and is not clicking any UI
+//        if (Input.GetMouseButtonDown(0) && !UIUtilities.isCursorOnUI())
+//        {
+//            Debug.Log("Enemy Clicked");
+//            GameControl.selectedObject = this.gameObject;
+//        }
+//
+//    }
 }
