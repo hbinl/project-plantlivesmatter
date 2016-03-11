@@ -21,10 +21,12 @@ public class GameControl : MonoBehaviour {
     public static bool timerActive;
     public static float timer;
     public static int suePapers;
+    public static int waveNumber;
     public Text timerText;
     public Text highScoreText;
     public Text suePapersText;
     public Text coinText;
+    public Text waveText;
 
     void Start()
     {
@@ -56,6 +58,16 @@ public class GameControl : MonoBehaviour {
         }
     }
 
+    IEnumerator GameLoop()
+    {
+        yield return StartCoroutine(Waves());
+    }
+
+    IEnumerator Waves()
+    {
+
+    }
+
     Vector3 RandomTreePos(int row, int column)
     {
         float x_pos_offset = -3.7f;
@@ -68,6 +80,10 @@ public class GameControl : MonoBehaviour {
         float z_pos = row * -1;
         Vector3 treePos = new Vector3(x_pos, y_pos, z_pos);
         return treePos;
+    }
+    Vector3 RandomEnemyPos(int row)
+    {
+        float x_pos = 11.0f;
     }
 
     void CreateTreeList()
