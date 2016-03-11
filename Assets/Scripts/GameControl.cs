@@ -2,15 +2,13 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 public class GameControl : MonoBehaviour {
     public List<List<TreeSci>> treeGrid = new List<List<TreeSci>>();
     public List<TreeSci> row0 = new List<TreeSci>();
-    private List<float> spawnPos = new List<float> { 11.0f, 0.0f };
 
     // private float polRate;
-    private int treeNumber;
+    private int cloneNumber;
     public TreeSci tree;
     public GameObject gameOver;
     public static GameObject selectedObject;
@@ -27,34 +25,25 @@ public class GameControl : MonoBehaviour {
     public static float polRate;
     public static float highScore;
     public static int coinValue;
-<<<<<<< HEAD
     public static int waveNumber;
     public static int enemyNumber;
     public Text waveText;
-=======
 	public static int suePaperValue;
->>>>>>> c9eb3aa86b0c1ffb72114a832762b75b3adb096e
 
     void Start()
     {
         Co2Value = 0.5f;
         polRate = 50;
         waveNumber = 1;
-        treeNumber = 0;
+        cloneNumber = 0;
         CreateFullTrees();
         alive = true;
-<<<<<<< HEAD
-        enemyNumber = 0;
-        CreateRandomTree(treeNumber);
-=======
         cloneNumber = 0;
         CreateRandom(cloneNumber);
-
 		suePaperValue = 3;
 		coinValue = 100;
 		highScore = 0f;
->>>>>>> c9eb3aa86b0c1ffb72114a832762b75b3adb096e
-        //CreateEnemy();
+        StartCoroutine(GameLoop());
     }
 
 	// Update is called once per frame
@@ -66,9 +55,11 @@ public class GameControl : MonoBehaviour {
 
     IEnumerator GameLoop()
     {
-        yield return StartCoroutine(Waves());
-        yield return StartCoroutine(WavesActive());
-        yield return StartCoroutine(End());
+        for (int i = 0; i < Mathf.Infinity; i++)
+        {
+            yield return StartCoroutine(Waves());
+            yield return StartCoroutine(WavesActive());
+        }
     }
 
     IEnumerator Waves()
@@ -80,21 +71,17 @@ public class GameControl : MonoBehaviour {
 
     IEnumerator WavesActive()
     {
-        for (int i = 0; i < waveNumber; i++)
+        waveText.text = string.Empty;
+        for (int i = 0; i < waveNumber + 2; i++)
         {
             StartCoroutine(CreateEnemy());
             enemyNumber += 1;
         }
-        while (enemyNumber != 0)
+        while (enemyNumber != 0 || polRate > 98f)
         {
+            Debug.Log(enemyNumber);
             yield return null;
         }
-    }
-
-    IEnumerator End()
-    {
-        gameOver.SetActive(true);
-        yield return new WaitForSeconds(2f);
     }
 
     void CreateTreeList()
@@ -127,28 +114,18 @@ public class GameControl : MonoBehaviour {
         }
     }
 
-    void CreateRandomTree(int number)
+    public void CreateRandom(int cloneNumber)
     {
-        while (number < 5)
+        if (cloneNumber < 3)
         {
-            int row = Random.Range(0, 3);
-            int column = Random.Range(0, 5);
-            Debug.Log("row" + row);
-            Debug.Log("column" + column);
-            if (treeGrid[row][column] == null)
+            int random_row = Random.Range(0, 3);
+            int random_column = Random.Range(0, 5);
+            if (!treeGrid[random_row][random_column].gameObject.activeSelf)
             {
-                number += 1;
-                InsertTreeInList(row, column);
-                Debug.Log("Created " + number);
-                float pos_y = treeGrid[row][column].gameObject.transform.position.y;
-                spawnPos[1] = pos_y;
-                int random_pos_x = Random.Range(-1, 0);
-                if (random_pos_x == -1)
-                    spawnPos[0] *= random_pos_x;
-                Vector3 enemyPos = new Vector3(spawnPos[0], spawnPos[1], -1 * (row + 1));
-                //StartCoroutine(CreateEnemy(enemyPos));
+                cloneNumber += 1;
+                InsertTreeInList(random_row, random_column);
             }
-            Debug.Log("repeat");
+            CreateRandom(cloneNumber);
         }
     }
 
@@ -207,28 +184,6 @@ public class GameControl : MonoBehaviour {
         return enemyPos;
     }
 
-    public void CreateRandom(int cloneNumber)
-    {
-        if (cloneNumber < 3)
-        {
-            int random_row = Random.Range(0, 3);
-            int random_column = Random.Range(0, 5);
-            if (!treeGrid[random_row][random_column].gameObject.activeSelf)
-            {
-                cloneNumber += 1;
-                treeGrid[random_row][random_column].gameObject.SetActive(true);
-                float pos_y = treeGrid[random_row][random_column].gameObject.transform.position.y;
-                spawnPos[1] = pos_y;
-                int random_pos_x = Random.Range(-1, 0);
-                if (random_pos_x == -1)
-                    spawnPos[0] *= random_pos_x;
-                Vector3 enemyPos = new Vector3(spawnPos[0], spawnPos[1], -1 * (random_row+1));
-//                StartCoroutine(CreateEnemy(enemyPos));
-				//InvokeRepeating("CreateEnemy",2f,2f);
-            }
-            CreateRandom(cloneNumber);
-        }
-    }
 
    IEnumerator CreateEnemy()
     {
