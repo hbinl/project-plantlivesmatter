@@ -34,6 +34,8 @@ public class Enemy : MonoBehaviour {
             theScale.x *= -1;
             transform.localScale = theScale;
         }
+        if (this.transform.position.x < -11f || this.transform.position.x > 11f)
+            selfDestruct();
 //        animator = GetComponent<Animator>();
     }
 
@@ -96,9 +98,9 @@ public class Enemy : MonoBehaviour {
 	{
 		health -= damagePoint;
 		if (health <= 0f)
-		{
-			DestroyEnemy();
-		}
+        { 
+            DestroyEnemy();
+        }
 	}
 
 	public void DestroyEnemy() 
@@ -106,9 +108,14 @@ public class Enemy : MonoBehaviour {
         //Destroy tree object, add sound and animation
         //if the UI is still pointing to this object and it will be destroy
         // then the UI also need to be disabled
+        GameControl.enemyKilled += 1;
         Destroy(this.gameObject);
-        GameControl.enemyNumber -= 1;
 	}
+
+    public void selfDestruct()
+    {
+        Destroy(this.gameObject);
+    }
 
 //    public void OnMouseOver()
 //    {

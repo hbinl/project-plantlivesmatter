@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class GameControl : MonoBehaviour {
     public List<List<TreeSci>> treeGrid = new List<List<TreeSci>>();
     public List<TreeSci> row0 = new List<TreeSci>();
+    public List<Enemy> enemyList = new List<Enemy>();
 
     // private float polRate;
     private int cloneNumber;
@@ -19,8 +20,7 @@ public class GameControl : MonoBehaviour {
 	public Text coinText;
 	public Text suePaperText;
 	public Text highscoreText;
-    
-
+    public static int enemyKilled;
 	public static float Co2Value;
     public static float polRate;
     public static float highScore;
@@ -36,6 +36,7 @@ public class GameControl : MonoBehaviour {
         polRate = 50;
         waveNumber = 1;
         cloneNumber = 0;
+        enemyKilled = 0;
         CreateFullTrees();
         alive = true;
         cloneNumber = 0;
@@ -74,13 +75,14 @@ public class GameControl : MonoBehaviour {
         waveText.text = string.Empty;
         for (int i = 0; i < waveNumber + 2; i++)
         {
+            yield return new WaitForSeconds(Random.Range(2f, 4f));
             StartCoroutine(CreateEnemy());
             enemyNumber += 1;
         }
-        while (enemyNumber != 0 || polRate > 98f)
+        while (enemyNumber != enemyKilled || polRate > 98f)
         {
-            Debug.Log(enemyNumber);
-            yield return null;
+            yield return new WaitForSeconds(Random.Range(2f, 4f));
+            StartCoroutine(CreateEnemy());
         }
     }
 
