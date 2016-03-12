@@ -79,7 +79,7 @@ public class GameControl : MonoBehaviour {
         }
         while (enemyNumber != 0 || polRate > 98f)
         {
-            Debug.Log(enemyNumber);
+//            Debug.Log(enemyNumber);
             yield return null;
         }
     }
