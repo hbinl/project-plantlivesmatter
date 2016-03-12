@@ -73,17 +73,18 @@ public class GameControl : MonoBehaviour {
     IEnumerator WavesActive()
     {
         waveText.text = string.Empty;
-        for (int i = 0; i < waveNumber + 2; i++)
-        {
-            yield return new WaitForSeconds(Random.Range(2f, 4f));
-            StartCoroutine(CreateEnemy());
-            enemyNumber += 1;
-        }
-        while (enemyNumber != enemyKilled || polRate > 98f)
-        {
-            yield return new WaitForSeconds(Random.Range(2f, 4f));
-            StartCoroutine(CreateEnemy());
-        }
+        yield return null;
+        //for (int i = 0; i < waveNumber + 2; i++)
+        //{
+        //    yield return new WaitForSeconds(Random.Range(2f, 4f));
+        //    StartCoroutine(CreateEnemy());
+        //    enemyNumber += 1;
+        //}
+        //while (enemyNumber != enemyKilled || polRate > 98f)
+        //{
+        //    yield return new WaitForSeconds(Random.Range(2f, 4f));
+        //    StartCoroutine(CreateEnemy());
+        //}
     }
 
     void CreateTreeList()
@@ -118,7 +119,7 @@ public class GameControl : MonoBehaviour {
 
     public void CreateRandom(int cloneNumber)
     {
-        if (cloneNumber < 3)
+        if (cloneNumber < 7)
         {
             int random_row = Random.Range(0, 3);
             int random_column = Random.Range(0, 5);
