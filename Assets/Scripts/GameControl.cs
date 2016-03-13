@@ -74,17 +74,17 @@ public class GameControl : MonoBehaviour {
     {
         waveText.text = string.Empty;
         yield return null;
-        //for (int i = 0; i < waveNumber + 2; i++)
-        //{
-        //    yield return new WaitForSeconds(Random.Range(2f, 4f));
-        //    StartCoroutine(CreateEnemy());
-        //    enemyNumber += 1;
-        //}
-        //while (enemyNumber != enemyKilled || polRate > 98f)
-        //{
-        //    yield return new WaitForSeconds(Random.Range(2f, 4f));
-        //    StartCoroutine(CreateEnemy());
-        //}
+        for (int i = 0; i < waveNumber + 2; i++)
+        {
+            yield return new WaitForSeconds(Random.Range(2f, 4f));
+            StartCoroutine(CreateEnemy());
+            enemyNumber += 1;
+        }
+        while (enemyNumber != enemyKilled || polRate > 98f)
+        {
+            yield return new WaitForSeconds(Random.Range(2f, 4f));
+            StartCoroutine(CreateEnemy());
+        }
     }
 
     void CreateTreeList()

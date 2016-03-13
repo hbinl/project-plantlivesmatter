@@ -12,7 +12,7 @@ public class ColliderScript : MonoBehaviour {
 		Debug.Log("TEST");
 		if (col.gameObject.tag == "Enemy")
 		{
-			Destroy(col.gameObject);
+			col.GetComponent<Enemy>().DestroyEnemy();
 		}
 	}
 
