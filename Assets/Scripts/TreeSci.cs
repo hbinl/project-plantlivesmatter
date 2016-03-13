@@ -8,7 +8,7 @@ public class TreeSci : MonoBehaviour {
     public float defaultTimer;
     public Coin m_coin;
     private UIScript uiActivation;
-    public double hp;
+    public float hp;
     private float co2Rate;
     private string status;
     private string stage;
@@ -29,7 +29,7 @@ public class TreeSci : MonoBehaviour {
         set { status = value; }
     }
 
-    public double ini_hp
+    public float ini_hp
     {
         get { return hp; }
         set { hp = value; }
