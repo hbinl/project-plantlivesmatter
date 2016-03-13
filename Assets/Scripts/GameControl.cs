@@ -4,8 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class GameControl : MonoBehaviour {
-    public List<List<TreeSci>> treeGrid = new List<List<TreeSci>>();
-    public List<TreeSci> row0 = new List<TreeSci>();
+    public static List<TreeSci> treeGrid = new List<TreeSci>();
     public List<Enemy> enemyList = new List<Enemy>();
 
     // private float polRate;
@@ -30,17 +29,25 @@ public class GameControl : MonoBehaviour {
     public Text waveText;
 	public static int suePaperValue;
 
+	public List<TileScript> tileScriptObject;
+	public List<GameObject> enemyWaypoints;
+
+	public static bool canSpawnTree;
+
+
     void Start()
     {
+		canSpawnTree = false;
+
         Co2Value = 0.5f;
         polRate = 50;
         waveNumber = 1;
         cloneNumber = 0;
         enemyKilled = 0;
-        CreateFullTrees();
+//        CreateFullTrees();
         alive = true;
-        cloneNumber = 0;
-        CreateRandom(cloneNumber);
+        cloneNumber = 6;
+        CreateRandomTree(cloneNumber);
 		suePaperValue = 3;
 		coinValue = 100;
 		highScore = 0f;
@@ -87,113 +94,160 @@ public class GameControl : MonoBehaviour {
         }
     }
 
-    void CreateTreeList()
+//    void CreateTreeList()
+//    {
+//        for (int i = 0; i < 3; i++)
+//        {
+//            row0.Clear();
+//            for (int j = 0; j < 5; j++)
+//            {
+//                row0.Add(null);
+//            }
+//            treeGrid.Add(row0);
+//        }
+//    }
+
+//    void InsertTreeInList(int row, int column)
+//    {
+//        for (int i = 0; i < 3; i++)
+//        {
+//            for (int j = 0; j < 5; j++)
+//            {
+//                if (i == row && j == column)
+//                {
+//                    TreeSci anObj;
+//                    Vector3 treePos = RandomTreePos(row, column);
+//                    anObj = Instantiate(tree, treePos, Quaternion.identity) as TreeSci;
+//                    treeGrid[row][column] = anObj;
+//                }
+//            }
+//        }
+//    }
+
+    public void CreateRandomTree(int cloneNumber)
     {
-        for (int i = 0; i < 3; i++)
-        {
-            row0.Clear();
-            for (int j = 0; j < 5; j++)
-            {
-                row0.Add(null);
-            }
-            treeGrid.Add(row0);
-        }
+		int numberSpawn = 0;
+		while( numberSpawn < cloneNumber)
+		{
+			int random_pos = Random.Range(0,15);
+
+			if (!tileScriptObject[random_pos].occupied)
+			{
+				// add Tree to tile grid
+				TreeSci aTree;
+				float tilePosX, tilePosY, tilePosZ;
+				tilePosX = tileScriptObject[random_pos].transform.position.x;
+				tilePosY = tileScriptObject[random_pos].transform.position.y + 1f;
+				tilePosZ = tileScriptObject[random_pos].transform.position.z - 3;
+				aTree = Instantiate(tree, new Vector3(tilePosX,tilePosY,tilePosZ), Quaternion.identity) as TreeSci;
+				treeGrid.Add(aTree);
+
+				// add tree object and occupy to the grid
+				tileScriptObject[random_pos].occupied = true;
+				tileScriptObject[random_pos].treeObject = aTree;
+
+				numberSpawn++;
+
+			}
+		}
+			
+//        if (cloneNumber < 7)
+//        {
+//            int random_row = Random.Range(0, 3);
+//            int random_column = Random.Range(0, 5);
+//            if (!treeGrid[random_row][random_column].gameObject.activeSelf)
+//            {
+//                cloneNumber += 1;
+//                InsertTreeInList(random_row, random_column);
+//            }
+//            CreateRandom(cloneNumber);
+//        }
     }
 
-    void InsertTreeInList(int row, int column)
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            for (int j = 0; j < 5; j++)
-            {
-                if (i == row && j == column)
-                {
-                    TreeSci anObj;
-                    Vector3 treePos = RandomTreePos(row, column);
-                    anObj = Instantiate(tree, treePos, Quaternion.identity) as TreeSci;
-                    treeGrid[row][column] = anObj;
-                }
-            }
-        }
-    }
+//    void CreateFullTrees()
+//    {
+//        float x_pos_offset = -3.7f;
+//        float y_pos_offset = 1.2f;
+//        float x_gap = 1.8f;
+//        float x_pos = x_pos_offset;
+//        float y_pos = y_pos_offset;
+//        for (int i = 0; i < 3; i++)
+//        {
+//            row0.Clear();
+//            for (int j = 0; j < 5; j++)
+//            {
+//                TreeSci anObj;
+//                anObj = Instantiate(tree, new Vector3(x_pos, y_pos, (i * -1)), Quaternion.identity) as TreeSci;
+//                anObj.gameObject.SetActive(false);
+//                row0.Add(anObj);
+//                x_pos += x_gap;
+//            }
+//            List<TreeSci> row = new List<TreeSci>(row0);
+//            treeGrid.Add(row);
+//            x_pos = x_pos_offset - ((i+1) * 0.4f);
+//            x_gap += 0.2f;
+//            y_pos = y_pos_offset - ((i+1) * 1.4f);
+//        }
+//    }
 
-    public void CreateRandom(int cloneNumber)
-    {
-        if (cloneNumber < 7)
-        {
-            int random_row = Random.Range(0, 3);
-            int random_column = Random.Range(0, 5);
-            if (!treeGrid[random_row][random_column].gameObject.activeSelf)
-            {
-                cloneNumber += 1;
-                InsertTreeInList(random_row, random_column);
-            }
-            CreateRandom(cloneNumber);
-        }
-    }
+//    Vector3 RandomTreePos(int row, int column)
+//    {
+//        float x_pos_offset = -3.7f;
+//        float y_pos_offset = 1.2f;
+//        float x_gap = 1.8f;
+//        float x_pos = x_pos_offset - (row * 0.4f); ;
+//        float y_pos = y_pos_offset;
+//        x_pos += column * (x_gap + (row * 0.2f));
+//        y_pos = y_pos_offset - (row * 1.4f);
+//        float z_pos = row * -1;
+//        Vector3 treePos = new Vector3(x_pos, y_pos, z_pos);
+//        return treePos;
+//    }
+//
+	public TreeSci SpawnTree(Vector3 pos)
+	{
+		// add Tree to tile grid
+		TreeSci aTree;
+		float tilePosX, tilePosY, tilePosZ;
+		tilePosX = pos.x;
+		tilePosY = pos.y + 1f;
+		tilePosZ = pos.z - 3;
+		aTree = Instantiate(tree, new Vector3(tilePosX,tilePosY,tilePosZ), Quaternion.identity) as TreeSci;
+		treeGrid.Add(aTree);
 
-    void CreateFullTrees()
-    {
-        float x_pos_offset = -3.7f;
-        float y_pos_offset = 1.2f;
-        float x_gap = 1.8f;
-        float x_pos = x_pos_offset;
-        float y_pos = y_pos_offset;
-        for (int i = 0; i < 3; i++)
-        {
-            row0.Clear();
-            for (int j = 0; j < 5; j++)
-            {
-                TreeSci anObj;
-                anObj = Instantiate(tree, new Vector3(x_pos, y_pos, (i * -1)), Quaternion.identity) as TreeSci;
-                anObj.gameObject.SetActive(false);
-                row0.Add(anObj);
-                x_pos += x_gap;
-            }
-            List<TreeSci> row = new List<TreeSci>(row0);
-            treeGrid.Add(row);
-            x_pos = x_pos_offset - ((i+1) * 0.4f);
-            x_gap += 0.2f;
-            y_pos = y_pos_offset - ((i+1) * 1.4f);
-        }
-    }
+		return aTree;
+	}
 
-    Vector3 RandomTreePos(int row, int column)
+	Vector3 RandomEnemyPos()
     {
-        float x_pos_offset = -3.7f;
-        float y_pos_offset = 1.2f;
-        float x_gap = 1.8f;
-        float x_pos = x_pos_offset - (row * 0.4f); ;
-        float y_pos = y_pos_offset;
-        x_pos += column * (x_gap + (row * 0.2f));
-        y_pos = y_pos_offset - (row * 1.4f);
-        float z_pos = row * -1;
-        Vector3 treePos = new Vector3(x_pos, y_pos, z_pos);
-        return treePos;
-    }
+		float posX, posY, posZ;
+		int randomPos = Random.Range(0,6);
 
-    Vector3 RandomEnemyPos()
-    {
-        float x_pos = 11f;
-        int random_flip = Random.Range(0, 2);
-        int random_row = Random.Range(0, 3);
-        if (random_flip == 0)
-        {
-            x_pos *= -1;
-        }
-        float y_pos = 1.2f - (random_row * 1.4f);
-        float z_pos = -1 * random_row;
-        Vector3 enemyPos = new Vector3(x_pos, y_pos, z_pos);
-        return enemyPos;
+		posX = enemyWaypoints[randomPos].transform.position.x;
+		posY = enemyWaypoints[randomPos].transform.position.y;
+		posZ = enemyWaypoints[randomPos].transform.position.z;
+
+		return new Vector3(posX,posY,posZ);
+
+//        float x_pos = 11f;
+//        int random_flip = Random.Range(0, 2);
+//        int random_row = Random.Range(0, 3);
+//        if (random_flip == 0)
+//        {
+//            x_pos *= -1;
+//        }
+//        float y_pos = 1.2f - (random_row * 1.4f);
+//        float z_pos = -1 * random_row;
+//        Vector3 enemyPos = new Vector3(x_pos, y_pos, z_pos);
+//        return enemyPos;
     }
 
 
-   IEnumerator CreateEnemy()
+  	IEnumerator CreateEnemy()
     {
 		yield return new WaitForSeconds(2);
         Vector3 enemyPos = RandomEnemyPos();
         Instantiate(villain, enemyPos, Quaternion.identity);
-//        yield return 2f;
     }
 
     public static void UpdatePolRate(float newPolRate)
