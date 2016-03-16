@@ -66,12 +66,20 @@ public class Bulldozer : MonoBehaviour {
 			else
 			{
 				animator.SetBool("damageTree", false);
-			}
+                if (buldozerEnemy.faceDirectionRight)
+                    transform.Translate(Vector3.right * buldozerEnemy.movementSpeed * Time.deltaTime);
+                else
+                    transform.Translate(Vector3.left * buldozerEnemy.movementSpeed * Time.deltaTime);
+            }
 		}
 		else
 		{
 			animator.SetBool("damageTree", false);
-		}
+            if (buldozerEnemy.faceDirectionRight)
+                transform.Translate(Vector3.right * buldozerEnemy.movementSpeed * Time.deltaTime);
+            else
+                transform.Translate(Vector3.left * buldozerEnemy.movementSpeed * Time.deltaTime);
+        }
 	}
 
 	public void OnMouseOver()

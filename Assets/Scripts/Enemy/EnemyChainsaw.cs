@@ -17,10 +17,13 @@ public class EnemyChainsaw : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		hitTree();
+        if (chainsawEnemy.moveable)
+        {
+            Move();
+        }
 	}
 
-	public void hitTree()
+	public void Move()
 	{
 		Vector2 start, end;
 
@@ -54,12 +57,20 @@ public class EnemyChainsaw : MonoBehaviour {
 			else
 			{
 				animator.SetBool("damageTree", false);
-			}
+                if (chainsawEnemy.faceDirectionRight)
+                    transform.Translate(Vector3.right * chainsawEnemy.movementSpeed * Time.deltaTime);
+                else
+                    transform.Translate(Vector3.left * chainsawEnemy.movementSpeed * Time.deltaTime);
+            }
 		}
 		else
 		{
 			animator.SetBool("damageTree", false);
-		}
+            if (chainsawEnemy.faceDirectionRight)
+                transform.Translate(Vector3.right * chainsawEnemy.movementSpeed * Time.deltaTime);
+            else
+                transform.Translate(Vector3.left * chainsawEnemy.movementSpeed * Time.deltaTime);
+        }
 	}
 
 	public void OnMouseOver()

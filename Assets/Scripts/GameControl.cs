@@ -6,13 +6,13 @@ using System.Collections.Generic;
 public class GameControl : MonoBehaviour {
     public static List<TreeSci> treeGrid = new List<TreeSci>();
     public List<Enemy> enemyList = new List<Enemy>();
+    public List<Enemy> enemyTypes = new List<Enemy>();
 
     // private float polRate;
     private int cloneNumber;
     public TreeSci tree;
     public GameObject gameOver;
     public static GameObject selectedObject;
-    public Enemy villain;
     public bool alive;
 
     public meterController meterCon;
@@ -49,7 +49,7 @@ public class GameControl : MonoBehaviour {
         cloneNumber = 6;
         CreateRandomTree(cloneNumber);
 		suePaperValue = 3;
-		coinValue = 100;
+		coinValue = 100000;
 		highScore = 0f;
         StartCoroutine(GameLoop());
     }
@@ -80,16 +80,16 @@ public class GameControl : MonoBehaviour {
     IEnumerator WavesActive()
     {
         waveText.text = string.Empty;
-        yield return null;
         for (int i = 0; i < waveNumber + 2; i++)
         {
-            yield return new WaitForSeconds(Random.Range(2f, 4f));
+            yield return new WaitForSeconds(Random.Range(4f, 8f));
             StartCoroutine(CreateEnemy());
             enemyNumber += 1;
         }
-        while (enemyNumber != enemyKilled || polRate > 98f)
+        while (enemyNumber != enemyKilled)
         {
-            yield return new WaitForSeconds(Random.Range(2f, 4f));
+            Debug.Log(enemyKilled);
+            yield return new WaitForSeconds(Random.Range(4f, 8f));
             StartCoroutine(CreateEnemy());
         }
     }
@@ -222,7 +222,7 @@ public class GameControl : MonoBehaviour {
     {
 		float posX, posY, posZ;
 		int randomPos = Random.Range(0,6);
-
+        
 		posX = enemyWaypoints[randomPos].transform.position.x;
 		posY = enemyWaypoints[randomPos].transform.position.y;
 		posZ = enemyWaypoints[randomPos].transform.position.z;
@@ -245,9 +245,11 @@ public class GameControl : MonoBehaviour {
 
   	IEnumerator CreateEnemy()
     {
-		yield return new WaitForSeconds(2);
+		yield return new WaitForSeconds(2);        
+        int randomInt = Random.Range(0, enemyTypes.Count);
+        Enemy randomType = enemyTypes[randomInt];
         Vector3 enemyPos = RandomEnemyPos();
-        Instantiate(villain, enemyPos, Quaternion.identity);
+        Instantiate(randomType, enemyPos, Quaternion.identity);
     }
 
     public static void UpdatePolRate(float newPolRate)

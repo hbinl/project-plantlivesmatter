@@ -49,7 +49,7 @@ public class TreeSci : MonoBehaviour {
         set { co2Rate = value; }
     }
 
-    void Start()
+    void Awake()
     {
         hp = 100f;
         stage = "Adult";

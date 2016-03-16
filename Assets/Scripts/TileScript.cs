@@ -8,17 +8,24 @@ public class TileScript : MonoBehaviour {
 
 	public GameControl gameControl;
 
-	void OnMouseDown()
+    void Update()
+    {
+        if (treeObject == null)
+        {
+            occupied = false;
+        }
+    }
+
+	void OnMouseDown() // Mouse Over
 	{
 		Debug.Log("Tile Pressed");
-		if (GameControl.canSpawnTree)
+		if (GameControl.canSpawnTree && !occupied) //if Leftclick released && canSpawnTree
 		{
 			GameControl.canSpawnTree = false;
 
 			GameControl.coinValue -= 100;
 
 			gameControl.SpawnTree(transform.position);
-
 			occupied = true;
 		}
 	}

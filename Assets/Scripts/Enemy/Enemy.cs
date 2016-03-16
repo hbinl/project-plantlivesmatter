@@ -43,56 +43,56 @@ public class Enemy : MonoBehaviour {
 	{
 		if (moveable)
 		{
-			Move(faceDirectionRight);
+			//Move(faceDirectionRight);
 		}
     }
 
-    public void Move(bool faceDirectionRight)
-    {
-        Vector2 start, end;
+//    public void Move(bool faceDirectionRight)
+//    {
+//        Vector2 start, end;
 
-        if (faceDirectionRight)
-        {
-            start = new Vector2(transform.position.x + .7f, transform.position.y);
-            end = new Vector2(transform.position.x + .8f, transform.position.y);
-        }
-        else
-        {
-            start = new Vector2(transform.position.x - .8f, transform.position.y);
-            end = new Vector2(transform.position.x - .9f, transform.position.y);
-        }
-        RaycastHit2D hit = Physics2D.Linecast(start, end);
+//        if (faceDirectionRight)
+//        {
+//            start = new Vector2(transform.position.x + .7f, transform.position.y);
+//            end = new Vector2(transform.position.x + .8f, transform.position.y);
+//        }
+//        else
+//        {
+//            start = new Vector2(transform.position.x - .8f, transform.position.y);
+//            end = new Vector2(transform.position.x - .9f, transform.position.y);
+//        }
+//        RaycastHit2D hit = Physics2D.Linecast(start, end);
 
-        //Draw the line
-		Debug.DrawLine(start, end, Color.yellow);
+//        //Draw the line
+//		Debug.DrawLine(start, end, Color.yellow);
 
-        // to check if the enemy hit something to the LEFT
-        if (hit.transform != null)
-        {
-            if (hit.transform.gameObject.tag == "Tree" && enemyIsActive)
-            {
-//                animator.SetBool("damageTree", true);
-//                hit.transform.GetComponent<TreeSci>().DamageTree(damageDealt);
-				touchedTree = true;
-            }
-            else
-            {
-//                animator.SetBool("damageTree", false);
-                if (faceDirectionRight)
-                    transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
-                else
-                    transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
-            }
-        }
-        else
-        {
-//            animator.SetBool("damageTree", false);
-            if (faceDirectionRight)
-                transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
-            else
-                transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
-        }
-    }
+//        // to check if the enemy hit something to the LEFT
+//        if (hit.transform != null)
+//        {
+//            if (hit.transform.gameObject.tag == "Tree" && enemyIsActive)
+//            {
+////                animator.SetBool("damageTree", true);
+////                hit.transform.GetComponent<TreeSci>().DamageTree(damageDealt);
+//				touchedTree = true;
+//            }
+//            else
+//            {
+////                animator.SetBool("damageTree", false);
+//                if (faceDirectionRight)
+//                    transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
+//                else
+//                    transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
+//            }
+//        }
+//        else
+//        {
+////            animator.SetBool("damageTree", false);
+//            if (faceDirectionRight)
+//                transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
+//            else
+//                transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
+//        }
+//    }
 
     public void DamageEnemy(float damagePoint) 
 	{

@@ -9,11 +9,16 @@ public class ColliderScript : MonoBehaviour {
 		// before destroyed, then it must be written here
 		// before the Destroy line
 
-		Debug.Log("TEST");
 		if (col.gameObject.tag == "Enemy")
 		{
 			col.GetComponent<Enemy>().DestroyEnemy();
 		}
+
+        if (col.gameObject.tag == "Coin")
+        {
+            Debug.Log("Coin collected");
+            col.GetComponent<Coin>().DestroyCoin();
+        }
 	}
 
 

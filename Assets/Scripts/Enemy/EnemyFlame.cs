@@ -27,7 +27,11 @@ public class EnemyFlame : MonoBehaviour {
 			flameEnemy.touchedTree = !flameEnemy.touchedTree;
 		}
 
-		IgniteFire();
+		if (flameEnemy.moveable)
+        {
+            Move();
+        }
+            
 	}
 
 	public void FlipMovement()
@@ -47,7 +51,7 @@ public class EnemyFlame : MonoBehaviour {
 
 	}
 
-	public void IgniteFire()
+	public void Move()
 	{
 		Vector2 start, end;
 
@@ -80,13 +84,21 @@ public class EnemyFlame : MonoBehaviour {
 			else
 			{
 				animator.SetBool("damageTree", false);
-			}
+                if (flameEnemy.faceDirectionRight)
+                    transform.Translate(Vector3.right * flameEnemy.movementSpeed * Time.deltaTime);
+                else
+                    transform.Translate(Vector3.left * flameEnemy.movementSpeed * Time.deltaTime);
+            }
 		}
 		else
 		{
 			animator.SetBool("damageTree", false);
-		}
-	}
+            if (flameEnemy.faceDirectionRight)
+                    transform.Translate(Vector3.right * flameEnemy.movementSpeed * Time.deltaTime);
+            else
+                    transform.Translate(Vector3.left * flameEnemy.movementSpeed * Time.deltaTime);
+        }
+    }
 
 	public void OnMouseOver()
 	{

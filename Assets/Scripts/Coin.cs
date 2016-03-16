@@ -6,18 +6,22 @@ public class Coin : MonoBehaviour {
     public float movementSpeed;
     public float timer;
     public float endHeight;
+    public bool collected;
 
     public void Start()
     {
         endHeight = transform.position.y - 2f;
         movementSpeed = 1.5f;
         timer = 3f;
+        collected = false;
     }
 
     public void Update()
     {
         timer -= Time.deltaTime;
         MoveDownCoin();
+        if (collected)
+            transform.position = Vector3.Lerp(transform.position, CoinPosition.coinMeter.transform.position, 2.5f * Time.deltaTime);
     }
 
     public void MoveDownCoin()
@@ -45,12 +49,7 @@ public class Coin : MonoBehaviour {
 
     public void OnMouseOver()
     {
-        // if right click to the coin and not clicking any ui object
-       // if (!UIUtilities.isCursorOnUI())
-       // {
-            Debug.Log("Coin collected");
-            GameControl.coinValue += 10;
-            DestroyCoin();
-       // }
+        collected = true;
+        GameControl.coinValue += 10;
     }
 }
