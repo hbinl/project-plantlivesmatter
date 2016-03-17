@@ -42,21 +42,13 @@ public class TreeSci : MonoBehaviour {
         set { goldNum = value; }
     }
 
-
-    public float ini_co2Rate
-    {
-        get { return co2Rate; }
-        set { co2Rate = value; }
-    }
-
     void Awake()
     {
         hp = 100f;
         stage = "Adult";
         status = "Healthy";
-        co2Rate = 0.001f;
         aSecond = 1.0f;
-        defaultTimer = 5.0f;
+        defaultTimer = Random.RandomRange(5f, 7f);
         animator = GetComponent<Animator>();
         uiActivation = GameObject.Find("UI_Position").GetComponent<UIScript>();
     }
@@ -66,7 +58,7 @@ public class TreeSci : MonoBehaviour {
         if (defaultTimer <= 0f)
         {
             InstantiateCoin();
-            defaultTimer = 5.0f;
+            defaultTimer = Random.RandomRange(5f, 7f);
         }
         else
         {
@@ -78,7 +70,7 @@ public class TreeSci : MonoBehaviour {
 			{
 				onFireEffect();
 			}
-            GameControl.polRate -= 0.1f;
+            GameControl.polRate -= 0.05f;
             aSecond = 1.0f;
         }
         else

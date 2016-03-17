@@ -6,11 +6,12 @@ public class EnemyFlame : MonoBehaviour {
 	private Enemy flameEnemy;
 
 	private Animator animator;
+    public float killPoints;
 
 	void Start()
 	{
 		flameEnemy = GetComponent<Enemy>();
-
+        killPoints = 100f;
 		animator = GetComponent<Animator>();
 		flameEnemy.moveable = true;
 	}
@@ -108,7 +109,7 @@ public class EnemyFlame : MonoBehaviour {
 			Debug.Log("Enemy Clicked");
 			if (GameControl.useSuePaper())
 			{
-				flameEnemy.DamageEnemy(51f);
+				flameEnemy.DamageEnemy(51f, killPoints);
 			}
 		}
 

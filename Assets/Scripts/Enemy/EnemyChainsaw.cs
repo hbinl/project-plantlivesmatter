@@ -6,11 +6,12 @@ public class EnemyChainsaw : MonoBehaviour {
 	private Enemy chainsawEnemy;
 
 	private Animator animator;
+    public float killPoints;
 
 	// Use this for initialization
 	void Start () {
 		chainsawEnemy = GetComponent<Enemy>();
-
+        killPoints = 50f;
 		animator = GetComponent<Animator>();
 		chainsawEnemy.moveable = true;
 	}
@@ -78,10 +79,9 @@ public class EnemyChainsaw : MonoBehaviour {
 		// if right click on the tree and is not clicking any UI
 		if (Input.GetMouseButtonDown(0) && !UIUtilities.isCursorOnUI())
 		{
-			Debug.Log("Enemy Clicked");
 			if (GameControl.useSuePaper())
 			{
-				chainsawEnemy.DamageEnemy(101f);
+				chainsawEnemy.DamageEnemy(101f, killPoints);
 			}
 		}
 

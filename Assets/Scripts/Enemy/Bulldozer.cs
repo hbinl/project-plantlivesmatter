@@ -9,11 +9,12 @@ public class Bulldozer : MonoBehaviour {
 
 	public float delayStartMovement;
 	public float timer;
+    public float killPoints;
 
 	// Use this for initialization
 	void Start () {
 		buldozerEnemy = GetComponent<Enemy>();
-
+        killPoints = 150f;
 		animator = GetComponent<Animator>();
 
 		buldozerEnemy.moveable = false;
@@ -90,7 +91,7 @@ public class Bulldozer : MonoBehaviour {
 			Debug.Log("Enemy Clicked");
 			if (GameControl.useSuePaper())
 			{
-				buldozerEnemy.DamageEnemy(33.4f);
+				buldozerEnemy.DamageEnemy(33.4f, killPoints);
 			}
 		}
 

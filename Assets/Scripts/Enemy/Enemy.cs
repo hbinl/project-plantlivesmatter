@@ -94,11 +94,14 @@ public class Enemy : MonoBehaviour {
 //        }
 //    }
 
-    public void DamageEnemy(float damagePoint) 
+    public void DamageEnemy(float damagePoint,float bonusPoints) 
 	{
 		health -= damagePoint;
 		if (health <= 0f)
-        { 
+        {
+            GameControl.enemyNumber -= 1;
+            GameControl.enemyKilled += 1;
+            GameControl.highScore += bonusPoints;
             DestroyEnemy();
         }
 	}
@@ -108,7 +111,6 @@ public class Enemy : MonoBehaviour {
         //Destroy tree object, add sound and animation
         //if the UI is still pointing to this object and it will be destroy
         // then the UI also need to be disabled
-        GameControl.enemyKilled += 1;
         Destroy(this.gameObject);
 	}
 

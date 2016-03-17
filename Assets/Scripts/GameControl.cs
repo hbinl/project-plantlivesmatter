@@ -11,18 +11,23 @@ public class GameControl : MonoBehaviour {
     // private float polRate;
     private int cloneNumber;
     public TreeSci tree;
-    public GameObject gameOver;
+    public GameObject gameOverBoard;
     public static GameObject selectedObject;
     public bool alive;
-
+    public bool wavesStarted;
+    public bool wavesEnded;
+    public float aSecond;
+    public float pointsTimer;
     public meterController meterCon;
 	public Text coinText;
 	public Text suePaperText;
 	public Text highscoreText;
+    public Text timerText;
     public static int enemyKilled;
 	public static float Co2Value;
     public static float polRate;
     public static float highScore;
+    public static float timer;
     public static int coinValue;
     public static int waveNumber;
     public static int enemyNumber;
@@ -38,13 +43,13 @@ public class GameControl : MonoBehaviour {
     void Start()
     {
 		canSpawnTree = false;
-
+        wavesStarted = false;
+        aSecond = 1.0f;
+        timer = 0f;
+        pointsTimer = 60f;
         Co2Value = 0.5f;
         polRate = 50;
         waveNumber = 1;
-        cloneNumber = 0;
-        enemyKilled = 0;
-//        CreateFullTrees();
         alive = true;
         cloneNumber = 6;
         CreateRandomTree(cloneNumber);
@@ -56,17 +61,43 @@ public class GameControl : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        if (wavesStarted)
+        {
+            timer += Time.deltaTime;
+            UpdateHighScore();
+        }
+
+        if (aSecond <= 0)
+        {
+            GameControl.polRate += 0.375f;
+            aSecond = 1.0f;
+        }
+        else
+        {
+            aSecond -= Time.deltaTime;
+        }
         meterCon.UpdateMeterPointer(polRate);
 
 		UpdateGameUI();
+
+        enemyList.RemoveAll((o) => o == null);
     }
 
     IEnumerator GameLoop()
     {
-        for (int i = 0; i < Mathf.Infinity; i++)
+        while(true)
         {
-            yield return StartCoroutine(Waves());
-            yield return StartCoroutine(WavesActive());
+            if (!wavesEnded)
+            {
+                yield return StartCoroutine(Waves());
+                yield return StartCoroutine(WavesActive());
+                yield return StartCoroutine(GameOver());
+            }
+            else
+            {
+                break;
+            }
+            
         }
     }
 
@@ -74,136 +105,68 @@ public class GameControl : MonoBehaviour {
     {
         waveText.text = "Wave " + waveNumber;
         waveNumber += 1;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
+        waveText.text = "";
     }
 
     IEnumerator WavesActive()
     {
-        waveText.text = string.Empty;
+        // only need for the first wave, so that there is a delay before the enemy spawn
+        wavesStarted = true;
+
         for (int i = 0; i < waveNumber + 2; i++)
         {
             yield return new WaitForSeconds(Random.Range(4f, 8f));
-            StartCoroutine(CreateEnemy());
-            enemyNumber += 1;
+            CreateEnemy();
         }
-        while (enemyNumber != enemyKilled)
+        /*
+        while (enemyNumber > enemyKilled && polRate < 98f)
         {
-            Debug.Log(enemyKilled);
             yield return new WaitForSeconds(Random.Range(4f, 8f));
             StartCoroutine(CreateEnemy());
         }
+        */
+        while (enemyList.Count > 0)
+        {
+            yield return null;
+        }
     }
 
-//    void CreateTreeList()
-//    {
-//        for (int i = 0; i < 3; i++)
-//        {
-//            row0.Clear();
-//            for (int j = 0; j < 5; j++)
-//            {
-//                row0.Add(null);
-//            }
-//            treeGrid.Add(row0);
-//        }
-//    }
-
-//    void InsertTreeInList(int row, int column)
-//    {
-//        for (int i = 0; i < 3; i++)
-//        {
-//            for (int j = 0; j < 5; j++)
-//            {
-//                if (i == row && j == column)
-//                {
-//                    TreeSci anObj;
-//                    Vector3 treePos = RandomTreePos(row, column);
-//                    anObj = Instantiate(tree, treePos, Quaternion.identity) as TreeSci;
-//                    treeGrid[row][column] = anObj;
-//                }
-//            }
-//        }
-//    }
+    IEnumerator GameOver()
+    {
+        if (polRate >= 98f)
+            gameOverBoard.SetActive(true);
+        yield return null;
+    }
 
     public void CreateRandomTree(int cloneNumber)
     {
-		int numberSpawn = 0;
-		while( numberSpawn < cloneNumber)
-		{
-			int random_pos = Random.Range(0,15);
+        int numberSpawn = 0;
+        while (numberSpawn < cloneNumber)
+        {
+            int random_pos = Random.Range(0, 15);
 
-			if (!tileScriptObject[random_pos].occupied)
-			{
-				// add Tree to tile grid
-				TreeSci aTree;
-				float tilePosX, tilePosY, tilePosZ;
-				tilePosX = tileScriptObject[random_pos].transform.position.x;
-				tilePosY = tileScriptObject[random_pos].transform.position.y + 1f;
-				tilePosZ = tileScriptObject[random_pos].transform.position.z - 3;
-				aTree = Instantiate(tree, new Vector3(tilePosX,tilePosY,tilePosZ), Quaternion.identity) as TreeSci;
-				treeGrid.Add(aTree);
+            if (!tileScriptObject[random_pos].occupied)
+            {
+                // add Tree to tile grid
+                TreeSci aTree;
+                float tilePosX, tilePosY, tilePosZ;
+                tilePosX = tileScriptObject[random_pos].transform.position.x;
+                tilePosY = tileScriptObject[random_pos].transform.position.y + 1f;
+                tilePosZ = tileScriptObject[random_pos].transform.position.z - 3;
+                aTree = Instantiate(tree, new Vector3(tilePosX, tilePosY, tilePosZ), Quaternion.identity) as TreeSci;
+                treeGrid.Add(aTree);
 
-				// add tree object and occupy to the grid
-				tileScriptObject[random_pos].occupied = true;
-				tileScriptObject[random_pos].treeObject = aTree;
+                // add tree object and occupy to the grid
+                tileScriptObject[random_pos].occupied = true;
+                tileScriptObject[random_pos].treeObject = aTree;
 
-				numberSpawn++;
+                numberSpawn++;
 
-			}
-		}
-			
-//        if (cloneNumber < 7)
-//        {
-//            int random_row = Random.Range(0, 3);
-//            int random_column = Random.Range(0, 5);
-//            if (!treeGrid[random_row][random_column].gameObject.activeSelf)
-//            {
-//                cloneNumber += 1;
-//                InsertTreeInList(random_row, random_column);
-//            }
-//            CreateRandom(cloneNumber);
-//        }
+            }
+        }
     }
-
-//    void CreateFullTrees()
-//    {
-//        float x_pos_offset = -3.7f;
-//        float y_pos_offset = 1.2f;
-//        float x_gap = 1.8f;
-//        float x_pos = x_pos_offset;
-//        float y_pos = y_pos_offset;
-//        for (int i = 0; i < 3; i++)
-//        {
-//            row0.Clear();
-//            for (int j = 0; j < 5; j++)
-//            {
-//                TreeSci anObj;
-//                anObj = Instantiate(tree, new Vector3(x_pos, y_pos, (i * -1)), Quaternion.identity) as TreeSci;
-//                anObj.gameObject.SetActive(false);
-//                row0.Add(anObj);
-//                x_pos += x_gap;
-//            }
-//            List<TreeSci> row = new List<TreeSci>(row0);
-//            treeGrid.Add(row);
-//            x_pos = x_pos_offset - ((i+1) * 0.4f);
-//            x_gap += 0.2f;
-//            y_pos = y_pos_offset - ((i+1) * 1.4f);
-//        }
-//    }
-
-//    Vector3 RandomTreePos(int row, int column)
-//    {
-//        float x_pos_offset = -3.7f;
-//        float y_pos_offset = 1.2f;
-//        float x_gap = 1.8f;
-//        float x_pos = x_pos_offset - (row * 0.4f); ;
-//        float y_pos = y_pos_offset;
-//        x_pos += column * (x_gap + (row * 0.2f));
-//        y_pos = y_pos_offset - (row * 1.4f);
-//        float z_pos = row * -1;
-//        Vector3 treePos = new Vector3(x_pos, y_pos, z_pos);
-//        return treePos;
-//    }
-//
+			
 	public TreeSci SpawnTree(Vector3 pos)
 	{
 		// add Tree to tile grid
@@ -228,33 +191,26 @@ public class GameControl : MonoBehaviour {
 		posZ = enemyWaypoints[randomPos].transform.position.z;
 
 		return new Vector3(posX,posY,posZ);
-
-//        float x_pos = 11f;
-//        int random_flip = Random.Range(0, 2);
-//        int random_row = Random.Range(0, 3);
-//        if (random_flip == 0)
-//        {
-//            x_pos *= -1;
-//        }
-//        float y_pos = 1.2f - (random_row * 1.4f);
-//        float z_pos = -1 * random_row;
-//        Vector3 enemyPos = new Vector3(x_pos, y_pos, z_pos);
-//        return enemyPos;
     }
 
 
-  	IEnumerator CreateEnemy()
-    {
-		yield return new WaitForSeconds(2);        
+  	void CreateEnemy()
+    {      
         int randomInt = Random.Range(0, enemyTypes.Count);
         Enemy randomType = enemyTypes[randomInt];
         Vector3 enemyPos = RandomEnemyPos();
-        Instantiate(randomType, enemyPos, Quaternion.identity);
-    }
-
-    public static void UpdatePolRate(float newPolRate)
-    {
-        polRate -= newPolRate;
+        if (randomInt == 2)
+            if (enemyPos.x < 0)
+            {
+                enemyPos.x += 2f;
+            }
+            else
+            {
+                enemyPos.x -= 2f;
+            }
+        Enemy villain;
+        villain = Instantiate(randomType, enemyPos, Quaternion.identity) as Enemy;
+        enemyList.Add(villain);
     }
 
 	public static bool PurchaseSuePaper()
@@ -287,10 +243,30 @@ public class GameControl : MonoBehaviour {
 		}
 	}
 
+    public void UpdateHighScore()
+    {
+        if (pointsTimer <= 0)
+        {
+            highScore += 100f;
+            pointsTimer = 60f;
+        }
+        else
+        {
+            pointsTimer -= Time.deltaTime;
+        }
+    }
+
 	public void UpdateGameUI()
 	{
 		coinText.text = coinValue.ToString();
 		suePaperText.text = suePaperValue.ToString();
 		highscoreText.text = highScore.ToString();
 	}
+
+    void OnGUI()
+    {
+        int minutes = Mathf.FloorToInt(timer / 60F);
+        int seconds = Mathf.FloorToInt(timer - minutes * 60);
+        timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
+    }
 }

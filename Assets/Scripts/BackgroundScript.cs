@@ -8,7 +8,7 @@ public class BackgroundScript : MonoBehaviour {
 	public void OnMouseOver()
 	{
 		// if right click on the background and is not clicking the UI
-		if (Input.GetMouseButtonDown(0) && !UIUtilities.isCursorOnUI())
+		if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) && !UIUtilities.isCursorOnUI())
 		{
 			uiActivation.HideUI();
 		}
