@@ -38,9 +38,9 @@ public class GameControl : MonoBehaviour {
 
     void Awake()
     {
-        Debug.Log("HATIKU");
 		canSpawnTree = false;
         wavesStarted = false;
+        wavesEnded = false;
         aSecond = 1.0f;
         timer = 0f;
         pointsTimer = 60f;

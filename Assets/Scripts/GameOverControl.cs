@@ -22,4 +22,8 @@ public class GameOverControl : MonoBehaviour {
         timerText.text = string.Format("Timer: {0:0}:{1:00}", minutes, seconds);
     }
 
+    public void OnRestartButton()
+    {
+        Application.LoadLevel(Application.loadedLevel);
+    }
 }

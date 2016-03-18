@@ -13,15 +13,13 @@ public class Enemy : MonoBehaviour {
 
 	public bool enemyIsActive;
 
-//    private Animator animator;
+    private Animator animator;
 
 	public bool touchedTree;
 
     public void Start() 
 	{
 		touchedTree = false;
-		enemyIsActive = true;
-
         health = 100f;
         damageDealt = 0.1f;
 		movementSpeed = 1f;
@@ -36,63 +34,70 @@ public class Enemy : MonoBehaviour {
         }
         if (this.transform.position.x < -11f || this.transform.position.x > 11f)
             selfDestruct();
-//        animator = GetComponent<Animator>();
+        animator = this.GetComponent<Animator>();
     }
 
-	public void Update()
-	{
-		if (moveable)
-		{
-			//Move(faceDirectionRight);
-		}
+
+    //    public void Move(bool faceDirectionRight)
+    //    {
+    //        Vector2 start, end;
+
+    //        if (faceDirectionRight)
+    //        {
+    //            start = new Vector2(transform.position.x + .7f, transform.position.y);
+    //            end = new Vector2(transform.position.x + .8f, transform.position.y);
+    //        }
+    //        else
+    //        {
+    //            start = new Vector2(transform.position.x - .8f, transform.position.y);
+    //            end = new Vector2(transform.position.x - .9f, transform.position.y);
+    //        }
+    //        RaycastHit2D hit = Physics2D.Linecast(start, end);
+
+    //        //Draw the line
+    //		Debug.DrawLine(start, end, Color.yellow);
+
+    //        // to check if the enemy hit something to the LEFT
+    //        if (hit.transform != null)
+    //        {
+    //            if (hit.transform.gameObject.tag == "Tree" && enemyIsActive)
+    //            {
+    ////                animator.SetBool("damageTree", true);
+    ////                hit.transform.GetComponent<TreeSci>().DamageTree(damageDealt);
+    //				touchedTree = true;
+    //            }
+    //            else
+    //            {
+    ////                animator.SetBool("damageTree", false);
+    //                if (faceDirectionRight)
+    //                    transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
+    //                else
+    //                    transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
+    //            }
+    //        }
+    //        else
+    //        {
+    ////            animator.SetBool("damageTree", false);
+    //            if (faceDirectionRight)
+    //                transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
+    //            else
+    //                transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
+    //        }
+    //    }
+
+    IEnumerator Fade()
+    {
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
+        for (float f = 1f; f >= 0; f -= 0.1f)
+        {
+            Color c = GetComponent<SpriteRenderer>().material.color;
+            c.a = f;
+            GetComponent<SpriteRenderer>().material.color = c;
+            yield return new WaitForSeconds(.2f);
+        }
     }
-
-//    public void Move(bool faceDirectionRight)
-//    {
-//        Vector2 start, end;
-
-//        if (faceDirectionRight)
-//        {
-//            start = new Vector2(transform.position.x + .7f, transform.position.y);
-//            end = new Vector2(transform.position.x + .8f, transform.position.y);
-//        }
-//        else
-//        {
-//            start = new Vector2(transform.position.x - .8f, transform.position.y);
-//            end = new Vector2(transform.position.x - .9f, transform.position.y);
-//        }
-//        RaycastHit2D hit = Physics2D.Linecast(start, end);
-
-//        //Draw the line
-//		Debug.DrawLine(start, end, Color.yellow);
-
-//        // to check if the enemy hit something to the LEFT
-//        if (hit.transform != null)
-//        {
-//            if (hit.transform.gameObject.tag == "Tree" && enemyIsActive)
-//            {
-////                animator.SetBool("damageTree", true);
-////                hit.transform.GetComponent<TreeSci>().DamageTree(damageDealt);
-//				touchedTree = true;
-//            }
-//            else
-//            {
-////                animator.SetBool("damageTree", false);
-//                if (faceDirectionRight)
-//                    transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
-//                else
-//                    transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
-//            }
-//        }
-//        else
-//        {
-////            animator.SetBool("damageTree", false);
-//            if (faceDirectionRight)
-//                transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
-//            else
-//                transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
-//        }
-//    }
 
     public void DamageEnemy(float damagePoint,float bonusPoints) 
 	{
@@ -111,7 +116,11 @@ public class Enemy : MonoBehaviour {
         //Destroy tree object, add sound and animation
         //if the UI is still pointing to this object and it will be destroy
         // then the UI also need to be disabled
-        Destroy(this.gameObject);
+        this.GetComponent<BoxCollider2D>().enabled = false;
+        faceDirectionRight = !this.faceDirectionRight;
+        GetCaught();
+        StartCoroutine(Fade());
+        Destroy(this.gameObject,4f);
 	}
 
     public void selfDestruct()
@@ -119,6 +128,11 @@ public class Enemy : MonoBehaviour {
         Destroy(this.gameObject);
     }
 
+
+    public void GetCaught()
+    {
+        animator.SetTrigger("enemyCaught");
+    }
 //    public void OnMouseOver()
 //    {
 //        // if right click on the tree and is not clicking any UI
