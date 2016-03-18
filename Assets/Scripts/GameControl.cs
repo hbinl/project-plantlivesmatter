@@ -36,15 +36,17 @@ public class GameControl : MonoBehaviour {
     public static bool wavesEnded;
     public static bool canSpawnTree;    	
 
-    void Start()
+    void Awake()
     {
+        Debug.Log("HATIKU");
 		canSpawnTree = false;
         wavesStarted = false;
         aSecond = 1.0f;
         timer = 0f;
         pointsTimer = 60f;
         Co2Value = 0.5f;
-        polRate = 50;
+        polRate = 95;
+        meterCon.UpdateMeterPointer(polRate);
         waveNumber = 1;
         alive = true;
         cloneNumber = 6;

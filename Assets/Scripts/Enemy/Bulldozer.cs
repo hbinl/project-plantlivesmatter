@@ -42,18 +42,18 @@ public class Bulldozer : MonoBehaviour {
 
 		if (buldozerEnemy.faceDirectionRight)
 		{
-			start = new Vector2(transform.position.x + 2.1f, transform.position.y);
-			end = new Vector2(transform.position.x + 2.1f, transform.position.y);
+			start = new Vector2(transform.position.x + 2.4f, transform.position.y);
+			end = new Vector2(transform.position.x + 2.5f, transform.position.y);
 		}
 		else
 		{
-			start = new Vector2(transform.position.x - 2.1f, transform.position.y);
-			end = new Vector2(transform.position.x - 2.1f, transform.position.y);
+			start = new Vector2(transform.position.x - 2.4f, transform.position.y);
+			end = new Vector2(transform.position.x - 2.5f, transform.position.y);
 		}
 		RaycastHit2D hit = Physics2D.Linecast(start, end);
 
 		//Draw the line
-		Debug.DrawLine(start, end, Color.yellow);
+		Debug.DrawLine(start, end, Color.blue);
 
 		if (hit.transform != null)
 		{

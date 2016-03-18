@@ -12,7 +12,7 @@ public class GameOverControl : MonoBehaviour {
     {
         highScoreText.text = "HighScore: " + GameControl.highScore;
         coinText.text = "Coins: " + GameControl.coinValue;
-        wavesText.text = "Waves Survivied: " + GameControl.waveNumber;
+        wavesText.text = "Waves Survived: " + GameControl.waveNumber;
     }
 
     void OnGUI()
@@ -21,4 +21,5 @@ public class GameOverControl : MonoBehaviour {
         int seconds = Mathf.FloorToInt(GameControl.timer - minutes * 60);
         timerText.text = string.Format("Timer: {0:0}:{1:00}", minutes, seconds);
     }
+
 }
