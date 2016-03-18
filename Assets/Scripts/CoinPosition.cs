@@ -7,6 +7,7 @@ public class CoinPosition : MonoBehaviour {
 
     void Start()
     {
+		// the corner right position reference for the coin collected animation
         coinMeter = this.gameObject;
     }
 }

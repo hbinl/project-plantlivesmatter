@@ -8,8 +8,21 @@ public class TileScript : MonoBehaviour {
 
 	public GameControl gameControl;
 
+	void Start()
+	{
+		if (treeObject == null)
+		{
+			occupied = false;
+		}
+		else
+		{
+			occupied = true;
+		}
+	}
+
     void Update()
     {
+		// check whether the treeObject is available or not
         if (treeObject == null)
         {
             occupied = false;
@@ -18,14 +31,14 @@ public class TileScript : MonoBehaviour {
 
 	void OnMouseDown() // Mouse Over
 	{
-		Debug.Log("Tile Pressed");
-		if (GameControl.canSpawnTree && !occupied) //if Leftclick released && canSpawnTree
+		// if the the player can spawn the tree and the place is occupied or not
+		if (GameControl.canSpawnTree && !occupied) 
 		{
 			GameControl.canSpawnTree = false;
 
 			GameControl.coinValue -= 100;
 
-			gameControl.SpawnTree(transform.position);
+			treeObject = gameControl.SpawnTree(transform.position);
 			occupied = true;
 		}
 	}

@@ -7,9 +7,10 @@ public class BackgroundScript : MonoBehaviour {
 
 	public void OnMouseOver()
 	{
-		// if right click on the background and is not clicking the UI
+		// if right click or left click on the background and is not clicking the UI
 		if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) && !UIUtilities.isCursorOnUI())
 		{
+			// hide UI, such as Tree Ui
 			uiActivation.HideUI();
 		}
 	}

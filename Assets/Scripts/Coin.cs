@@ -10,16 +10,23 @@ public class Coin : MonoBehaviour {
 
     public void Start()
     {
+		// the starting position
         endHeight = transform.position.y - 2f;
-        movementSpeed = 1.5f;
+        
+		movementSpeed = 1.5f;
         timer = 3f;
         collected = false;
     }
 
     public void Update()
     {
+		// set the timer for the spawn time
         timer -= Time.deltaTime;
+
+		// to move down the coin
         MoveDownCoin();
+
+		// move the coin to the top right corner as the moving animation
         if (collected)
             transform.position = Vector3.Lerp(transform.position, CoinPosition.coinMeter.transform.position, 2.5f * Time.deltaTime);
     }
@@ -33,7 +40,6 @@ public class Coin : MonoBehaviour {
         }
         else
         {
-            //Debug.Log(transform.position);
             if (transform.position.y > endHeight)
             {
                 transform.Translate(Vector3.down * movementSpeed * Time.deltaTime);
@@ -43,12 +49,13 @@ public class Coin : MonoBehaviour {
 
     public void DestroyCoin()
     {
-        //Destroy coin object, add sound and animation if it is not clicked
+        // Destroy coin object, add sound and animation if it is not clicked
         Destroy(this.gameObject);
     }
 
     public void OnMouseOver()
     {
+		// if coin is collected
         collected = true;
         GameControl.coinValue += 10;
     }

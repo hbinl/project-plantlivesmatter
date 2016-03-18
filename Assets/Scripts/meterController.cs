@@ -15,6 +15,7 @@ public class meterController : MonoBehaviour
 
     public void UpdateMeterPointer(float newPolRate)
     {
+		// will update the meter
         meterPointer.value = newPolRate / 100;
     }
 }

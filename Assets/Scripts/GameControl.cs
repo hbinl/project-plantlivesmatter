@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class GameControl : MonoBehaviour {
+
+
     public List<TreeSci> treeGrid = new List<TreeSci>();
     public List<Enemy> enemyList = new List<Enemy>();
     public List<Enemy> enemyTypes = new List<Enemy>();
@@ -13,16 +15,19 @@ public class GameControl : MonoBehaviour {
     private int cloneNumber;
     public TreeSci tree;
     public GameObject gameOverBoard;
-    public static GameObject selectedObject;
+    
     public bool alive;
     public float aSecond;
     public float pointsTimer;
     public meterController meterCon;
+
 	public Text coinText;
 	public Text suePaperText;
 	public Text highscoreText;
     public Text timerText;
     public Text waveText;
+
+	public static GameObject selectedObject;
     public static int enemyKilled;
 	public static float Co2Value;
     public static float polRate;
@@ -41,28 +46,34 @@ public class GameControl : MonoBehaviour {
 		canSpawnTree = false;
         wavesStarted = false;
         wavesEnded = false;
+
         aSecond = 1.0f;
         timer = 0f;
         pointsTimer = 60f;
+
         Co2Value = 0.5f;
-        polRate = 95;
+        polRate = 50;
         meterCon.UpdateMeterPointer(polRate);
+
         waveNumber = 1;
         alive = true;
         cloneNumber = 6;
         CreateRandomTree(cloneNumber);
+
 		suePaperValue = 3;
 		coinValue = 100;
 		highScore = 0f;
         StartCoroutine(GameLoop());
     }
 
-	// Update is called once per frame
 	void Update () {
+		// will run after the first wave is called 
+		// so that the timer will not start before the first wave
         if (wavesStarted)
         {
             timer += Time.deltaTime;
             UpdateHighScore();
+
             if (aSecond <= 0)
             {
                 GameControl.polRate += 0.375f;
@@ -72,17 +83,22 @@ public class GameControl : MonoBehaviour {
             {
                 aSecond -= Time.deltaTime;
             }
-            meterCon.UpdateMeterPointer(polRate);
+            
+			meterCon.UpdateMeterPointer(polRate);
             UpdateGameUI();
         }
+
+		// clear the list
         enemyList.RemoveAll((o) => o == null);
         treeGrid.RemoveAll((o) => o == null);
     }
 
     IEnumerator GameLoop()
     {
+		// endless game loop
         while(true)
         {
+			// if the waves is ended, then break the loop
             if (!wavesEnded)
             {
                 yield return StartCoroutine(Waves());
@@ -99,6 +115,7 @@ public class GameControl : MonoBehaviour {
 
     IEnumerator Waves()
     {
+		// show the wave text for 5 seconds
         waveText.gameObject.SetActive(true);
         waveText.text = "Wave " + waveNumber;
         waveNumber += 1;
@@ -112,13 +129,13 @@ public class GameControl : MonoBehaviour {
         // only need for the first wave, so that there is a delay before the enemy spawn
         wavesStarted = true;
         int i = 0;
-        while (i<waveNumber+2 && polRate <= 100f)
+        while (i<waveNumber+2 && polRate <= 99f)
         {
             yield return new WaitForSeconds(Random.Range(4f, 8f));
             CreateEnemy();
             i++;
         }
-        while (enemyList.Count > 0 && polRate <= 100f)
+        while (enemyList.Count > 0 && polRate <= 99f)
         {
             yield return null;
         }
@@ -126,7 +143,8 @@ public class GameControl : MonoBehaviour {
 
     IEnumerator GameOver()
     {
-        if (polRate >= 100f)
+		// check if the the game ends
+        if (polRate >= 99f)
         {
             gameOverBoard.SetActive(true);
             wavesEnded = true;
@@ -146,6 +164,7 @@ public class GameControl : MonoBehaviour {
 
     public void CreateRandomTree(int cloneNumber)
     {
+		// spawn a random tree for the first time when the game is run
         int numberSpawn = 0;
         while (numberSpawn < cloneNumber)
         {
@@ -188,6 +207,7 @@ public class GameControl : MonoBehaviour {
 
 	Vector3 RandomEnemyPos()
     {
+		// spawn the enemy depends on the enemy start waypoints position
 		float posX, posY, posZ;
 		int randomPos = Random.Range(0,6);
         
@@ -201,6 +221,7 @@ public class GameControl : MonoBehaviour {
 
   	void CreateEnemy()
     {      
+		// create enemy function to instantiate enemy and set the face direction
         int randomInt = Random.Range(0, enemyTypes.Count);
         Enemy randomType = enemyTypes[randomInt];
         Vector3 enemyPos = RandomEnemyPos();
@@ -220,6 +241,7 @@ public class GameControl : MonoBehaviour {
 
 	public static bool PurchaseSuePaper()
 	{
+		// convert 25 coins to 1 sue paper
 		if (coinValue >= 25)
 		{
 			coinValue -= 25;
@@ -237,6 +259,7 @@ public class GameControl : MonoBehaviour {
 
 	public static bool useSuePaper()
 	{
+		// every function calls will consume 1 sue paper
 		if (suePaperValue > 0)
 		{
 			suePaperValue -= 1;
@@ -250,6 +273,7 @@ public class GameControl : MonoBehaviour {
 
     public void UpdateHighScore()
     {
+		// keep update the highscore for every minute
         if (pointsTimer <= 0)
         {
             highScore += 100f;
@@ -263,6 +287,7 @@ public class GameControl : MonoBehaviour {
 
 	public void UpdateGameUI()
 	{
+		// update the UI
 		coinText.text = coinValue.ToString();
 		suePaperText.text = suePaperValue.ToString();
 		highscoreText.text = highScore.ToString();
@@ -270,6 +295,7 @@ public class GameControl : MonoBehaviour {
 
     void OnGUI()
     {
+		// to format the time of the Time
         int minutes = Mathf.FloorToInt(timer / 60F);
         int seconds = Mathf.FloorToInt(timer - minutes * 60);
         timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);

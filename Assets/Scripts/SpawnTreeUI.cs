@@ -5,10 +5,14 @@ public class SpawnTreeUI : MonoBehaviour {
 
 	void OnMouseDown()
 	{
-		Debug.Log("TREE UI");
-		if (GameControl.coinValue >= 100)
+		// if the game is not ended
+		if (!GameControl.wavesEnded)
 		{
-			GameControl.canSpawnTree = true;
+			// if player has enough money
+			if (GameControl.coinValue >= 100)
+			{
+				GameControl.canSpawnTree = true;
+			}
 		}
 	}
 }

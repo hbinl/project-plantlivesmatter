@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameOverControl : MonoBehaviour {
     public Text highScoreText;
@@ -24,6 +25,6 @@ public class GameOverControl : MonoBehaviour {
 
     public void OnRestartButton()
     {
-        Application.LoadLevel(Application.loadedLevel);
+		SceneManager.LoadScene("GameScene");
     }
 }

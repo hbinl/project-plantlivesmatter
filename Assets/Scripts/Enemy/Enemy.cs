@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour {
 
     public void Start() 
 	{
+		enemyIsActive = true;
 		touchedTree = false;
         health = 100f;
         damageDealt = 0.1f;
@@ -117,10 +118,11 @@ public class Enemy : MonoBehaviour {
         //if the UI is still pointing to this object and it will be destroy
         // then the UI also need to be disabled
         this.GetComponent<BoxCollider2D>().enabled = false;
+		enemyIsActive = false;
         faceDirectionRight = !this.faceDirectionRight;
         GetCaught();
         StartCoroutine(Fade());
-        Destroy(this.gameObject,4f);
+        Destroy(this.gameObject,2f);
 	}
 
     public void selfDestruct()

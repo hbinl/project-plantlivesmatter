@@ -9,7 +9,6 @@ public class TreeSci : MonoBehaviour {
     public Coin m_coin;
     private UIScript uiActivation;
     public float hp;
-    private float co2Rate;
     private string status;
     private string stage;
     private int goldNum;
@@ -47,23 +46,27 @@ public class TreeSci : MonoBehaviour {
         hp = 100f;
         stage = "Adult";
         status = "Healthy";
+
         aSecond = 1.0f;
-        defaultTimer = Random.RandomRange(5f, 7f);
+        defaultTimer = Random.Range(5f, 7f);
         animator = GetComponent<Animator>();
         uiActivation = GameObject.Find("UI_Position").GetComponent<UIScript>();
     }
 
     public void Update()
     {
+		// instantiate the coin after certain time
         if (defaultTimer <= 0f)
         {
             InstantiateCoin();
-            defaultTimer = Random.RandomRange(5f, 7f);
+            defaultTimer = Random.Range(5f, 7f);
         }
         else
         {
             defaultTimer -= Time.deltaTime;
         }
+
+		// to burn the fire every second
         if (aSecond <= 0)
         {
 			if (onFire)
@@ -89,15 +92,9 @@ public class TreeSci : MonoBehaviour {
 
     }
 
-    public float ReducePolRate()
-    {
-        return co2Rate;
-    }
-
     public void DamageTree(float damagePoint)
     {
         hp -= damagePoint;
-//        animator.SetTrigger("treeFire");
         if (hp <= 0f)
         {
             GetComponent<BoxCollider2D>().enabled = false;

@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class IntroSceneButton : MonoBehaviour {
 
 	public void onClickPlay()
 	{
-		Application.LoadLevel("GameScene");
+		SceneManager.LoadScene("GameScene");
 	}
 }
