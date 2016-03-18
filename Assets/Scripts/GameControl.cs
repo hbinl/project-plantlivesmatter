@@ -4,18 +4,17 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class GameControl : MonoBehaviour {
-    public static List<TreeSci> treeGrid = new List<TreeSci>();
+    public List<TreeSci> treeGrid = new List<TreeSci>();
     public List<Enemy> enemyList = new List<Enemy>();
     public List<Enemy> enemyTypes = new List<Enemy>();
+    public List<TileScript> tileScriptObject;
+    public List<GameObject> enemyWaypoints;
 
-    // private float polRate;
     private int cloneNumber;
     public TreeSci tree;
     public GameObject gameOverBoard;
     public static GameObject selectedObject;
     public bool alive;
-    public bool wavesStarted;
-    public bool wavesEnded;
     public float aSecond;
     public float pointsTimer;
     public meterController meterCon;
@@ -23,6 +22,7 @@ public class GameControl : MonoBehaviour {
 	public Text suePaperText;
 	public Text highscoreText;
     public Text timerText;
+    public Text waveText;
     public static int enemyKilled;
 	public static float Co2Value;
     public static float polRate;
@@ -31,14 +31,10 @@ public class GameControl : MonoBehaviour {
     public static int coinValue;
     public static int waveNumber;
     public static int enemyNumber;
-    public Text waveText;
-	public static int suePaperValue;
-
-	public List<TileScript> tileScriptObject;
-	public List<GameObject> enemyWaypoints;
-
-	public static bool canSpawnTree;
-
+    public static int suePaperValue;
+    public static bool wavesStarted;
+    public static bool wavesEnded;
+    public static bool canSpawnTree;    	
 
     void Start()
     {
@@ -54,7 +50,7 @@ public class GameControl : MonoBehaviour {
         cloneNumber = 6;
         CreateRandomTree(cloneNumber);
 		suePaperValue = 3;
-		coinValue = 100000;
+		coinValue = 100;
 		highScore = 0f;
         StartCoroutine(GameLoop());
     }
@@ -65,22 +61,20 @@ public class GameControl : MonoBehaviour {
         {
             timer += Time.deltaTime;
             UpdateHighScore();
+            if (aSecond <= 0)
+            {
+                GameControl.polRate += 0.375f;
+                aSecond = 1.0f;
+            }
+            else
+            {
+                aSecond -= Time.deltaTime;
+            }
+            meterCon.UpdateMeterPointer(polRate);
+            UpdateGameUI();
         }
-
-        if (aSecond <= 0)
-        {
-            GameControl.polRate += 0.375f;
-            aSecond = 1.0f;
-        }
-        else
-        {
-            aSecond -= Time.deltaTime;
-        }
-        meterCon.UpdateMeterPointer(polRate);
-
-		UpdateGameUI();
-
         enemyList.RemoveAll((o) => o == null);
+        treeGrid.RemoveAll((o) => o == null);
     }
 
     IEnumerator GameLoop()
@@ -103,30 +97,26 @@ public class GameControl : MonoBehaviour {
 
     IEnumerator Waves()
     {
+        waveText.gameObject.SetActive(true);
         waveText.text = "Wave " + waveNumber;
         waveNumber += 1;
         yield return new WaitForSeconds(5f);
         waveText.text = "";
+        waveText.gameObject.SetActive(false);
     }
 
     IEnumerator WavesActive()
     {
         // only need for the first wave, so that there is a delay before the enemy spawn
         wavesStarted = true;
-
-        for (int i = 0; i < waveNumber + 2; i++)
+        int i = 0;
+        while (i<waveNumber+2 && polRate <= 100f)
         {
             yield return new WaitForSeconds(Random.Range(4f, 8f));
             CreateEnemy();
+            i++;
         }
-        /*
-        while (enemyNumber > enemyKilled && polRate < 98f)
-        {
-            yield return new WaitForSeconds(Random.Range(4f, 8f));
-            StartCoroutine(CreateEnemy());
-        }
-        */
-        while (enemyList.Count > 0)
+        while (enemyList.Count > 0 && polRate <= 100f)
         {
             yield return null;
         }
@@ -134,8 +124,21 @@ public class GameControl : MonoBehaviour {
 
     IEnumerator GameOver()
     {
-        if (polRate >= 98f)
+        if (polRate >= 100f)
+        {
             gameOverBoard.SetActive(true);
+            wavesEnded = true;
+            wavesStarted = false;
+            for (int i = 0;i<enemyList.Count; i++)
+            {
+                enemyList[i].gameObject.SetActive(false);
+            }
+            for (int i=0;i<treeGrid.Count; i++)
+            {
+                treeGrid[i].gameObject.SetActive(false);
+            }
+            
+        }
         yield return null;
     }
 
