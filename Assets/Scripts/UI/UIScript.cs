@@ -2,16 +2,44 @@
 using System.Collections;
 
 public class UIScript : MonoBehaviour {
-
-	public UITreeScript treeUI;
-
-	public void ShowTreeUI()
+	
+	public void SueButtonClick()
 	{
-		treeUI.gameObject.SetActive(true);
+		if (!GameControl.wavesEnded)
+		{
+			GameControl.PurchaseSuePaper();
+		}
 	}
 
-	public void HideUI()
+	public void TreeButtonClick()
 	{
-		treeUI.gameObject.SetActive(false);
+		Debug.Log("tree Clicked");
+		// if the game is not ended
+		if (!GameControl.wavesEnded)
+		{
+			// if player has enough money
+			if (GameControl.coinValue >= 100)
+			{
+				Debug.Log("BUY");
+				GameControl.canSpawnTree = true;
+				GameControl.OnTreeButtonClick();
+			}
+		}
+	}
+
+	public void WaterButtonClick()
+	{
+		GameControl.OnWaterButtonClick();
+	}
+
+	public void MedicineButtonClick()
+	{
+		GameControl.OnMedicineButtonClick();
+	}
+
+	public void SellButtonClick()
+	{
+		Debug.Log("SELL");
+		GameControl.OnSellButtonClick();
 	}
 }

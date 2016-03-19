@@ -5,6 +5,11 @@ using System.Collections.Generic;
 
 public class GameControl : MonoBehaviour {
 
+	// for button toolbar
+	public static bool treeButtonUI;
+	public static bool waterButtonUI;
+	public static bool medicineButtonUI;
+	public static bool sellButtonUI;
 
     public List<TreeSci> treeGrid = new List<TreeSci>();
     public List<Enemy> enemyList = new List<Enemy>();
@@ -43,6 +48,12 @@ public class GameControl : MonoBehaviour {
 
     void Awake()
     {
+		// set it to false
+		treeButtonUI = false;
+		waterButtonUI = false;
+		medicineButtonUI = false;
+		sellButtonUI = false;
+
 		canSpawnTree = false;
         wavesStarted = false;
         wavesEnded = false;
@@ -300,4 +311,38 @@ public class GameControl : MonoBehaviour {
         int seconds = Mathf.FloorToInt(timer - minutes * 60);
         timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
     }
+
+	// Toolbar boolean interaction
+	public static void OnTreeButtonClick()
+	{
+		OnButtonClearClick();
+		treeButtonUI = true;
+	}
+
+	public static void OnWaterButtonClick()
+	{
+		OnButtonClearClick();
+		waterButtonUI = true;
+	}
+
+	public static void OnMedicineButtonClick()
+	{
+		OnButtonClearClick();
+		medicineButtonUI = true;
+	}
+
+	public static void OnSellButtonClick()
+	{
+		OnButtonClearClick();
+		sellButtonUI = true;
+	}
+
+	public static void OnButtonClearClick()
+	{
+		treeButtonUI = false;
+		waterButtonUI = false;
+		medicineButtonUI = false;
+		sellButtonUI = false;
+	}
+	// END toolbar boolean interaction
 }

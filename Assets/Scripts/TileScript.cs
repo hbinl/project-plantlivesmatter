@@ -40,6 +40,8 @@ public class TileScript : MonoBehaviour {
 
 			treeObject = gameControl.SpawnTree(transform.position);
 			occupied = true;
+
+			GameControl.OnButtonClearClick();
 		}
 	}
 

@@ -7,7 +7,6 @@ public class TreeSci : MonoBehaviour {
     public float aSecond;
     public float defaultTimer;
     public Coin m_coin;
-    private UIScript uiActivation;
     public float hp;
     private string status;
     private string stage;
@@ -50,7 +49,6 @@ public class TreeSci : MonoBehaviour {
         aSecond = 1.0f;
         defaultTimer = Random.Range(5f, 7f);
         animator = GetComponent<Animator>();
-        uiActivation = GameObject.Find("UI_Position").GetComponent<UIScript>();
     }
 
     public void Update()
@@ -117,27 +115,7 @@ public class TreeSci : MonoBehaviour {
 
         //if the UI is still pointing to this object and it will be destroy
         // then the UI also need to be disabled
-        if (this.gameObject == GameControl.selectedObject)
-            uiActivation.HideUI();
-
         Destroy(this.gameObject,2f);
-    }
-
-    public void OnMouseOver()
-    {
-        // if right click on the tree and is not clicking any UI
-        if (Input.GetMouseButtonDown(0) && !UIUtilities.isCursorOnUI())
-        {
-            GameControl.selectedObject = this.gameObject;
-			uiActivation.transform.position = new Vector3(transform.position.x, transform.position.y, 100f);
-            uiActivation.ShowTreeUI();
-        }
-
-        // if left click on the tree
-        if (Input.GetMouseButtonDown(1))
-        {
-            uiActivation.HideUI();
-        }
     }
 
 	public void onFireEffect()
@@ -152,6 +130,56 @@ public class TreeSci : MonoBehaviour {
 			c.a = f;
 			GetComponent<SpriteRenderer>().material.color = c;
 			yield return new WaitForSeconds(.2f);
+		}
+	}
+
+	public void WaterOnClick()
+	{
+		// Water cost 10 coins
+		if (GameControl.coinValue > 10 && onFire)
+		{
+			GameControl.coinValue -= 10;
+			onFire = false;
+			animator.SetBool("treeFire",false);
+		}
+	}
+
+	public void HealOnClick()
+	{
+		// Heal cost 30 each time clicked and heals 100%
+		if (GameControl.coinValue > 30 && !(hp > 99f))
+		{
+			GameControl.coinValue -= 30;
+			hp = 100f;
+		}
+	}
+
+	public void SellOnClick()
+	{
+		// Money increase depends on the tree health
+		GameControl.coinValue += (int) hp;
+		Destroy(this.gameObject);
+	}
+
+	public void OnMouseDown()
+	{
+		Debug.Log("PRESSED");
+		// if right click on the tree and is not clicking any UI
+		if (Input.GetMouseButtonDown(0) && !UIUtilities.isCursorOnUI())
+		{
+			Debug.Log(GameControl.sellButtonUI);
+			if (GameControl.waterButtonUI)
+			{
+				WaterOnClick();
+			}
+			if (GameControl.sellButtonUI)
+			{
+				SellOnClick();
+			}
+			if (GameControl.medicineButtonUI)
+			{
+				HealOnClick();
+			}
 		}
 	}
 }
