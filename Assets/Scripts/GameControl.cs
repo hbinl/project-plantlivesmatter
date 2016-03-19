@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class GameControl : MonoBehaviour {
 
-	// for button toolbar
+    // for button toolbar
 	public static bool treeButtonUI;
 	public static bool waterButtonUI;
 	public static bool medicineButtonUI;
@@ -44,7 +44,7 @@ public class GameControl : MonoBehaviour {
     public static int suePaperValue;
     public static bool wavesStarted;
     public static bool wavesEnded;
-    public static bool canSpawnTree;    	
+   // public static bool canSpawnTree;    	
 
     void Awake()
     {
@@ -54,7 +54,7 @@ public class GameControl : MonoBehaviour {
 		medicineButtonUI = false;
 		sellButtonUI = false;
 
-		canSpawnTree = false;
+	//	canSpawnTree = false;
         wavesStarted = false;
         wavesEnded = false;
 
@@ -63,7 +63,7 @@ public class GameControl : MonoBehaviour {
         pointsTimer = 60f;
 
         Co2Value = 0.5f;
-        polRate = 50;
+        polRate = 97;
         meterCon.UpdateMeterPointer(polRate);
 
         waveNumber = 1;
@@ -262,8 +262,7 @@ public class GameControl : MonoBehaviour {
 		}
 		else
 		{
-			// should return sth to indicate not enough coin to purchase
-
+            // should return sth to indicate not enough coin to purchase
 			return false;
 		}
 	}
@@ -315,7 +314,7 @@ public class GameControl : MonoBehaviour {
 	// Toolbar boolean interaction
 	public static void OnTreeButtonClick()
 	{
-		OnButtonClearClick();
+        OnButtonClearClick();
 		treeButtonUI = true;
 	}
 

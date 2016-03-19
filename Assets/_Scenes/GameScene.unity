@@ -227,7 +227,7 @@ GameObject:
   - 222: {fileID: 82161070}
   - 114: {fileID: 82161069}
   m_Layer: 5
-  m_Name: Image
+  m_Name: SpawnTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3401,6 +3401,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c3eb46ec949048328888792555c9476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  suePaper: {fileID: 861477566}
+  spawnTree: {fileID: 82161069}
+  water: {fileID: 1417943475}
+  heal: {fileID: 1660482239}
+  sell: {fileID: 681881501}
+  sueActive: 0
 --- !u!1 &1417943473
 GameObject:
   m_ObjectHideFlags: 0
@@ -3943,7 +3949,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -3955,7 +3961,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1570735909}
   m_FillRect: {fileID: 0}
   m_HandleRect: {fileID: 1570735908}
@@ -4099,7 +4105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5509,6 +5515,7 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 10
   m_TargetDisplay: 0

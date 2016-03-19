@@ -17,8 +17,12 @@ public class Enemy : MonoBehaviour {
 
 	public bool touchedTree;
 
+    public Canvas objCanvas;
+
     public void Start() 
 	{
+        objCanvas = GetComponentInChildren<Canvas>();
+
 		enemyIsActive = true;
 		touchedTree = false;
         health = 100f;
@@ -35,9 +39,13 @@ public class Enemy : MonoBehaviour {
         }
         if (this.transform.position.x < -11f || this.transform.position.x > 11f)
             selfDestruct();
-        animator = this.GetComponent<Animator>();
+        animator = this.GetComponent<Animator>();        
     }
 
+    public void Update()
+    {
+        objCanvas.GetComponent<updateHealth>().changeHealthValue(health);
+    }
 
     //    public void Move(bool faceDirectionRight)
     //    {
@@ -110,7 +118,9 @@ public class Enemy : MonoBehaviour {
             GameControl.highScore += bonusPoints;
             DestroyEnemy();
         }
-	}
+
+        objCanvas.GetComponent<updateHealth>().changeHealthValue(health);
+    }
 
 	public void DestroyEnemy() 
 	{

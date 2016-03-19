@@ -15,6 +15,8 @@ public class TreeSci : MonoBehaviour {
 
 	public bool onFire;
 
+    public Canvas objCanvas;
+
     public string ini_stage
     {
         get { return stage; }
@@ -42,18 +44,20 @@ public class TreeSci : MonoBehaviour {
 
     void Awake()
     {
+        objCanvas = GetComponentInChildren<Canvas>();
         hp = 100f;
         stage = "Adult";
         status = "Healthy";
 
         aSecond = 1.0f;
         defaultTimer = Random.Range(5f, 7f);
-        animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();        
     }
 
     public void Update()
     {
-		// instantiate the coin after certain time
+        objCanvas.GetComponent<updateHealth>().changeHealthValue(hp);
+        // instantiate the coin after certain time
         if (defaultTimer <= 0f)
         {
             InstantiateCoin();
@@ -78,8 +82,7 @@ public class TreeSci : MonoBehaviour {
         {
             aSecond -= Time.deltaTime;
         }
-
-
+     
     }
 
     public void InstantiateCoin()
@@ -107,6 +110,7 @@ public class TreeSci : MonoBehaviour {
 			StartCoroutine("Fade");
             DestroyTree();
         }
+        objCanvas.GetComponent<updateHealth>().changeHealthValue(hp);
     }
 
     public void DestroyTree()

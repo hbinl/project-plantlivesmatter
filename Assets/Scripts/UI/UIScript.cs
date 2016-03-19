@@ -1,45 +1,90 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class UIScript : MonoBehaviour {
-	
+    public Image suePaper;
+    public Image spawnTree;
+    public Image water;
+    public Image heal;
+    public Image sell;
+
+    public bool sueActive;
+    private Color original = new Color(255,255,255);
+
 	public void SueButtonClick()
 	{
 		if (!GameControl.wavesEnded)
 		{
-			GameControl.PurchaseSuePaper();
-		}
+            sueActive = GameControl.PurchaseSuePaper();
+            if (!sueActive)
+            {
+                //suePaper.color = Color;
+            }         
+        }
 	}
 
 	public void TreeButtonClick()
 	{
 		Debug.Log("tree Clicked");
-		// if the game is not ended
-		if (!GameControl.wavesEnded)
+        // if the game is not ended
+        if (!GameControl.wavesEnded)
 		{
 			// if player has enough money
 			if (GameControl.coinValue >= 100)
 			{
 				Debug.Log("BUY");
-				GameControl.canSpawnTree = true;
-				GameControl.OnTreeButtonClick();
+                defaultButtonColor();
+                spawnTree.color = Color.yellow;
+				GameControl.OnTreeButtonClick();      
 			}
-		}
+            else
+            {
+                spawnTree.color = original;
+            }
+        }
 	}
 
 	public void WaterButtonClick()
 	{
-		GameControl.OnWaterButtonClick();
-	}
+        if (!GameControl.wavesEnded)
+        {
+            Debug.Log("waterClicked");
+            defaultButtonColor();
+            water.color = Color.yellow;
+            GameControl.OnWaterButtonClick();
+        }
+    }
 
 	public void MedicineButtonClick()
 	{
-		GameControl.OnMedicineButtonClick();
-	}
+        if (!GameControl.wavesEnded)
+        {
+            defaultButtonColor();
+            heal.color = Color.yellow;
+            GameControl.OnMedicineButtonClick();
+        }  
+    }
 
 	public void SellButtonClick()
 	{
-		Debug.Log("SELL");
-		GameControl.OnSellButtonClick();
+        if (!GameControl.wavesEnded)
+        {
+            Debug.Log("SELL");
+            defaultButtonColor();
+            sell.color = Color.yellow;
+            GameControl.OnSellButtonClick();
+        }
 	}
+
+    public void defaultButtonColor()
+    {
+        if (!GameControl.wavesEnded)
+        {
+            spawnTree.color = original;
+            suePaper.color = original;
+            water.color = original;
+            heal.color = original;
+        }
+    }
 }
