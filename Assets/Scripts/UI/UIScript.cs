@@ -85,6 +85,7 @@ public class UIScript : MonoBehaviour {
             suePaper.color = original;
             water.color = original;
             heal.color = original;
+            sell.color = original;
         }
     }
 }
