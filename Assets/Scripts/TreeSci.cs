@@ -167,11 +167,9 @@ public class TreeSci : MonoBehaviour {
 
 	public void OnMouseDown()
 	{
-		Debug.Log("PRESSED");
 		// if right click on the tree and is not clicking any UI
 		if (Input.GetMouseButtonDown(0) && !UIUtilities.isCursorOnUI())
 		{
-			Debug.Log(GameControl.sellButtonUI);
 			if (GameControl.waterButtonUI)
 			{
 				WaterOnClick();

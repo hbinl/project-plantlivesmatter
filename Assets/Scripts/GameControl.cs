@@ -16,12 +16,15 @@ public class GameControl : MonoBehaviour {
     public List<Enemy> enemyTypes = new List<Enemy>();
     public List<TileScript> tileScriptObject;
     public List<GameObject> enemyWaypoints;
+    public List<GameObject> spawnPoints = new List<GameObject>();
 
     private int cloneNumber;
     public TreeSci tree;
     public GameObject gameOverBoard;
     
     public bool alive;
+    public int multipleEnemySpawnNumber;
+    public float prob_MultiSpawn;
     public float aSecond;
     public float pointsTimer;
     public meterController meterCon;
@@ -44,8 +47,11 @@ public class GameControl : MonoBehaviour {
     public static int suePaperValue;
     public static bool wavesStarted;
     public static bool wavesEnded;
-   // public static bool canSpawnTree;    	
 
+    // public static bool canSpawnTree;    	
+
+    float min_spawnTime = 4f;
+    float max_spawnTime = 5f;
     void Awake()
     {
 		// set it to false
@@ -75,6 +81,9 @@ public class GameControl : MonoBehaviour {
 		coinValue = 100;
 		highScore = 0f;
         StartCoroutine(GameLoop());
+
+        multipleEnemySpawnNumber = 2;
+        prob_MultiSpawn = 0.8f;
     }
 
 	void Update () {
@@ -140,11 +149,34 @@ public class GameControl : MonoBehaviour {
         // only need for the first wave, so that there is a delay before the enemy spawn
         wavesStarted = true;
         int i = 0;
+        // making the game harder 10mins (every 3 waves till 15: min_spawn -=0.5, prob -= 0.15 till wave 12, numberOfSpawn += 1 from 6 till 6 waves)
+        if (waveNumber % 2 == 0 && waveNumber != 0 && waveNumber < 11)
+        {
+            min_spawnTime -= 0.5f;
+            max_spawnTime -= 0.5f;
+            if (waveNumber < 12)
+                prob_MultiSpawn -= 0.15f;
+            if (waveNumber >= 4 && waveNumber <= 8)
+                multipleEnemySpawnNumber += 1;
+        }
+            
         while (i<waveNumber+2 && polRate <= 99f)
         {
-            yield return new WaitForSeconds(Random.Range(4f, 8f));
-            CreateEnemy();
-            i++;
+            float rand = Random.value;
+            yield return new WaitForSeconds(Random.Range(min_spawnTime, max_spawnTime));
+            if (rand >= 0 && rand < 0.8 || waveNumber < 3)
+            {
+                Debug.Log("Spawn One");
+                CreateEnemy();
+                i++;
+            }
+            else
+            {
+                Debug.Log("Spawn Multiple");
+                CreateEnemies(multipleEnemySpawnNumber);
+                i = i + multipleEnemySpawnNumber;
+            }
+            
         }
         while (enemyList.Count > 0 && polRate <= 99f)
         {
@@ -229,11 +261,84 @@ public class GameControl : MonoBehaviour {
 		return new Vector3(posX,posY,posZ);
     }
 
+    GameObject RandomSpawn()
+    {
+        int randomPos = Random.Range(0, 6);
+        return enemyWaypoints[randomPos];
+    }
+
+    bool SearchList(GameObject target)
+    {
+
+        for (int i = 0; i < spawnPoints.Count; i++)
+        {
+            if (spawnPoints[i].transform.gameObject == target.transform.gameObject)
+                return true;
+        }
+        return false;
+    }
+
+    void CreateEnemies(int enemyNum)
+    {        
+        spawnPoints.Clear();
+        int n = 0;
+        while (n < enemyNum)
+        {
+            float prob_value = Random.value;
+            int randomInt = 0;
+            if (prob_value >= .50)
+            {
+                randomInt = 0;
+            }
+            else if (prob_value <= .30 && prob_value >= .20)
+            {
+                randomInt = 1;
+            }
+            else if (prob_value <= .20)
+            {
+                randomInt = 2;
+            }
+            Enemy randomType = enemyTypes[randomInt];
+            GameObject enemySpawn = RandomSpawn();
+            Vector3 enemyPos = new Vector3(enemySpawn.transform.position.x, enemySpawn.transform.position.y, enemySpawn.transform.position.z);
+            if (!SearchList(enemySpawn))
+            {
+                spawnPoints.Add(enemySpawn);
+                if (randomInt == 2)
+                    if (enemyPos.x < 0)
+                    {
+                        enemyPos.x += 2f;
+                    }
+                    else
+                    {
+                        enemyPos.x -= 2f;
+                    }
+                Enemy villain;
+                villain = Instantiate(randomType, enemyPos, Quaternion.identity) as Enemy;
+                enemyList.Add(villain);
+                n += 1;
+            }
+        }
+    }
 
   	void CreateEnemy()
-    {      
-		// create enemy function to instantiate enemy and set the face direction
-        int randomInt = Random.Range(0, enemyTypes.Count);
+    {
+        // create enemy function to instantiate enemy and set the face direction
+        //int randomInt = Random.Range(0, enemyTypes.Count);
+        float prob_value = Random.value;
+        int randomInt = 0;
+        if (prob_value >= .50)
+        {
+            randomInt = 0;
+        }
+        else if (prob_value <= .30 && prob_value >= .20)
+        {
+            randomInt = 1;
+        }
+        else if (prob_value <= .20)
+        {
+            randomInt = 2;
+        }
         Enemy randomType = enemyTypes[randomInt];
         Vector3 enemyPos = RandomEnemyPos();
         if (randomInt == 2)

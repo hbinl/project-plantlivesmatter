@@ -2390,9 +2390,11 @@ MonoBehaviour:
   - {fileID: 813970294}
   - {fileID: 941657343}
   - {fileID: 592396290}
+  spawnPoints: []
   tree: {fileID: 11422774, guid: 9cc338cee28251e4f91a8e9266a236bb, type: 2}
   gameOverBoard: {fileID: 1943991283}
   alive: 0
+  multipleEnemySpawnNumber: 0
   aSecond: 0
   pointsTimer: 0
   meterCon: {fileID: 1785787228}
@@ -3109,7 +3111,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1189935222}
   - 82: {fileID: 1189935221}
-  - 81: {fileID: 1189935220}
   m_Layer: 0
   m_Name: Audio Source
   m_TagString: Untagged
@@ -3117,13 +3118,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1189935220
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1189935219}
-  m_Enabled: 1
 --- !u!82 &1189935221
 AudioSource:
   m_ObjectHideFlags: 0

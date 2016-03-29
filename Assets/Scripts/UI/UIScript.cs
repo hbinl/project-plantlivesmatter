@@ -26,14 +26,12 @@ public class UIScript : MonoBehaviour {
 
 	public void TreeButtonClick()
 	{
-		Debug.Log("tree Clicked");
         // if the game is not ended
         if (!GameControl.wavesEnded)
 		{
 			// if player has enough money
 			if (GameControl.coinValue >= 100)
 			{
-				Debug.Log("BUY");
                 defaultButtonColor();
                 spawnTree.color = Color.yellow;
 				GameControl.OnTreeButtonClick();      
@@ -49,7 +47,6 @@ public class UIScript : MonoBehaviour {
 	{
         if (!GameControl.wavesEnded)
         {
-            Debug.Log("waterClicked");
             defaultButtonColor();
             water.color = Color.yellow;
             GameControl.OnWaterButtonClick();
@@ -70,7 +67,6 @@ public class UIScript : MonoBehaviour {
 	{
         if (!GameControl.wavesEnded)
         {
-            Debug.Log("SELL");
             defaultButtonColor();
             sell.color = Color.yellow;
             GameControl.OnSellButtonClick();

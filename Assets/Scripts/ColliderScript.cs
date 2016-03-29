@@ -17,7 +17,6 @@ public class ColliderScript : MonoBehaviour {
 		// located on the top corner right
         if (col.gameObject.tag == "Coin")
         {
-            Debug.Log("Coin collected");
             col.GetComponent<Coin>().DestroyCoin();
         }
 	}
