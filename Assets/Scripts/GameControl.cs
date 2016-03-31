@@ -28,6 +28,7 @@ public class GameControl : MonoBehaviour {
     public float aSecond;
     public float pointsTimer;
     public meterController meterCon;
+    public DisasterController disasterCon;
 
 	public Text coinText;
 	public Text suePaperText;
@@ -148,6 +149,8 @@ public class GameControl : MonoBehaviour {
     {
         // only need for the first wave, so that there is a delay before the enemy spawn
         wavesStarted = true;
+        disasterCon.hazeEffect = true;
+        disasterCon.activateHaze();
         int i = 0;
         // making the game harder 10mins (every 3 waves till 15: min_spawn -=0.5, prob -= 0.15 till wave 12, numberOfSpawn += 1 from 6 till 6 waves)
         if (waveNumber % 2 == 0 && waveNumber != 0 && waveNumber < 11)
@@ -205,6 +208,7 @@ public class GameControl : MonoBehaviour {
         yield return null;
     }
 
+    //TreeControl
     public void CreateRandomTree(int cloneNumber)
     {
 		// spawn a random tree for the first time when the game is run
@@ -248,17 +252,18 @@ public class GameControl : MonoBehaviour {
 		return aTree;
 	}
 
-	Vector3 RandomEnemyPos()
+    //EnemyControl
+    Vector3 RandomEnemyPos()
     {
-		// spawn the enemy depends on the enemy start waypoints position
-		float posX, posY, posZ;
-		int randomPos = Random.Range(0,6);
-        
-		posX = enemyWaypoints[randomPos].transform.position.x;
-		posY = enemyWaypoints[randomPos].transform.position.y;
-		posZ = enemyWaypoints[randomPos].transform.position.z;
+        // spawn the enemy depends on the enemy start waypoints position
+        float posX, posY, posZ;
+        int randomPos = Random.Range(0, 6);
 
-		return new Vector3(posX,posY,posZ);
+        posX = enemyWaypoints[randomPos].transform.position.x;
+        posY = enemyWaypoints[randomPos].transform.position.y;
+        posZ = enemyWaypoints[randomPos].transform.position.z;
+
+        return new Vector3(posX, posY, posZ);
     }
 
     GameObject RandomSpawn()
@@ -355,6 +360,8 @@ public class GameControl : MonoBehaviour {
         enemyList.Add(villain);
     }
 
+
+    //ToolBar
 	public static bool PurchaseSuePaper()
 	{
 		// convert 25 coins to 1 sue paper
@@ -448,5 +455,7 @@ public class GameControl : MonoBehaviour {
 		medicineButtonUI = false;
 		sellButtonUI = false;
 	}
-	// END toolbar boolean interaction
+    // END toolbar boolean interaction
+
+    //Disaster interaction
 }

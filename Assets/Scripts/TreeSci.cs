@@ -124,7 +124,8 @@ public class TreeSci : MonoBehaviour {
 
 	public void onFireEffect()
 	{
-		DamageTree(10f);
+        transform.GetComponent<Animator>().SetBool("treeFire", true);
+        DamageTree(10f);
 	}
 
 	// for fading out when it is death

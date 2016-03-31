@@ -80,7 +80,7 @@ public class EnemyFlame : MonoBehaviour {
 
 				// to hit the tree
 				hit.transform.GetComponent<TreeSci>().onFire = true;
-				hit.transform.GetComponent<Animator>().SetBool("treeFire",true);
+				//hit.transform.GetComponent<Animator>().SetBool("treeFire",true);
 			}
 			else
 			{
