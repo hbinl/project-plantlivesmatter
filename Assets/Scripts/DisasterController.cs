@@ -36,10 +36,11 @@ public class DisasterController : MonoBehaviour {
             {
                 lightningEffect = false;
                 StartCoroutine(lightningFire());
+                lightningTimer -= Time.deltaTime;
             }
             else
             {
-                lightningTimer -= Time.deltaTime;
+                lightning.Stop();
             }
         }
 
@@ -48,7 +49,8 @@ public class DisasterController : MonoBehaviour {
             if (hazeTimer <= 0)
             {
                 hazeEffect = false;
-                hazeTimer = 60f;                 
+                hazeTimer = 60f;
+                haze.Stop();                                
             }
             else
             {

@@ -149,8 +149,6 @@ public class GameControl : MonoBehaviour {
     {
         // only need for the first wave, so that there is a delay before the enemy spawn
         wavesStarted = true;
-        disasterCon.hazeEffect = true;
-        disasterCon.activateHaze();
         int i = 0;
         // making the game harder 10mins (every 3 waves till 15: min_spawn -=0.5, prob -= 0.15 till wave 12, numberOfSpawn += 1 from 6 till 6 waves)
         if (waveNumber % 2 == 0 && waveNumber != 0 && waveNumber < 11)
@@ -161,6 +159,27 @@ public class GameControl : MonoBehaviour {
                 prob_MultiSpawn -= 0.15f;
             if (waveNumber >= 4 && waveNumber <= 8)
                 multipleEnemySpawnNumber += 1;
+        }
+
+        if (waveNumber % 2 == 0 && waveNumber != 0)
+        {
+            float rand_disas = Random.value;
+            if (rand_disas >= 0 && rand_disas < 0.2)
+            {
+                if (!disasterCon.haze.isPlaying)
+                {
+                    disasterCon.hazeEffect = true;
+                    disasterCon.activateHaze();
+                }
+            }
+            if (rand_disas >= 10 && rand_disas < 30)
+            {
+                if (!disasterCon.lightning.isPlaying)
+                {
+                    disasterCon.lightningEffect = true;
+                    disasterCon.activateLightning();
+                }
+            }
         }
             
         while (i<waveNumber+2 && polRate <= 99f)
