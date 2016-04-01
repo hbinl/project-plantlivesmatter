@@ -3,6 +3,13 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using System.IO;
+
+using System;
+using System.Linq;
+
 public class GameControl : MonoBehaviour {
 
     // for button toolbar
@@ -163,7 +170,7 @@ public class GameControl : MonoBehaviour {
 
         if (waveNumber % 2 == 0 && waveNumber != 0)
         {
-            float rand_disas = Random.value;
+            float rand_disas = UnityEngine.Random.value;
             if (rand_disas >= 0 && rand_disas < 0.2)
             {
                 if (!disasterCon.haze.isPlaying)
@@ -184,8 +191,8 @@ public class GameControl : MonoBehaviour {
             
         while (i<waveNumber+2 && polRate <= 99f)
         {
-            float rand = Random.value;
-            yield return new WaitForSeconds(Random.Range(min_spawnTime, max_spawnTime));
+			float rand = UnityEngine.Random.value;
+			yield return new WaitForSeconds(UnityEngine.Random.Range(min_spawnTime, max_spawnTime));
             if (rand >= 0 && rand < 0.8 || waveNumber < 3)
             {
                 Debug.Log("Spawn One");
@@ -223,9 +230,98 @@ public class GameControl : MonoBehaviour {
                 treeGrid[i].gameObject.SetActive(false);
             }
             
+
+			// add waves and time to user data
+			UserInGameProgress.wave = waveNumber;
+			UserInGameProgress.time = timer;
+
+			UpdateUserData (UserDataInGame.userData.username);
+			UpdateUserHighScore (UserDataInGame.userData.username);
         }
         yield return null;
     }
+
+	void UpdateUserData(string user) {
+		string path = Application.persistentDataPath + "/personal_user";
+
+		// in case user "too" clever and delete the database 
+		if (!File.Exists (path)) {
+			Debug.Log ("something wrong, call 911");
+		}
+
+		string[] THE_DATA = File.ReadAllLines (path);
+
+		// check the data 1 by 1
+		for (int i = 0; i < THE_DATA.Length; i++) {
+			string DATA;
+
+			DATA = THE_DATA [i];
+			string[] CURRENT_DATA = DATA.Split (' ');
+
+			if (user == CURRENT_DATA [0]) {
+
+				CURRENT_DATA[0] = UserDataInGame.userData.username;
+				CURRENT_DATA[1] = UserDataInGame.userData.achievement;
+				CURRENT_DATA[2] = Int32.Parse(CURRENT_DATA[2]) + UserInGameProgress.wave + "";
+				CURRENT_DATA[3] = float.Parse(CURRENT_DATA[3]) + UserInGameProgress.time + "";
+				CURRENT_DATA[4] = Int32.Parse(CURRENT_DATA[4]) + UserInGameProgress.treePlanted + "";
+				CURRENT_DATA[5] = Int32.Parse(CURRENT_DATA[5]) + UserInGameProgress.enemyKilled + "";
+				CURRENT_DATA[6] = Int32.Parse(CURRENT_DATA[6]) + UserInGameProgress.treeWatered + "";
+				CURRENT_DATA[7] = Int32.Parse(CURRENT_DATA[7]) + UserInGameProgress.treeHealed + "";
+				CURRENT_DATA[8] = Int32.Parse(CURRENT_DATA[8]) + UserInGameProgress.treeSold + "";
+				CURRENT_DATA[9] = Int32.Parse(CURRENT_DATA[9]) + UserInGameProgress.suePaperPurchased + "";
+
+				THE_DATA [i] = CURRENT_DATA [0] + " " +
+				CURRENT_DATA [1] + " " +
+				CURRENT_DATA [2] + " " +
+				CURRENT_DATA [3] + " " +
+				CURRENT_DATA [4] + " " +
+				CURRENT_DATA [5] + " " +
+				CURRENT_DATA [6] + " " +
+				CURRENT_DATA [7] + " " +
+				CURRENT_DATA [8] + " " +
+				CURRENT_DATA [9];
+			}
+		}
+
+		File.WriteAllLines (path, THE_DATA);
+	}
+
+	void UpdateUserHighScore(string user) {
+		string path = Application.persistentDataPath + "/highscore_list";
+
+		// in case user "too" clever and delete the database 
+		if (!File.Exists (path)) {
+			Debug.Log ("something wrong, call 911");
+		}
+
+		string[] THE_DATA = File.ReadAllLines (path);
+
+		// check the data 1 by 1
+		int i;
+		for (i = THE_DATA.Length - 1; i > 0; i--) {
+			string DATA;
+
+			DATA = THE_DATA [i];
+			string[] CURRENT_DATA = DATA.Split (' ');
+
+			if (highScore < float.Parse(CURRENT_DATA [1])) {
+				break;
+			}
+
+			// if last item, don't move item, instead it will be replace
+			if (i < THE_DATA.Length - 1) {
+				THE_DATA [i + 1] = THE_DATA [i];
+			}
+		}
+
+		// if the score is one of the best score
+		if (i < THE_DATA.Length - 1) {
+			THE_DATA [i + 1] = user + " " + highScore + " " + waveNumber;
+		}
+			
+		File.WriteAllLines (path, THE_DATA);
+	}
 
     //TreeControl
     public void CreateRandomTree(int cloneNumber)
@@ -234,7 +330,7 @@ public class GameControl : MonoBehaviour {
         int numberSpawn = 0;
         while (numberSpawn < cloneNumber)
         {
-            int random_pos = Random.Range(0, 15);
+			int random_pos = UnityEngine.Random.Range(0, 15);
 
             if (!tileScriptObject[random_pos].occupied)
             {
@@ -276,7 +372,7 @@ public class GameControl : MonoBehaviour {
     {
         // spawn the enemy depends on the enemy start waypoints position
         float posX, posY, posZ;
-        int randomPos = Random.Range(0, 6);
+		int randomPos = UnityEngine.Random.Range(0, 6);
 
         posX = enemyWaypoints[randomPos].transform.position.x;
         posY = enemyWaypoints[randomPos].transform.position.y;
@@ -287,7 +383,7 @@ public class GameControl : MonoBehaviour {
 
     GameObject RandomSpawn()
     {
-        int randomPos = Random.Range(0, 6);
+		int randomPos = UnityEngine.Random.Range(0, 6);
         return enemyWaypoints[randomPos];
     }
 
@@ -308,7 +404,7 @@ public class GameControl : MonoBehaviour {
         int n = 0;
         while (n < enemyNum)
         {
-            float prob_value = Random.value;
+			float prob_value = UnityEngine.Random.value;
             int randomInt = 0;
             if (prob_value >= .50)
             {
@@ -349,7 +445,7 @@ public class GameControl : MonoBehaviour {
     {
         // create enemy function to instantiate enemy and set the face direction
         //int randomInt = Random.Range(0, enemyTypes.Count);
-        float prob_value = Random.value;
+		float prob_value = UnityEngine.Random.value;
         int randomInt = 0;
         if (prob_value >= .50)
         {

@@ -16,6 +16,10 @@ public class UIScript : MonoBehaviour {
 	{
 		if (!GameControl.wavesEnded)
 		{
+			// add suepaper to user data
+			Debug.Log("YEAH");
+			UserInGameProgress.suePaperPurchased += 1;
+
             sueActive = GameControl.PurchaseSuePaper();
             if (!sueActive)
             {

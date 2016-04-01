@@ -27,4 +27,12 @@ public class GameOverControl : MonoBehaviour {
     {
 		SceneManager.LoadScene("GameScene");
     }
+
+	public void OnHomeButtonClick() {
+		SceneManager.LoadScene("IntroScene");
+	}
+
+	public void OnHighscoreButtonClick() {
+		SceneManager.LoadScene("HighScoreScene");
+	}
 }

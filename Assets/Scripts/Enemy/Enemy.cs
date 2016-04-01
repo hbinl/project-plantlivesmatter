@@ -132,6 +132,10 @@ public class Enemy : MonoBehaviour {
         faceDirectionRight = !this.faceDirectionRight;
         GetCaught();
         StartCoroutine(Fade());
+
+		// add enemy killed to the user data
+		UserInGameProgress.enemyKilled += 1;
+
         Destroy(this.gameObject,2f);
 	}
 

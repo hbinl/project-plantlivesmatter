@@ -38,6 +38,9 @@ public class TileScript : MonoBehaviour {
 
 			treeObject = gameControl.SpawnTree(transform.position);
 			occupied = true;
+
+			// add tree plant to the user data
+			UserInGameProgress.treePlanted += 1;
 		}
 	}
 

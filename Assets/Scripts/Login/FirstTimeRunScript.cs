@@ -77,7 +77,16 @@ public class FirstTimeRunScript : MonoBehaviour {
 		 */
 
 		if (!File.Exists (path)) {
-			string[] tmpData = {"ivan 15000 23", "anson 12000 17"};
+			string[] tmpData = {"ivan 15000 23", 
+				"anson 12000 17",
+				"none 0 0",
+				"none 0 0",
+				"none 0 0",
+				"none 0 0",
+				"none 0 0",
+				"none 0 0",
+				"none 0 0",
+				"none 0 0"};
 
 			StreamWriter fileNew = new StreamWriter (path);
 
