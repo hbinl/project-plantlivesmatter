@@ -242,7 +242,7 @@ public class GameControl : MonoBehaviour {
                 TreeSci aTree;
                 float tilePosX, tilePosY, tilePosZ;
                 tilePosX = tileScriptObject[random_pos].transform.position.x;
-                tilePosY = tileScriptObject[random_pos].transform.position.y + 1f;
+                tilePosY = tileScriptObject[random_pos].transform.position.y + 1.2f;
                 tilePosZ = tileScriptObject[random_pos].transform.position.z - 3;
                 aTree = Instantiate(tree, new Vector3(tilePosX, tilePosY, tilePosZ), Quaternion.identity) as TreeSci;
                 treeGrid.Add(aTree);

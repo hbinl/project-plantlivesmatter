@@ -26,9 +26,13 @@ public class Coin : MonoBehaviour {
 		// to move down the coin
         MoveDownCoin();
 
-		// move the coin to the top right corner as the moving animation
+        // move the coin to the top right corner as the moving animation
         if (collected)
+        {
+            
             transform.position = Vector3.Lerp(transform.position, CoinPosition.coinMeter.transform.position, 2.5f * Time.deltaTime);
+
+        }
     }
 
     public void MoveDownCoin()
@@ -56,7 +60,12 @@ public class Coin : MonoBehaviour {
     public void OnMouseOver()
     {
 		// if coin is collected
-        collected = true;
-        GameControl.coinValue += 10;
+        if (Time.timeScale == 1)
+        {
+            GameControl.coinValue += 10;
+            collected = true;
+            
+        }
+        
     }
 }
