@@ -113,6 +113,12 @@ public class Enemy : MonoBehaviour {
 		health -= damagePoint;
 		if (health <= 0f)
         {
+			// add enemy killed to the user data
+			UserInGameProgress.enemyKilled += 1;
+
+			// tracking
+			UserMovementTracker.EnemyTrack(transform.position, faceDirectionRight, transform.name);
+
             GameControl.enemyNumber -= 1;
             GameControl.enemyKilled += 1;
             GameControl.highScore += bonusPoints;
@@ -132,9 +138,6 @@ public class Enemy : MonoBehaviour {
         faceDirectionRight = !this.faceDirectionRight;
         GetCaught();
         StartCoroutine(Fade());
-
-		// add enemy killed to the user data
-		UserInGameProgress.enemyKilled += 1;
 
         Destroy(this.gameObject,2f);
 	}

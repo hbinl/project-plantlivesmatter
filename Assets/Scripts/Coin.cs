@@ -65,6 +65,8 @@ public class Coin : MonoBehaviour {
             GameControl.coinValue += 10;
             collected = true;
             
+			// tracking
+			UserMovementTracker.CoinTrack (transform.position);
         }
         
     }
