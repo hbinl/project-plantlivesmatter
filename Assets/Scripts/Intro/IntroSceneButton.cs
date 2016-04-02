@@ -8,4 +8,9 @@ public class IntroSceneButton : MonoBehaviour {
 	{
 		SceneManager.LoadScene("GameScene");
 	}
+
+	public void onClickLogout()
+	{
+		SceneManager.LoadScene ("LoginScene");
+	}
 }

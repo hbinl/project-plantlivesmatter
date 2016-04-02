@@ -312,7 +312,7 @@ public class GameControl : MonoBehaviour {
 
 		// check the data 1 by 1
 		int i;
-		for (i = THE_DATA.Length - 1; i > 0; i--) {
+		for (i = THE_DATA.Length - 1; i >= 0; i--) {
 			string DATA;
 
 			DATA = THE_DATA [i];
