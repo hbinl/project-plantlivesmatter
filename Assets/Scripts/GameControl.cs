@@ -84,7 +84,7 @@ public class GameControl : MonoBehaviour {
         CreateRandomTree(cloneNumber);
 
 		suePaperValue = 3;
-		coinValue = 10000;
+		coinValue = 100;
 		highScore = 0f;
         StartCoroutine(GameLoop());
 
@@ -158,11 +158,6 @@ public class GameControl : MonoBehaviour {
         // only need for the first wave, so that there is a delay before the enemy spawn
         wavesStarted = true;
         int i = 0;
-        if (waveNumber == 1)
-        {
-            disasterCon.lightningEffect = true;
-            disasterCon.activateLightning();
-        }
         // making the game harder 10mins (every 3 waves till 15: min_spawn -=0.5, prob -= 0.15 till wave 12, numberOfSpawn += 1 from 6 till 6 waves)
         if (waveNumber % 2 == 0 && waveNumber != 0 && waveNumber < 11)
         {
@@ -174,28 +169,28 @@ public class GameControl : MonoBehaviour {
                 multipleEnemySpawnNumber += 1;
         }
 
-        //if (waveNumber % 2 == 0 && waveNumber != 0)
-        //{
-        //    float rand_disas = UnityEngine.Random.value;
-        //    if (rand_disas >= 0 && rand_disas < 0.2)
-        //    {
-        //        if (!disasterCon.haze.isPlaying)
-        //        {
-        //            Debug.Log("HAZE!!");
-        //            disasterCon.hazeEffect = true;
-        //            disasterCon.activateHaze();
-        //        }
-        //    }
-        //    if ((rand_disas >= 0.1 && rand_disas < 0.2) || (rand_disas >= 0.2 && rand_disas < 0.4))
-        //    {
-        //        if (!disasterCon.lightning.isPlaying)
-        //        {
-        //            Debug.Log("Lightning!!!");
-        //            disasterCon.lightningEffect = true;
-        //            disasterCon.activateLightning();
-        //        }
-        //    }
-        //}
+        if (waveNumber % 2 == 0 && waveNumber != 0)
+        {
+            float rand_disas = UnityEngine.Random.value;
+            if (rand_disas >= 0 && rand_disas < 0.2)
+            {
+                if (!disasterCon.haze.isPlaying)
+                {
+                    Debug.Log("HAZE!!");
+                    disasterCon.hazeEffect = true;
+                    disasterCon.activateHaze();
+                }
+            }
+            if ((rand_disas >= 0.1 && rand_disas < 1) || (rand_disas >= 0.2 && rand_disas < 0.4))
+            {
+                if (!disasterCon.lightning.isPlaying)
+                {
+                    Debug.Log("Lightning!!!");
+                    disasterCon.lightningEffect = true;
+                    disasterCon.activateLightning();
+                }
+            }
+        }
             
         while (i<waveNumber+2 && polRate <= 99f)
         {

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class DisasterController : MonoBehaviour {
     public bool lightningEffect;
+    public bool repeat;
     public bool hazeEffect;
 
     public ParticleSystem lightning;
@@ -17,7 +18,7 @@ public class DisasterController : MonoBehaviour {
 	void Awake () {
         lightningEffect = false;
         hazeEffect = false;
-
+        repeat = false;
         lightningTimer = 30f;
         hazeTimer = 60f;
 
@@ -32,7 +33,7 @@ public class DisasterController : MonoBehaviour {
     {
         if (lightningEffect)
         {
-            if (lightningTimer >= 0)
+            if (lightningTimer >= 0 && repeat)
             {
                 lightningEffect = false;
                 StartCoroutine(lightningFire());
@@ -43,11 +44,12 @@ public class DisasterController : MonoBehaviour {
             if (lightningTimer <= 0)
             {
                 lightning.Stop();
-                lightningTimer = 30f;
+                repeat = false;
             }
             else
             {
                 lightningTimer -= Time.deltaTime;
+                repeat = true;
             }
         }
 
@@ -69,7 +71,8 @@ public class DisasterController : MonoBehaviour {
     public void activateLightning()
     {
         lightning.gameObject.SetActive(true);
-        lightning.Play();       
+        lightning.Play();
+        lightningTimer = 60f;    
     }
 
     public void activateHaze()

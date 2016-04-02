@@ -62,8 +62,11 @@ public class Coin : MonoBehaviour {
 		// if coin is collected
         if (Time.timeScale == 1)
         {
-            GameControl.coinValue += 10;
-            collected = true;
+            if (!collected)
+            {
+                GameControl.coinValue += 10;
+                collected = true;
+            }
             
         }
         
