@@ -43,6 +43,7 @@ public class DisasterController : MonoBehaviour {
             if (lightningTimer <= 0)
             {
                 lightning.Stop();
+                lightningTimer = 30f;
             }
             else
             {

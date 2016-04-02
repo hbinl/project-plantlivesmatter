@@ -12,36 +12,29 @@ using System.Collections.Generic;
 public class LoginScript : MonoBehaviour {
 
 	public InputField inputUser;
-	public InputField inputPassword;
-
-	public GameObject register_form;
 
 	public void onLoginClick()
 	{
 		string user = inputUser.text;
-		string password = inputPassword.text;
 
 		//pre check if user input username and password at least 1 character
-		if (user.Length == 0 || password.Length == 0) {
-			Debug.Log("please input username and password");
+		if (user.Length == 0) {
+			Debug.Log("please input nickname");
 		}
 
-		if (CheckDatabase (user, password)) {
+
+		if (CheckDatabase (user)) {
 			Debug.Log ("Data Found");
 			SetUserDataAndExp (user);
 			SceneManager.LoadScene("IntroScene");
 		} else {
-			Debug.Log ("Username is not found or password incorrect");
+			SetUserDataAndExp (user);
+			SceneManager.LoadScene("IntroScene");
+			Debug.Log ("Username is not found and creating a new user");
 		}
 	}
 
-	public void onSignUpClick()
-	{
-		register_form.SetActive (true);
-		this.gameObject.SetActive (false);
-	}
-
-	bool CheckDatabase(string user, string password)
+	bool CheckDatabase(string user)
 	{
 		string path = Application.persistentDataPath + "/user_database";
 
@@ -56,10 +49,18 @@ public class LoginScript : MonoBehaviour {
 		foreach (string DATA in THE_DATA) {
 			string[] CURRENT_DATA = DATA.Split (' ');
 
-			if (user == CURRENT_DATA [0] && password == CURRENT_DATA [1]) {
+			if (user == CURRENT_DATA [0]) {
 				return true;
 			}
 		}
+		// if not found, add user to database :D
+		string content = user +"\n";
+		File.AppendAllText (path, content);
+
+		// create the default user data and exp 
+		path = Application.persistentDataPath + "/personal_user";
+		content = user + " 00000 0 0 0 0 0 0 0 0\n";
+		File.AppendAllText(path, content);
 
 		return false;
 	}
@@ -97,4 +98,5 @@ public class LoginScript : MonoBehaviour {
 
 		return false;
 	}
+		
 }

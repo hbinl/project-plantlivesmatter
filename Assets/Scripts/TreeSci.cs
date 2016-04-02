@@ -149,6 +149,9 @@ public class TreeSci : MonoBehaviour {
 			GameControl.coinValue -= 10;
 			onFire = false;
 			animator.SetBool("treeFire",false);
+
+			// add tree water to user data
+			UserInGameProgress.treeWatered += 1;
 		}
 	}
 
@@ -159,11 +162,17 @@ public class TreeSci : MonoBehaviour {
 		{
 			GameControl.coinValue -= 30;
 			hp = 100f;
+
+			// add tree heal to user data
+			UserInGameProgress.treeHealed += 1;
 		}
 	}
 
 	public void SellOnClick()
 	{
+		// add tree sold to user data
+		UserInGameProgress.treeSold += 1;
+
 		// Money increase depends on the tree health
 		GameControl.coinValue += (int) hp;
 		Destroy(this.gameObject);

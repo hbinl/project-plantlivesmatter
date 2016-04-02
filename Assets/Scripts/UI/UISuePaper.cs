@@ -7,6 +7,9 @@ public class UISuePaper : MonoBehaviour {
 	{
 		if (Input.GetMouseButtonDown(0) && !GameControl.wavesEnded)
 		{
+			// add suepaper to user data
+			UserInGameProgress.suePaperPurchased += 1;
+
 			GameControl.PurchaseSuePaper();
 		}
 	}
