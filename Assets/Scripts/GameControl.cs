@@ -172,6 +172,7 @@ public class GameControl : MonoBehaviour {
         if (waveNumber % 2 == 0 && waveNumber != 0)
         {
             float rand_disas = UnityEngine.Random.value;
+//			float rand_disas = 0.29f;
             if (rand_disas >= 0 && rand_disas < 0.2)
             {
                 if (!disasterCon.haze.isPlaying)
@@ -181,7 +182,7 @@ public class GameControl : MonoBehaviour {
                     disasterCon.activateHaze();
                 }
             }
-            if ((rand_disas >= 0.1 && rand_disas < 1) || (rand_disas >= 0.2 && rand_disas < 0.4))
+            if (rand_disas >= 0.1 && rand_disas < 0.3)
             {
                 if (!disasterCon.lightning.isPlaying)
                 {

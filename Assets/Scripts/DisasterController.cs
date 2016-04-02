@@ -72,7 +72,8 @@ public class DisasterController : MonoBehaviour {
     {
         lightning.gameObject.SetActive(true);
         lightning.Play();
-        lightningTimer = 60f;    
+        lightningTimer = 60f; 
+		repeat = true;
     }
 
     public void activateHaze()

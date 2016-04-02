@@ -180,7 +180,7 @@ public class TreeSci : MonoBehaviour {
 		UserInGameProgress.treeSold += 1;
 
 		// Money increase depends on the tree health
-		GameControl.coinValue += (int) hp;
+		GameControl.coinValue += (int) (hp * 0.8f);
 		Destroy(this.gameObject);
 
 		// tracking
