@@ -20,6 +20,9 @@ public class UIScript : MonoBehaviour {
 			Debug.Log("YEAH");
 			UserInGameProgress.suePaperPurchased += 1;
 
+			// tracking
+			UserMovementTracker.SuePaperTrack ();
+
             sueActive = GameControl.PurchaseSuePaper();
             if (!sueActive)
             {

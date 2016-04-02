@@ -26,15 +26,11 @@ public class FirstTimeRunScript : MonoBehaviour {
 		 */
 
 		if (!File.Exists (path)) {
-			string[] tmpData = {"ivan yang", "anson tio"};
+			string[] tmpData = {"ivan", "anson"};
 
-			StreamWriter fileNew = new StreamWriter (path);
+			File.Create(path).Dispose();
 
-			foreach (string data in tmpData) {
-				fileNew.WriteLine (data);
-			}
-
-			fileNew.Close ();
+			File.WriteAllLines (path, tmpData);
 		}
 	}
 
@@ -55,14 +51,10 @@ public class FirstTimeRunScript : MonoBehaviour {
 				"played for 1 hour, time, 216000",
 				"purchased one item, item, 1",
 			};
+				
+			File.Create(path).Dispose();
 
-			StreamWriter fileNew = new StreamWriter (path);
-
-			foreach (string data in tmpData) {
-				fileNew.WriteLine (data);
-			}
-
-			fileNew.Close ();
+			File.WriteAllLines (path, tmpData);
 		}
 	}
 
@@ -88,13 +80,9 @@ public class FirstTimeRunScript : MonoBehaviour {
 				"none 0 0",
 				"none 0 0"};
 
-			StreamWriter fileNew = new StreamWriter (path);
+			File.Create(path).Dispose();
 
-			foreach (string data in tmpData) {
-				fileNew.WriteLine (data);
-			}
-
-			fileNew.Close ();
+			File.WriteAllLines (path, tmpData);
 		}
 
 	}
@@ -114,13 +102,9 @@ public class FirstTimeRunScript : MonoBehaviour {
 			string[] tmpData = {"ivan 00001 23 61200 30 40 5 0 10 50", 
 				"anson 00101 17 54000 20 30 0 0 10 30"};
 
-			StreamWriter fileNew = new StreamWriter (path);
+			File.Create(path).Dispose();
 
-			foreach (string data in tmpData) {
-				fileNew.WriteLine (data);
-			}
-
-			fileNew.Close ();
+			File.WriteAllLines (path, tmpData);
 		}
 
 	}

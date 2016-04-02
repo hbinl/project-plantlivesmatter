@@ -143,11 +143,15 @@ public class GameControl : MonoBehaviour {
 
     IEnumerator Waves()
     {
+
+		// tracking
+		UserMovementTracker.WaveTrack(waveNumber);
+
 		// show the wave text for 5 seconds
         waveText.gameObject.SetActive(true);
         waveText.text = "Wave " + waveNumber;
         waveNumber += 1;
-        yield return new WaitForSeconds(5f);
+		yield return new WaitForSeconds(5f);
         waveText.text = "";
         waveText.gameObject.SetActive(false);
     }
@@ -215,6 +219,10 @@ public class GameControl : MonoBehaviour {
 
     IEnumerator GameOver()
     {
+		// tracking
+		UserMovementTracker.UserStatusTrack(highScore, treeGrid.Count, suePaperValue, coinValue);
+		UserMovementTracker.NextWaveTrack();
+
 		// check if the the game ends
         if (polRate >= 99f)
         {
@@ -237,6 +245,9 @@ public class GameControl : MonoBehaviour {
 
 			UpdateUserData (UserDataInGame.userData.username);
 			UpdateUserHighScore (UserDataInGame.userData.username);
+
+			// tracing
+			UserMovementTracker.SaveToFile ();
         }
         yield return null;
     }
