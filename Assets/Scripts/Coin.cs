@@ -68,6 +68,8 @@ public class Coin : MonoBehaviour {
                 collected = true;
             }
             
+			// tracking
+			UserMovementTracker.CoinTrack (transform.position);
         }
         
     }

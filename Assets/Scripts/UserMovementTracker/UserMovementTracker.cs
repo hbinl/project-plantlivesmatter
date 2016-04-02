@@ -15,18 +15,30 @@ public class UserMovementTracker : MonoBehaviour {
 	}
 	
 	public static void CoinTrack(Vector3 pos) {
-		
+		moveTrack += "c";
+		moveTrack += Convert.ToString( CheckGridPosition (pos));
 	}
 
 	public static void SuePaperTrack() {
 		moveTrack += "s";
 	}
 
-	public static void TreeTrack(Vector3 pos) {
-		//CheckGridPosition (pos);
+	public static void TreeTrack(Vector3 pos, string treeInteraction) {
+		moveTrack += "t";
+		moveTrack += treeInteraction;
+		moveTrack += Convert.ToString( CheckGridPosition (pos));
 	}
 
 	public static void EnemyTrack(Vector3 pos, bool leftSpawn, string enemyID) {
+		
+		moveTrack += "e";
+		if (leftSpawn) {
+			moveTrack += "l";
+		} else {
+			moveTrack += "r";
+		}
+		moveTrack += enemyID[0];
+		moveTrack += CheckGridPosition(pos)[0];
 
 	}
 
@@ -58,8 +70,32 @@ public class UserMovementTracker : MonoBehaviour {
 		File.WriteAllText (path, trackResult);
 	}
 
-	void CheckGridPosition(Vector3 pos)
+	public static string CheckGridPosition(Vector3 pos)
 	{
+		int row, col;
+		row = 0;
+		col = 0;
 
+		if (pos.y > 0.2f) {
+			row = 1;
+		} else if (pos.y > -2.2f && pos.y <= 0.2f) {
+			row = 2;
+		} else if (pos.y <= -2.2f) {
+			row = 3;
+		}
+
+		if (pos.x < -3.25f) {
+			col = 1;
+		} else if (pos.x < -0.9f && pos.x >= -3.25f) {
+			col = 2;
+		} else if (pos.x < 1.1f && pos.x >= -0.9f) {
+			col = 3;
+		} else if (pos.x < 3.3f && pos.x >= 1.1f) {
+			col = 4;
+		} else if (pos.x >= 3.3f) {
+			col = 5;
+		}
+
+		return row + "" + col + "";
 	}
 }

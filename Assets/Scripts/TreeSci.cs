@@ -152,6 +152,9 @@ public class TreeSci : MonoBehaviour {
 
 			// add tree water to user data
 			UserInGameProgress.treeWatered += 1;
+
+			// tracking
+			UserMovementTracker.TreeTrack(transform.position, "W");
 		}
 	}
 
@@ -165,6 +168,9 @@ public class TreeSci : MonoBehaviour {
 
 			// add tree heal to user data
 			UserInGameProgress.treeHealed += 1;
+
+			// tracking
+			UserMovementTracker.TreeTrack(transform.position, "H");
 		}
 	}
 
@@ -176,6 +182,9 @@ public class TreeSci : MonoBehaviour {
 		// Money increase depends on the tree health
 		GameControl.coinValue += (int) hp;
 		Destroy(this.gameObject);
+
+		// tracking
+		UserMovementTracker.TreeTrack(transform.position, "S");
 	}
 
 	public void OnMouseDown()
