@@ -75,7 +75,10 @@ public class TreeSci : MonoBehaviour {
 			{
 				onFireEffect();
 			}
-            GameControl.polRate -= 0.05f;
+            if (GameControl.polRate >= 0)
+            {
+                GameControl.polRate -= 0.05f;
+            }
             aSecond = 1.0f;
         }
         else

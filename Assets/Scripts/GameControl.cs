@@ -70,7 +70,7 @@ public class GameControl : MonoBehaviour {
         pointsTimer = 60f;
 
         Co2Value = 0.5f;
-        polRate = 97;
+        polRate = 50;
         meterCon.UpdateMeterPointer(polRate);
 
         waveNumber = 1;
@@ -139,7 +139,6 @@ public class GameControl : MonoBehaviour {
 		// show the wave text for 5 seconds
         waveText.gameObject.SetActive(true);
         waveText.text = "Wave " + waveNumber;
-        waveNumber += 1;
         yield return new WaitForSeconds(5f);
         waveText.text = "";
         waveText.gameObject.SetActive(false);
@@ -168,14 +167,16 @@ public class GameControl : MonoBehaviour {
             {
                 if (!disasterCon.haze.isPlaying)
                 {
+                    Debug.Log("HAZE!!");
                     disasterCon.hazeEffect = true;
                     disasterCon.activateHaze();
                 }
             }
-            if (rand_disas >= 10 && rand_disas < 30)
+            if ((rand_disas >= 0.1 && rand_disas < 0.2) || (rand_disas >= 0.2 && rand_disas < 0.4))
             {
                 if (!disasterCon.lightning.isPlaying)
                 {
+                    Debug.Log("Lightning!!!");
                     disasterCon.lightningEffect = true;
                     disasterCon.activateLightning();
                 }
@@ -188,13 +189,13 @@ public class GameControl : MonoBehaviour {
             yield return new WaitForSeconds(Random.Range(min_spawnTime, max_spawnTime));
             if (rand >= 0 && rand < 0.8 || waveNumber < 3)
             {
-                Debug.Log("Spawn One");
+                //Debug.Log("Spawn One");
                 CreateEnemy();
                 i++;
             }
             else
             {
-                Debug.Log("Spawn Multiple");
+                //Debug.Log("Spawn Multiple");
                 CreateEnemies(multipleEnemySpawnNumber);
                 i = i + multipleEnemySpawnNumber;
             }
@@ -208,7 +209,8 @@ public class GameControl : MonoBehaviour {
 
     IEnumerator GameOver()
     {
-		// check if the the game ends
+        // check if the the game ends
+        waveNumber += 1;
         if (polRate >= 99f)
         {
             gameOverBoard.SetActive(true);

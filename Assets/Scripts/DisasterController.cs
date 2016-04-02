@@ -36,11 +36,17 @@ public class DisasterController : MonoBehaviour {
             {
                 lightningEffect = false;
                 StartCoroutine(lightningFire());
-                lightningTimer -= Time.deltaTime;
+            }
+        }
+        else
+        {
+            if (lightningTimer <= 0)
+            {
+                lightning.Stop();
             }
             else
             {
-                lightning.Stop();
+                lightningTimer -= Time.deltaTime;
             }
         }
 
