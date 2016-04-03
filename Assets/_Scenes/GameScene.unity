@@ -13134,7 +13134,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1387619170}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 116.82, y: 28.355364, z: -3378.4617}
+  m_LocalPosition: {x: 106.34, y: 17.3, z: -3378.4617}
   m_LocalScale: {x: 37.538464, y: 37.538464, z: 37.538464}
   m_Children:
   - {fileID: 1898502062}
@@ -15341,7 +15341,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 126.3, y: -30}
+  m_AnchoredPosition: {x: 126.299805, y: -30}
   m_SizeDelta: {x: 146.9, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1567459367
@@ -17162,7 +17162,7 @@ RectTransform:
   m_RootOrder: 6
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -107.3, y: -28}
+  m_AnchoredPosition: {x: -107.299805, y: -28}
   m_SizeDelta: {x: 123.26, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1621760922
@@ -19159,7 +19159,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1766183760}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalPosition: {x: 0, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 868787784}
@@ -19371,6 +19371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightningEffect: 0
+  repeat: 0
   hazeEffect: 0
   lightning: {fileID: 1611542095}
   haze: {fileID: 298600905}
@@ -21587,7 +21588,6 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 10
   m_TargetDisplay: 0
