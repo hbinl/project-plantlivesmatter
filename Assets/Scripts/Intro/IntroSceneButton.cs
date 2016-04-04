@@ -32,4 +32,8 @@ public class IntroSceneButton : MonoBehaviour {
     public void onClickLoadHome() {
         SceneManager.LoadScene("IntroScene");
     }
+    
+    public void onClickLoadTutorial() {
+        SceneManager.LoadScene("TutorialScene");
+    }
 }
