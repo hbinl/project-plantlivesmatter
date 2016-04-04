@@ -13,3 +13,7 @@ EditorBuildSettings:
     path: Assets/_Scenes/GameScene.unity
   - enabled: 1
     path: Assets/_Scenes/HighScoreScene.unity
+  - enabled: 1
+    path: Assets/_Scenes/GameStoreScene.unity
+  - enabled: 1
+    path: Assets/_Scenes/WorldTreeScene.unity
