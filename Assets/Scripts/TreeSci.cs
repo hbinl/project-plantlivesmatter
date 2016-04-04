@@ -122,6 +122,7 @@ public class TreeSci : MonoBehaviour {
 
         //if the UI is still pointing to this object and it will be destroy
         // then the UI also need to be disabled
+        GetComponent<AudioSource>().Play();
         Destroy(this.gameObject,2f);
     }
 

@@ -169,7 +169,7 @@ public class GameControl : MonoBehaviour {
                 multipleEnemySpawnNumber += 1;
         }
 
-        if (waveNumber % 2 == 0 && waveNumber != 0)
+        if (waveNumber % 2 == 0 && waveNumber != 0 && waveNumber != 2)
         {
             float rand_disas = UnityEngine.Random.value;
 //			float rand_disas = 0.29f;

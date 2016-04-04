@@ -29,7 +29,6 @@ public class Coin : MonoBehaviour {
         // move the coin to the top right corner as the moving animation
         if (collected)
         {
-            
             transform.position = Vector3.Lerp(transform.position, CoinPosition.coinMeter.transform.position, 2.5f * Time.deltaTime);
 
         }
@@ -64,6 +63,7 @@ public class Coin : MonoBehaviour {
         {
             if (!collected)
             {
+                GetComponent<AudioSource>().Play();
                 GameControl.coinValue += 10;
                 collected = true;
             }
