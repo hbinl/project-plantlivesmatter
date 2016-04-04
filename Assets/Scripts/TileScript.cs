@@ -41,6 +41,9 @@ public class TileScript : MonoBehaviour {
 
 			// add tree plant to the user data
 			UserInGameProgress.treePlanted += 1;
+
+			// tracking
+			UserMovementTracker.TreeTrack(transform.position,"P");
 		}
 	}
 
