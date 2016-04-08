@@ -29,7 +29,7 @@ public class UserMovementTracker : MonoBehaviour {
 	void Awake () {
 		moveTrack = "";
 		trackResult = "";
-		lastPost = "";
+		lastPost = "[0,0]";
 	}
 	
 	public static void CoinTrack(Vector3 pos) {

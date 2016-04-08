@@ -251,6 +251,8 @@ public class GameControl : MonoBehaviour {
 			// tracing
 			UserMovementTracker.SaveToFile ();
         }
+        //UserMovementTracker.UserStatusTrack(highScore, treeGrid.Count, suePaperValue, coinValue);
+        //UserMovementTracker.NextWaveTrack();
         yield return null;
     }
 
