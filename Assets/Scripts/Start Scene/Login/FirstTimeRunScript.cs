@@ -26,7 +26,7 @@ public class FirstTimeRunScript : MonoBehaviour {
 		 */
 
 		if (!File.Exists (path)) {
-			string[] tmpData = {"ivan", "anson"};
+			string[] tmpData = {"ivan koh", "anson tio"};
 
 			File.Create(path).Dispose();
 
