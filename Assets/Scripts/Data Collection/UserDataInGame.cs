@@ -7,8 +7,7 @@ public class UserDataInGame : MonoBehaviour {
 
 	// to keep track user data
 	public string username;
-    //goldleaf
-    public int goldLeaf;
+    
 	public string achievement;
 	public int wave;
 	public float time;
@@ -18,7 +17,7 @@ public class UserDataInGame : MonoBehaviour {
 	public int treeHealed;
 	public int treeSold;
 	public int suePaperPurchased;
-
+	public int goldLeaf;
 
 	// Use this for initialization
 	void Awake () {

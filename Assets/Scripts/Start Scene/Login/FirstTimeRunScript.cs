@@ -99,8 +99,8 @@ public class FirstTimeRunScript : MonoBehaviour {
 		 */
 
 		if (!File.Exists (path)) {
-			string[] tmpData = {"ivan 00001 23 61200 30 40 5 0 10 50 9", 
-				"anson 00101 17 54000 20 30 0 0 10 30 20"};
+			string[] tmpData = {"ivan 00001 23 61200 30 40 5 0 10 50 100", 
+				"anson 00101 17 54000 20 30 0 0 10 30 101"};
 
 			File.Create(path).Dispose();
 
