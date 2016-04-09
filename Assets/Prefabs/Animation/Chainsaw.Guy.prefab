@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   killPoints: 0
+  christmasCos: {fileID: 21300004, guid: 97dd641ea9a084c47a7e5ddd7f1e6ee4, type: 3}
 --- !u!114 &11416634
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -16,7 +16,6 @@ public class Bulldozer : MonoBehaviour {
 		buldozerEnemy = GetComponent<Enemy>();
         killPoints = 150f;
 		animator = GetComponent<Animator>();
-
 		buldozerEnemy.moveable = false;
 		delayStartMovement = 5f;
 

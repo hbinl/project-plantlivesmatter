@@ -4,9 +4,8 @@ using System.Collections;
 public class EnemyChainsaw : MonoBehaviour {
 
 	private Enemy chainsawEnemy;
-
 	private Animator animator;
-    public float killPoints;
+    public float killPoints;    
 
 	// Use this for initialization
 	void Start () {

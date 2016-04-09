@@ -92,6 +92,9 @@ public class LoginScript : MonoBehaviour {
 				UserDataInGame.userData.suePaperPurchased = Int32.Parse(CURRENT_DATA[9]);
 				//Added goldleaf
 				UserDataInGame.userData.goldLeaf = Int32.Parse(CURRENT_DATA[10]);
+                UserDataInGame.userData.boughtItem_1 = Int32.Parse(CURRENT_DATA[11]);
+                UserDataInGame.userData.boughtItem_2 = Int32.Parse(CURRENT_DATA[12]);
+                UserDataInGame.userData.boughtItem_3 = Int32.Parse(CURRENT_DATA[13]);
 
 				return true;
 			}

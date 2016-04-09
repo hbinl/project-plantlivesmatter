@@ -19,8 +19,8 @@ public class DisasterController : MonoBehaviour {
         lightningEffect = false;
         hazeEffect = false;
         repeat = false;
-        lightningTimer = 30f;
-        hazeTimer = 60f;
+        lightningTimer = 20f;
+        hazeTimer = 30f;
 
         lightning.gameObject.SetActive(false);
 
@@ -72,7 +72,7 @@ public class DisasterController : MonoBehaviour {
     {
         lightning.gameObject.SetActive(true);
         lightning.Play();
-        lightningTimer = 60f; 
+        lightningTimer = 20f; 
 		repeat = true;
     }
 
@@ -84,8 +84,8 @@ public class DisasterController : MonoBehaviour {
 
     IEnumerator lightningFire()
     {
-        yield return new WaitForSeconds(5f);
-        for (int i = 0; i < 3; i++)
+        yield return new WaitForSeconds(4f);
+        for (int i = 0; i < 2; i++)
         {
             if (gameCon.treeGrid.Count > 0)
             {

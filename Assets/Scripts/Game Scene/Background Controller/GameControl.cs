@@ -54,7 +54,7 @@ public class GameControl : MonoBehaviour {
     public static bool wavesStarted;
     public static bool wavesEnded;
 
-    // public static bool canSpawnTree;    	
+    public GameObject giveUp;
 
     float min_spawnTime = 4f;
     float max_spawnTime = 5f;
@@ -158,6 +158,19 @@ public class GameControl : MonoBehaviour {
         // only need for the first wave, so that there is a delay before the enemy spawn
         wavesStarted = true;
         int i = 0;
+        if (waveNumber == 1)
+        {
+            if (ItemSlot.boostCoin)
+            {
+                coinValue = 300;
+                ItemSlot.boostCoin = false;
+            }
+            if (ItemSlot.boostSuePaper)
+            {
+                suePaperValue = 10;
+                ItemSlot.boostSuePaper = false;
+            }
+        }
         // making the game harder 10mins (every 3 waves till 15: min_spawn -=0.5, prob -= 0.15 till wave 12, numberOfSpawn += 1 from 6 till 6 waves)
         if (waveNumber % 2 == 0 && waveNumber != 0 && waveNumber < 11)
         {
@@ -220,40 +233,51 @@ public class GameControl : MonoBehaviour {
     IEnumerator GameOver()
     {
         // check if the the game ends
-        waveNumber += 1;
 		// tracking
 		UserMovementTracker.UserStatusTrack(highScore, treeGrid.Count, suePaperValue, coinValue);
 		UserMovementTracker.NextWaveTrack();
-
+        if (coinValue < 100 && treeGrid.Count == 0)
+        {
+            giveUp.SetActive(true);
+            Time.timeScale = 0;
+        }
+        yield return new WaitForSeconds(1f);
 		// check if the the game ends
         if (polRate >= 99f)
         {
-            gameOverBoard.SetActive(true);
-            wavesEnded = true;
-            wavesStarted = false;
-            for (int i = 0;i<enemyList.Count; i++)
-            {
-                enemyList[i].gameObject.SetActive(false);
-            }
-            for (int i=0;i<treeGrid.Count; i++)
-            {
-                treeGrid[i].gameObject.SetActive(false);
-            }
-            
-
-			// add waves and time to user data
-			UserInGameProgress.wave = waveNumber;
-			UserInGameProgress.time = timer;
-
-			UpdateUserData (UserDataInGame.userData.username);
-			UpdateUserHighScore (UserDataInGame.userData.username);
-
-			// tracing
-			UserMovementTracker.SaveToFile ();
+            TriggerGameOver();
         }
+        waveNumber += 1;
         //UserMovementTracker.UserStatusTrack(highScore, treeGrid.Count, suePaperValue, coinValue);
         //UserMovementTracker.NextWaveTrack();
         yield return null;
+    }
+
+    public void TriggerGameOver()
+    {
+        gameOverBoard.SetActive(true);
+        giveUp.SetActive(false);
+        wavesEnded = true;
+        wavesStarted = false;
+        for (int i = 0; i < enemyList.Count; i++)
+        {
+            enemyList[i].gameObject.SetActive(false);
+        }
+        for (int i = 0; i < treeGrid.Count; i++)
+        {
+            treeGrid[i].gameObject.SetActive(false);
+        }
+
+
+        // add waves and time to user data
+        UserInGameProgress.wave = waveNumber;
+        UserInGameProgress.time = timer;
+
+        UpdateUserData(UserDataInGame.userData.username);
+        UpdateUserHighScore(UserDataInGame.userData.username);
+
+        // tracing
+        UserMovementTracker.SaveToFile();
     }
 
 	void UpdateUserData(string user) {

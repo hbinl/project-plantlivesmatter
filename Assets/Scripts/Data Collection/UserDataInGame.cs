@@ -18,6 +18,9 @@ public class UserDataInGame : MonoBehaviour {
 	public int treeSold;
 	public int suePaperPurchased;
 	public int goldLeaf;
+    public int boughtItem_1;
+    public int boughtItem_2;
+    public int boughtItem_3;
 
 	// Use this for initialization
 	void Awake () {

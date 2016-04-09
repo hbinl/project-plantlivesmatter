@@ -67,7 +67,7 @@ public class RegisterScript : MonoBehaviour {
 		// create the default user data and exp 
 		path = Application.persistentDataPath + "/personal_user";
 		//added goldleaf
-		content = user + " 00000 0 0 0 0 0 0 0 0 0\n";
+		content = user + " 00000 0 0 0 0 0 0 0 0 0 0 0 0\n";
 		File.AppendAllText(path, content);
 
 		return false;
@@ -101,8 +101,11 @@ public class RegisterScript : MonoBehaviour {
 				UserDataInGame.userData.suePaperPurchased = Int32.Parse(CURRENT_DATA[9]);
 				//Added goldleaf
 				UserDataInGame.userData.goldLeaf = Int32.Parse(CURRENT_DATA[10]);
+                UserDataInGame.userData.boughtItem_1 = Int32.Parse(CURRENT_DATA[11]);
+                UserDataInGame.userData.boughtItem_2 = Int32.Parse(CURRENT_DATA[12]);
+                UserDataInGame.userData.boughtItem_3 = Int32.Parse(CURRENT_DATA[13]);
 
-				return true;
+                return true;
 			}
 		}
 
