@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using System.Collections.Generic;
 using System.IO;
 using System;
+using System.Linq;
 
 public class UserMovementTracker : MonoBehaviour {
 
@@ -128,6 +130,10 @@ public class UserMovementTracker : MonoBehaviour {
 
 
 	public static void NextWaveTrack() {
+		// before start next wave, generate the wave log file
+		String waveTrackData = GenerateFinaliseTrackData(moveTrack);
+		Debug.Log (waveTrackData);
+
 		trackResult += moveTrack + "\n";
 		moveTrack = "";
 	}
@@ -191,5 +197,58 @@ public class UserMovementTracker : MonoBehaviour {
 		}
 
 		return "[" + row + "," + col + "]";
+	}
+
+	public static String GenerateFinaliseTrackData(string waveLineText) {
+		// Generate each wave file to be sumbit to the server
+		// and check if the user is a novice, intermediate or an expert
+		List<String> line = new List<String>();
+		List<String> final_scores = new List<String>();
+		List<List<float>> board_positions = new List<List<float>>();
+
+		line = waveLineText.Split(' ').ToList<String>();
+
+		board_positions.Add(new List<float> { 0,0,0,0,0,0,0 });
+		board_positions.Add(new List<float> { 0,0,0,0,0,0,0 });
+		board_positions.Add(new List<float> { 0,0,0,0,0,0,0 });
+
+		final_scores = line.GetRange (1, (line.Count - 2));
+
+		foreach (String element in final_scores) {
+			List<String> element_split = element.Split(']').ToList<String>();
+			String row_column_element = element_split[0];
+			float behaviour_data = float.Parse(element_split[1]);
+
+			row_column_element  = row_column_element.Replace("[","");
+			List<int> row_column = row_column_element.Split(',').Select(Int32.Parse).ToList();
+
+			int row, col;
+			// row does not start from 0
+			row = row_column[0] - 1;
+			col = row_column[1];
+
+			board_positions[row][col] += (float) Math.Log(behaviour_data);
+		}
+
+		String instance_features = "";
+		for (int row = 0; row < board_positions.Count; row++) {
+			for (int col = 0; col < board_positions[0].Count; col++) {
+				instance_features += board_positions[row][col] + ",";
+			}
+		}
+
+		// clean final score
+		String the_score = line[line.Count - 1];
+		the_score = the_score.Replace("[","");
+		the_score = the_score.Replace("]","");
+
+		List<String> scores = the_score.Split(',').ToList<String>();
+
+		String score_behaviour = scores[1] + "," + scores[2] + "," + scores[3];
+		instance_features += score_behaviour;
+
+		Console.WriteLine(instance_features);
+		return instance_features;
+
 	}
 }

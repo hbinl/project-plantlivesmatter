@@ -96,6 +96,7 @@ GameObject:
   - 222: {fileID: 49599060}
   - 114: {fileID: 49599059}
   - 114: {fileID: 49599058}
+  - 114: {fileID: 49599061}
   m_Layer: 5
   m_Name: store item 1
   m_TagString: Untagged
@@ -208,6 +209,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 49599056}
+--- !u!114 &49599061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 49599056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe597377679b5de4d9fa5cffab905b0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  christmasTheme: 1
 --- !u!1 &198934947
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,8 +302,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 208265178}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -60, y: -50, z: -10}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalPosition: {x: -60, y: -2, z: -10}
+  m_LocalScale: {x: 7, y: 7, z: 1}
   m_Children: []
   m_Father: {fileID: 49599057}
   m_RootOrder: 2
@@ -320,7 +333,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b20479c1a938ca54aacdd0033637f3b7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0c983ab122ad898429e9cd2560689576, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

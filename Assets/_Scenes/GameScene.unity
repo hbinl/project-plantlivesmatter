@@ -5968,7 +5968,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 489762, guid: eb7eea90f3b554c4cae6f25dda13ecec, type: 2}
       propertyPath: m_RootOrder
-      value: 16
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb7eea90f3b554c4cae6f25dda13ecec, type: 2}
@@ -5982,6 +5982,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 407814740}
   - 212: {fileID: 407814739}
+  - 114: {fileID: 407814741}
   m_Layer: 0
   m_Name: UI_Bg
   m_TagString: Untagged
@@ -6026,11 +6027,23 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 407814738}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -4.2, z: 0}
-  m_LocalScale: {x: 0.9464414, y: 0.9619137, z: 1}
+  m_LocalPosition: {x: -0.03, y: -3.73, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &407814741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 407814738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb89fa3a199437343b2771c648ed50b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteChristmas: {fileID: 21300000, guid: e6a9ec6d60ac85a48a6059d361293aca, type: 3}
 --- !u!1 &422915328
 GameObject:
   m_ObjectHideFlags: 0
@@ -10123,7 +10136,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 491424, guid: 969826203d78c4fdc94e33f07aaba720, type: 2}
       propertyPath: m_RootOrder
-      value: 15
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 969826203d78c4fdc94e33f07aaba720, type: 2}

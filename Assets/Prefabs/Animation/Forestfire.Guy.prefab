@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   killPoints: 0
-  christmasCos: {fileID: 21300000, guid: d8cc29de1a21a0a4ba9613895e32598b, type: 3}
+  christmasAnim: {fileID: 9100000, guid: de42d57429ba1ac4b8e7c918d107017b, type: 2}
 --- !u!114 &11454656
 MonoBehaviour:
   m_ObjectHideFlags: 1
