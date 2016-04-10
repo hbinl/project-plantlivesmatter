@@ -115,7 +115,7 @@ public class FirstTimeRunScript : MonoBehaviour {
         string path = Application.persistentDataPath + "/worldTree";
         if (!File.Exists(path))
         {
-            string[] tmpData = { "0 " };
+            string[] tmpData = { "0" };
 
             File.Create(path).Dispose();
             File.WriteAllLines(path, tmpData);

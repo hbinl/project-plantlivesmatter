@@ -1,51 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
-
-using System.IO;
 using System;
+using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 
-public class WorldTreeController : MonoBehaviour {
-    public Text progressText;
-    public Text goldLeafText;
-    public float progress_percentage;
-    public ProgressTracker progress;
-
-    void Start()
-    {
-        string path = Application.persistentDataPath + "/worldTree";
-        string[] data = File.ReadAllLines(path);
-        WorldTreeProgress.worldTreeData.goldLeafRecieved = Int32.Parse(data[0]);
-        UpdateProgress();
-    }
+public class BuyButton : MonoBehaviour
+{
 
     // Update is called once per frame
-    void UpdateProgress()
+    public void ClickBuy()
     {
-        Debug.Log(WorldTreeProgress.worldTreeData.goldLeafRecieved);
-        progress_percentage = (WorldTreeProgress.worldTreeData.goldLeafRecieved / 10000f) * 100;
-        progressText.text = "Progress: " + (int) progress_percentage + "% ";
-        goldLeafText.text = UserDataInGame.userData.goldLeaf.ToString();
-        progress.UpdateProgressMeter();
-    }
-
-    public void ClickDonate()
-    {
-        WorldTreeProgress.worldTreeData.goldLeafRecieved += 1;
-        UserDataInGame.userData.goldLeaf -= 1;
-        UpdateProgress();
-
-        string path = Application.persistentDataPath + "/worldTree";
-        string[] data = File.ReadAllLines(path);
-        int value = Int32.Parse(data[0]);
-        value = WorldTreeProgress.worldTreeData.goldLeafRecieved;
-        Debug.Log(value);
-        File.Create(path).Dispose();
-        data[0] = value + "";
-        File.WriteAllLines(path,data);
-
+        UserDataInGame.userData.goldLeaf += 50;
         UpdateUserData(UserDataInGame.userData.username);
     }
 
@@ -98,11 +64,8 @@ public class WorldTreeController : MonoBehaviour {
                 CURRENT_DATA[11] + " " +
                 CURRENT_DATA[12] + " " +
                 CURRENT_DATA[13];
-
-                Debug.Log(THE_DATA[i]);
             }
         }
-
         File.WriteAllLines(path, THE_DATA);
     }
 }

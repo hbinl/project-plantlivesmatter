@@ -25,21 +25,21 @@ public class UserInGameProgress : MonoBehaviour {
 		suePaperPurchased = 0;
 	}
 
-	// DEBUG PURPOSE ONLY
-//	void Update() {
-//		string textInfo = "";
-//		textInfo = "***** Start Testing *****" + "\n";
-//		textInfo += wave + "\n";
-//		textInfo += time + "\n";
-//		textInfo += treePlanted + "\n";
-//		textInfo += enemyKilled + "\n";
-//		textInfo += treeWatered + "\n";
-//		textInfo += treeHealed + "\n";
-//		textInfo += treeSold + "\n";
-//		textInfo += suePaperPurchased + "\n";
-//		textInfo += "*****  End  Testing *****" + "\n";
-//
-//		Debug.Log (textInfo);
-//	}
+	//// DEBUG PURPOSE ONLY
+	//void Update() {
+	//	string textInfo = "";
+	//	textInfo = "***** Start Testing *****" + "\n";
+	//	textInfo += wave + "\n";
+	//	textInfo += time + "\n";
+	//	textInfo += treePlanted + "\n";
+	//	textInfo += enemyKilled + "\n";
+	//	textInfo += treeWatered + "\n";
+	//	textInfo += treeHealed + "\n";
+	//	textInfo += treeSold + "\n";
+	//	textInfo += suePaperPurchased + "\n";
+	//	textInfo += "*****  End  Testing *****" + "\n";
+
+	//	Debug.Log (textInfo);
+	//}
 
 }

@@ -443,7 +443,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 404777636}
   m_HandleRect: {fileID: 0}
@@ -469,25 +469,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldLeafPointer: {fileID: 924861078}
---- !u!1 &1004977993 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 187148, guid: eb7eea90f3b554c4cae6f25dda13ecec, type: 2}
-  m_PrefabInternal: {fileID: 883289738}
---- !u!114 &1004977996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1004977993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73aebf051b4596a4bbe209920f25f4f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  progressText: {fileID: 0}
-  goldLeafText: {fileID: 0}
-  progress_percentage: 0
-  progress: {fileID: 0}
 --- !u!1 &1049598399
 GameObject:
   m_ObjectHideFlags: 0

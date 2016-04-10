@@ -90,6 +90,8 @@ public class GameControl : MonoBehaviour {
 
         multipleEnemySpawnNumber = 2;
         prob_MultiSpawn = 0.8f;
+
+        Time.timeScale = 1;
     }
 
 	void Update () {
@@ -297,31 +299,54 @@ public class GameControl : MonoBehaviour {
 			DATA = THE_DATA [i];
 			string[] CURRENT_DATA = DATA.Split (' ');
 
-			if (user == CURRENT_DATA [0]) {
+            if (user == CURRENT_DATA[0])
+            {
 
-				CURRENT_DATA[0] = UserDataInGame.userData.username;
-				CURRENT_DATA[1] = UserDataInGame.userData.achievement;
-				CURRENT_DATA[2] = Int32.Parse(CURRENT_DATA[2]) + UserInGameProgress.wave + "";
-				CURRENT_DATA[3] = float.Parse(CURRENT_DATA[3]) + UserInGameProgress.time + "";
-				CURRENT_DATA[4] = Int32.Parse(CURRENT_DATA[4]) + UserInGameProgress.treePlanted + "";
-				CURRENT_DATA[5] = Int32.Parse(CURRENT_DATA[5]) + UserInGameProgress.enemyKilled + "";
-				CURRENT_DATA[6] = Int32.Parse(CURRENT_DATA[6]) + UserInGameProgress.treeWatered + "";
-				CURRENT_DATA[7] = Int32.Parse(CURRENT_DATA[7]) + UserInGameProgress.treeHealed + "";
-				CURRENT_DATA[8] = Int32.Parse(CURRENT_DATA[8]) + UserInGameProgress.treeSold + "";
-				CURRENT_DATA[9] = Int32.Parse(CURRENT_DATA[9]) + UserInGameProgress.suePaperPurchased + "";
+                CURRENT_DATA[0] = UserDataInGame.userData.username;
+                CURRENT_DATA[1] = UserDataInGame.userData.achievement;
+                CURRENT_DATA[2] = Int32.Parse(CURRENT_DATA[2]) + UserInGameProgress.wave + "";
+                CURRENT_DATA[3] = float.Parse(CURRENT_DATA[3]) + UserInGameProgress.time + "";
+                CURRENT_DATA[4] = Int32.Parse(CURRENT_DATA[4]) + UserInGameProgress.treePlanted + "";
+                CURRENT_DATA[5] = Int32.Parse(CURRENT_DATA[5]) + UserInGameProgress.enemyKilled + "";
+                CURRENT_DATA[6] = Int32.Parse(CURRENT_DATA[6]) + UserInGameProgress.treeWatered + "";
+                CURRENT_DATA[7] = Int32.Parse(CURRENT_DATA[7]) + UserInGameProgress.treeHealed + "";
+                CURRENT_DATA[8] = Int32.Parse(CURRENT_DATA[8]) + UserInGameProgress.treeSold + "";
+                CURRENT_DATA[9] = Int32.Parse(CURRENT_DATA[9]) + UserInGameProgress.suePaperPurchased + "";
+                CURRENT_DATA[10] = CURRENT_DATA[10];
+                CURRENT_DATA[11] = CURRENT_DATA[11];
+                CURRENT_DATA[12] = 0 + "";
+                CURRENT_DATA[13] = 0 + "";
 
-				THE_DATA [i] = CURRENT_DATA [0] + " " +
-				CURRENT_DATA [1] + " " +
-				CURRENT_DATA [2] + " " +
-				CURRENT_DATA [3] + " " +
-				CURRENT_DATA [4] + " " +
-				CURRENT_DATA [5] + " " +
-				CURRENT_DATA [6] + " " +
-				CURRENT_DATA [7] + " " +
-				CURRENT_DATA [8] + " " +
-				CURRENT_DATA [9];
-			}
-		}
+                THE_DATA[i] = CURRENT_DATA[0] + " " +
+                CURRENT_DATA[1] + " " +
+                CURRENT_DATA[2] + " " +
+                CURRENT_DATA[3] + " " +
+                CURRENT_DATA[4] + " " +
+                CURRENT_DATA[5] + " " +
+                CURRENT_DATA[6] + " " +
+                CURRENT_DATA[7] + " " +
+                CURRENT_DATA[8] + " " +
+                CURRENT_DATA[9] + " " +
+                CURRENT_DATA[10] + " " +
+                CURRENT_DATA[11] + " " +
+                CURRENT_DATA[12] + " " +
+                CURRENT_DATA[13];
+
+                UserDataInGame.userData.achievement = CURRENT_DATA[1];
+                UserDataInGame.userData.wave = Int32.Parse( CURRENT_DATA[2]);
+                UserDataInGame.userData.time = float.Parse(CURRENT_DATA[3]);
+                UserDataInGame.userData.treePlanted = Int32.Parse(CURRENT_DATA[4]);
+                UserDataInGame.userData.enemyKilled = Int32.Parse(CURRENT_DATA[5]);
+                UserDataInGame.userData.treeWatered = Int32.Parse(CURRENT_DATA[6]);
+                UserDataInGame.userData.treeHealed = Int32.Parse(CURRENT_DATA[7]);
+                UserDataInGame.userData.treeSold = Int32.Parse(CURRENT_DATA[8]);
+                UserDataInGame.userData.suePaperPurchased = Int32.Parse(CURRENT_DATA[9]);
+                UserDataInGame.userData.goldLeaf = Int32.Parse(CURRENT_DATA[10]);
+                UserDataInGame.userData.boughtItem_1 = Int32.Parse(CURRENT_DATA[11]);
+                UserDataInGame.userData.boughtItem_2 = Int32.Parse(CURRENT_DATA[12]);
+                UserDataInGame.userData.boughtItem_3 = Int32.Parse(CURRENT_DATA[13]);
+            }
+        }
 
 		File.WriteAllLines (path, THE_DATA);
 	}
