@@ -212,15 +212,19 @@ public class UserMovementTracker : MonoBehaviour {
 		board_positions.Add(new List<float> { 0,0,0,0,0,0,0 });
 		board_positions.Add(new List<float> { 0,0,0,0,0,0,0 });
 
-		final_scores = line.GetRange (1, (line.Count - 2));
+		final_scores = line.GetRange (1, (line.Count - 3));
 
 		foreach (String element in final_scores) {
-			List<String> element_split = element.Split(']').ToList<>();
+			List<String> element_split = element.Split(']').ToList();
 			String row_column_element = element_split[0];
-			float behaviour_data = float.Parse(element_split[1]);
+			foreach (String elem in element_split) {
+				Debug.Log (elem);
+			}
+			float behaviour_data = System.Convert.ToSingle(element_split[1]);
 
 			row_column_element  = row_column_element.Replace("[","");
-			List<int> row_column = row_column_element.Split(',').Select(Int32.Parse).ToList();
+			List<String> row_col_elem_split = row_column_element.Split (',').ToList ();
+			List<int> row_column = row_col_elem_split.ConvertAll (s => Int32.Parse (s));
 
 			int row, col;
 			// row does not start from 0
@@ -238,11 +242,11 @@ public class UserMovementTracker : MonoBehaviour {
 		}
 
 		// clean final score
-		String the_score = line[line.Count - 1];
+		String the_score = line[line.Count - 2];
 		the_score = the_score.Replace("[","");
 		the_score = the_score.Replace("]","");
 
-		List<String> scores = the_score.Split(',').ToList<>();
+		List<String> scores = the_score.Split(',').ToList();
 
 		String score_behaviour = scores[1] + "," + scores[2] + "," + scores[3];
 		instance_features += score_behaviour;
