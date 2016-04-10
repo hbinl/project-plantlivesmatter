@@ -219,6 +219,7 @@ public class UserMovementTracker : MonoBehaviour {
 		final_scores = line.GetRange (1, (line.Count - 3));
 
 		foreach (String element in final_scores) {
+
 			List<String> element_split = element.Split(']').ToList();
 			String row_column_element = element_split[0];
 			float behaviour_data = float.Parse(element_split[1]);
@@ -246,6 +247,7 @@ public class UserMovementTracker : MonoBehaviour {
 		String the_score = line[line.Count - 2];
 		the_score = the_score.Replace("[","");
 		the_score = the_score.Replace("]","");
+
 
 		List<String> scores = the_score.Split(',').ToList();
 

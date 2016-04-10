@@ -143,7 +143,10 @@ public class GameControl : MonoBehaviour {
 
     IEnumerator Waves()
     {
-
+        if (SurrenderControl.continued)
+        {
+            CreateRandomTree(cloneNumber);
+        }
 		// tracking
 		UserMovementTracker.WaveTrack(waveNumber);
 
@@ -160,10 +163,12 @@ public class GameControl : MonoBehaviour {
         // only need for the first wave, so that there is a delay before the enemy spawn
         wavesStarted = true;
         int i = 0;
+        Debug.Log(ItemSlot.boostCoin);
         if (waveNumber == 1)
         {
             if (ItemSlot.boostCoin)
             {
+                Debug.Log("BOOSTER!");
                 coinValue = 300;
                 ItemSlot.boostCoin = false;
             }

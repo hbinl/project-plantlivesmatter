@@ -34,10 +34,8 @@ public class ItemSlot : MonoBehaviour {
         {
             christmasPack = true;
             UserDataInGame.userData.goldLeaf -= costItem_1;
-        }
-        else
-        {
-            christmasPack = false;
+            UserDataInGame.userData.boughtItem_1 = 1;
+            UpdateUserData(UserDataInGame.userData.username);
         }
     }
 
@@ -45,13 +43,10 @@ public class ItemSlot : MonoBehaviour {
     {
         if (UserDataInGame.userData.goldLeaf >= costItem_2 && UserDataInGame.userData.boughtItem_2 == 0)
         {
-            boostSuePaper = true;
+            boostCoin = true;
             UserDataInGame.userData.goldLeaf -= costItem_2;
             UserDataInGame.userData.boughtItem_2 = 1;
-        }
-        else
-        {
-            boostSuePaper = false;
+            UpdateUserData(UserDataInGame.userData.username);
         }
     }
 
@@ -59,13 +54,10 @@ public class ItemSlot : MonoBehaviour {
     {
         if (UserDataInGame.userData.goldLeaf >= costItem_3 && UserDataInGame.userData.boughtItem_3 == 0)
         {
-            boostCoin = true;
+            boostSuePaper = true;
             UserDataInGame.userData.goldLeaf -= costItem_3;
             UserDataInGame.userData.boughtItem_3 = 1;
-        }
-        else
-        {
-            boostCoin = false;
+            UpdateUserData(UserDataInGame.userData.username);
         }
     }
 
