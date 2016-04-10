@@ -131,8 +131,12 @@ public class UserMovementTracker : MonoBehaviour {
 
 	public static void NextWaveTrack() {
 		// before start next wave, generate the wave log file
-		String waveTrackData = GenerateFinaliseTrackData(moveTrack);
-		Debug.Log (waveTrackData);
+		try {
+			String waveTrackData = GenerateFinaliseTrackData(moveTrack);
+			Debug.Log (waveTrackData);
+		} catch (ArgumentOutOfRangeException e) {
+			Debug.Log ("ARGUMENT OUT OF RANGE, Current assumption is string too long");
+		}
 
 		trackResult += moveTrack + "\n";
 		moveTrack = "";
@@ -217,10 +221,7 @@ public class UserMovementTracker : MonoBehaviour {
 		foreach (String element in final_scores) {
 			List<String> element_split = element.Split(']').ToList();
 			String row_column_element = element_split[0];
-			foreach (String elem in element_split) {
-				Debug.Log (elem);
-			}
-			float behaviour_data = System.Convert.ToSingle(element_split[1]);
+			float behaviour_data = float.Parse(element_split[1]);
 
 			row_column_element  = row_column_element.Replace("[","");
 			List<String> row_col_elem_split = row_column_element.Split (',').ToList ();
