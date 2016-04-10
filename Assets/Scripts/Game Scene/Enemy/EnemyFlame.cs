@@ -7,6 +7,7 @@ public class EnemyFlame : MonoBehaviour {
 
 	private Animator animator;
     public float killPoints;
+    public RuntimeAnimatorController christmasAnim;
 
 	void Start()
 	{
@@ -14,7 +15,12 @@ public class EnemyFlame : MonoBehaviour {
         killPoints = 100f;
 		animator = GetComponent<Animator>();
 		flameEnemy.moveable = true;
-	}
+
+        if (ItemSlot.christmasPack == true)
+        {
+            animator.runtimeAnimatorController = christmasAnim;
+        }
+    }
 
 	void Update()
 	{
