@@ -6,10 +6,12 @@ public class Bulldozer : MonoBehaviour {
 	private Enemy buldozerEnemy;
 
 	private Animator animator;
+    //private SpriteRenderer spriteRenderer;
 
 	public float delayStartMovement;
 	public float timer;
     public float killPoints;
+    public RuntimeAnimatorController christmasAnim;
 
 	// Use this for initialization
 	void Start () {
@@ -20,6 +22,11 @@ public class Bulldozer : MonoBehaviour {
 		delayStartMovement = 5f;
 
 		timer = 0f;
+
+        if (ItemSlot.christmasPack == true)
+        {
+            animator.runtimeAnimatorController = christmasAnim;
+        }
 	}
 	
 	// Update is called once per frame

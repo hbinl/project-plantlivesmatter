@@ -16,6 +16,17 @@ public class TreeSci : MonoBehaviour {
 	public bool onFire;
 
     public Canvas objCanvas;
+    public RuntimeAnimatorController christmasAnim;
+
+    void start()
+    {
+        animator = GetComponent<Animator>();
+        if (ItemSlot.christmasPack == true)
+        {
+            animator.runtimeAnimatorController = christmasAnim;
+        }
+    }
+
 
     public string ini_stage
     {

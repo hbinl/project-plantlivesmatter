@@ -5,15 +5,21 @@ public class EnemyChainsaw : MonoBehaviour {
 
 	private Enemy chainsawEnemy;
 	private Animator animator;
-    public float killPoints;    
+    public float killPoints;
+    public RuntimeAnimatorController christmasAnim;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		chainsawEnemy = GetComponent<Enemy>();
         killPoints = 50f;
 		animator = GetComponent<Animator>();
 		chainsawEnemy.moveable = true;
-	}
+
+        if (ItemSlot.christmasPack == true)
+        {
+            animator.runtimeAnimatorController = christmasAnim;
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
