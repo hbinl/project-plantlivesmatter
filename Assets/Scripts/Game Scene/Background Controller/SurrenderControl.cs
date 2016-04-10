@@ -47,6 +47,8 @@ public class SurrenderControl : MonoBehaviour {
         {
             UserDataInGame.userData.goldLeaf -= 50;
             continued = true;
+            this.gameObject.SetActive(false);
+            Time.timeScale = 1;
             UpdateUserData(UserDataInGame.userData.username);
         }        
     }

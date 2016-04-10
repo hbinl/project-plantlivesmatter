@@ -45,13 +45,13 @@ TagManager:
   - name: Grid
     uniqueID: 999839679
     locked: 0
-  - name: TreeRow2
+  - name: Tree
     uniqueID: 1937535713
     locked: 0
-  - name: TreeRow1
+  - name: Coin
     uniqueID: 1460154903
     locked: 0
-  - name: TreeRow0
+  - name: UI
     uniqueID: 2550498779
     locked: 0
   - name: Default

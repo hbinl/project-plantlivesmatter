@@ -6,7 +6,33 @@ public class IntroSceneButton : MonoBehaviour {
 
 	public void onClickPlay()
 	{
-		SceneManager.LoadScene("GameScene");
+        if (UserDataInGame.userData.boughtItem_1 != 0)
+        {
+            ItemSlot.christmasPack = true;
+        }
+        else
+        {
+            ItemSlot.christmasPack = false;
+        }
+
+        if (UserDataInGame.userData.boughtItem_2 != 0)
+        {
+            ItemSlot.boostCoin = true;
+        }
+        else
+        {
+            ItemSlot.boostCoin = false;
+        }
+
+        if (UserDataInGame.userData.boughtItem_3 != 0)
+        {
+            ItemSlot.boostSuePaper = true;
+        }
+        else
+        {
+            ItemSlot.boostSuePaper = false;
+        }
+        SceneManager.LoadScene("GameScene");
 	}
 
 	public void onClickLogout()

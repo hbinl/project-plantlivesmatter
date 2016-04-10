@@ -146,6 +146,7 @@ public class GameControl : MonoBehaviour {
         if (SurrenderControl.continued)
         {
             CreateRandomTree(cloneNumber);
+            SurrenderControl.continued = false;
         }
 		// tracking
 		//UserMovementTracker.WaveTrack(waveNumber);
