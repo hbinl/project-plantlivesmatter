@@ -35,23 +35,15 @@ public class ItemSlot : MonoBehaviour {
             chirstmasPack = true;
             UserDataInGame.userData.goldLeaf -= costItem_1;
         }
-        else
-        {
-            chirstmasPack = false;
-        }
     }
 
     public void TriggerItem_2()
     {
         if (UserDataInGame.userData.goldLeaf >= costItem_2 && UserDataInGame.userData.boughtItem_2 == 0)
         {
-            boostSuePaper = true;
+            boostCoin = true;
             UserDataInGame.userData.goldLeaf -= costItem_2;
             UserDataInGame.userData.boughtItem_2 = 1;
-        }
-        else
-        {
-            boostSuePaper = false;
         }
     }
 
@@ -59,13 +51,9 @@ public class ItemSlot : MonoBehaviour {
     {
         if (UserDataInGame.userData.goldLeaf >= costItem_3 && UserDataInGame.userData.boughtItem_3 == 0)
         {
-            boostCoin = true;
+            boostSuePaper = true;
             UserDataInGame.userData.goldLeaf -= costItem_3;
             UserDataInGame.userData.boughtItem_3 = 1;
-        }
-        else
-        {
-            boostCoin = false;
         }
     }
 
