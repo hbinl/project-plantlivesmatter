@@ -148,7 +148,7 @@ public class GameControl : MonoBehaviour {
             CreateRandomTree(cloneNumber);
         }
 		// tracking
-		UserMovementTracker.WaveTrack(waveNumber);
+		//UserMovementTracker.WaveTrack(waveNumber);
 
 		// show the wave text for 5 seconds
         waveText.gameObject.SetActive(true);
@@ -168,7 +168,6 @@ public class GameControl : MonoBehaviour {
         {
             if (ItemSlot.boostCoin)
             {
-                Debug.Log("BOOSTER!");
                 coinValue = 300;
                 ItemSlot.boostCoin = false;
             }
@@ -241,8 +240,8 @@ public class GameControl : MonoBehaviour {
     {
         // check if the the game ends
 		// tracking
-		UserMovementTracker.UserStatusTrack(highScore, treeGrid.Count, suePaperValue, coinValue);
-		UserMovementTracker.NextWaveTrack();
+		//UserMovementTracker.UserStatusTrack(highScore, treeGrid.Count, suePaperValue, coinValue);
+		//UserMovementTracker.NextWaveTrack();
         if (coinValue < 100 && treeGrid.Count == 0)
         {
             giveUp.SetActive(true);

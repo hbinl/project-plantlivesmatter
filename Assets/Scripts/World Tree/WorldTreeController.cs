@@ -33,20 +33,23 @@ public class WorldTreeController : MonoBehaviour {
 
     public void ClickDonate()
     {
-        WorldTreeProgress.worldTreeData.goldLeafRecieved += 1;
-        UserDataInGame.userData.goldLeaf -= 1;
-        UpdateProgress();
+        if (UserDataInGame.userData.goldLeaf >= 1)
+        {
+            WorldTreeProgress.worldTreeData.goldLeafRecieved += 1;
+            UserDataInGame.userData.goldLeaf -= 1;
+            UpdateProgress();
 
-        string path = Application.persistentDataPath + "/worldTree";
-        string[] data = File.ReadAllLines(path);
-        int value = Int32.Parse(data[0]);
-        value = WorldTreeProgress.worldTreeData.goldLeafRecieved;
-        Debug.Log(value);
-        File.Create(path).Dispose();
-        data[0] = value + "";
-        File.WriteAllLines(path,data);
+            string path = Application.persistentDataPath + "/worldTree";
+            string[] data = File.ReadAllLines(path);
+            int value = Int32.Parse(data[0]);
+            value = WorldTreeProgress.worldTreeData.goldLeafRecieved;
+            Debug.Log(value);
+            File.Create(path).Dispose();
+            data[0] = value + "";
+            File.WriteAllLines(path, data);
 
-        UpdateUserData(UserDataInGame.userData.username);
+            UpdateUserData(UserDataInGame.userData.username);
+        }  
     }
 
     void UpdateUserData(string user)

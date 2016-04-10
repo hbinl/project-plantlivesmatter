@@ -218,9 +218,6 @@ public class UserMovementTracker : MonoBehaviour {
 
 			List<String> element_split = element.Split(']').ToList();
 			String row_column_element = element_split[0];
-			foreach (String elem in element_split) {
-				Debug.Log (elem);
-			}
 			float behaviour_data = System.Convert.ToSingle(element_split[1]);
 
 			row_column_element  = row_column_element.Replace("[","");

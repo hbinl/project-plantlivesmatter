@@ -18,15 +18,8 @@ public class TreeSci : MonoBehaviour {
     public Canvas objCanvas;
     public RuntimeAnimatorController christmasAnim;
 
-    void start()
-    {
-        animator = GetComponent<Animator>();
-        if (ItemSlot.christmasPack == true)
-        {
-            animator.runtimeAnimatorController = christmasAnim;
-        }
-    }
-
+    public GameObject christmasObj;
+    public GameObject defaultObj;
 
     public string ini_stage
     {
@@ -62,7 +55,19 @@ public class TreeSci : MonoBehaviour {
 
         aSecond = 1.0f;
         defaultTimer = Random.Range(5f, 7f);
-        animator = GetComponent<Animator>();        
+
+        animator = GetComponent<Animator>();
+        if (ItemSlot.christmasPack == true)
+        {
+            animator.runtimeAnimatorController = christmasAnim;
+            christmasObj.SetActive(true);
+            defaultObj.SetActive(false);
+        }
+        else
+        {
+            christmasObj.SetActive(false);
+            defaultObj.SetActive(true);
+        }
     }
 
     public void Update()

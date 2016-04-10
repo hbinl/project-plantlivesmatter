@@ -9,22 +9,61 @@ public class ItemSlot : MonoBehaviour {
     public int costItem_1;
     public int costItem_2;
     public int costItem_3;
+
+    public GameObject priceLabel_1;
+    public GameObject priceLabel_2;
+    public GameObject priceLabel_3;
+
+    public GameObject boughtItem_1;
+    public GameObject boughtItem_2;
+    public GameObject boughtItem_3;
+
     public static bool christmasPack;
     public static bool boostSuePaper;
     public static bool boostCoin;
   
-    void Start()
+    void Awake()
     {
         costItem_1 = 30;
         costItem_2 = 10;
         costItem_3 = 10;
-        if (UserDataInGame.userData.boughtItem_1 == 0)
+        if (UserDataInGame.userData.boughtItem_1 != 0)
         {
             christmasPack = true;
+            boughtItem_1.SetActive(true);
+            priceLabel_1.SetActive(false);
         }
         else
         {
             christmasPack = false;
+            boughtItem_1.SetActive(false);
+            priceLabel_1.SetActive(true);
+        }
+
+        if (UserDataInGame.userData.boughtItem_2 != 0)
+        {
+            boostCoin = true;
+            boughtItem_2.SetActive(true);
+            priceLabel_2.SetActive(false);
+        }
+        else
+        {
+            boostCoin = false;
+            boughtItem_2.SetActive(false);
+            priceLabel_2.SetActive(true);
+        }
+
+        if (UserDataInGame.userData.boughtItem_3 != 0)
+        {
+            boostSuePaper = true;
+            boughtItem_3.SetActive(true);
+            priceLabel_3.SetActive(false);
+        }
+        else
+        {
+            boostSuePaper = false;
+            boughtItem_3.SetActive(false);
+            priceLabel_3.SetActive(true);
         }
     }
 
@@ -36,6 +75,8 @@ public class ItemSlot : MonoBehaviour {
             UserDataInGame.userData.goldLeaf -= costItem_1;
             UserDataInGame.userData.boughtItem_1 = 1;
             UpdateUserData(UserDataInGame.userData.username);
+            boughtItem_1.SetActive(true);
+            priceLabel_1.SetActive(false);
         }
     }
 
@@ -47,6 +88,8 @@ public class ItemSlot : MonoBehaviour {
             UserDataInGame.userData.goldLeaf -= costItem_2;
             UserDataInGame.userData.boughtItem_2 = 1;
             UpdateUserData(UserDataInGame.userData.username);
+            boughtItem_2.SetActive(true);
+            priceLabel_2.SetActive(false);
         }
     }
 
@@ -58,6 +101,8 @@ public class ItemSlot : MonoBehaviour {
             UserDataInGame.userData.goldLeaf -= costItem_3;
             UserDataInGame.userData.boughtItem_3 = 1;
             UpdateUserData(UserDataInGame.userData.username);
+            boughtItem_3.SetActive(true);
+            priceLabel_3.SetActive(false);
         }
     }
 
