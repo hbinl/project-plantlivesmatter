@@ -15,6 +15,7 @@ public class LoginScript : MonoBehaviour {
 	public InputField inputPassword;
 
 	public GameObject register_form;
+    public Text titleText;
 
 	public void onLoginClick()
 	{
@@ -23,7 +24,7 @@ public class LoginScript : MonoBehaviour {
 
 		//pre check if user input username and password at least 1 character
 		if (user.Length == 0 || password.Length == 0) {
-			Debug.Log("please input username and password");
+			titleText.text = "please input username and password";
 		}
 
 		if (CheckDatabase (user, password)) {
@@ -31,7 +32,7 @@ public class LoginScript : MonoBehaviour {
 			SetUserDataAndExp (user);
 			SceneManager.LoadScene("IntroScene");
 		} else {
-			Debug.Log ("Username is not found or password incorrect");
+			titleText.text = "Username is not found or password incorrect";
 		}
 	}
 

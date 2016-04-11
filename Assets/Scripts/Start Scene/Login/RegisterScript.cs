@@ -15,6 +15,7 @@ public class RegisterScript : MonoBehaviour {
 	public InputField inputPassword;
 
 	public GameObject login_form;
+    public Text titleText;
 
 	public void onBackClick() {
 		login_form.SetActive (true);
@@ -27,11 +28,11 @@ public class RegisterScript : MonoBehaviour {
 
 		//pre check if user input username and password at least 1 character
 		if (user.Length == 0 || password.Length == 0) {
-			Debug.Log("please input username and password");
+			titleText.text = "please input username and password";
 		}
 
 		if (CheckDatabase (user, password)) {
-			Debug.Log ("Data Found, PLEASE INPUT OTHER USERNAME");
+			titleText.text = "Data Found, PLEASE INPUT OTHER USERNAME";
 		} else {
 			Debug.Log ("YAY, Registered");
 			SetUserDataAndExp (user);

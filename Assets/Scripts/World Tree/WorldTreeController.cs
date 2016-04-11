@@ -13,12 +13,22 @@ public class WorldTreeController : MonoBehaviour {
     public float progress_percentage;
     public ProgressTracker progress;
 
+    public bool infoClicked;
+    public GameObject worldTreeBackground;
+    public GameObject worldTreeInfo;
+    public GameObject worldTreeObj;
+
     void Start()
     {
         string path = Application.persistentDataPath + "/worldTree";
         string[] data = File.ReadAllLines(path);
         WorldTreeProgress.worldTreeData.goldLeafRecieved = Int32.Parse(data[0]);
         UpdateProgress();
+        worldTreeInfo.SetActive(false);
+        infoClicked = false;
+        worldTreeBackground.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+        worldTreeObj.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
+
     }
 
     // Update is called once per frame
@@ -29,6 +39,22 @@ public class WorldTreeController : MonoBehaviour {
         progressText.text = "Progress: " + (int) progress_percentage + "% ";
         goldLeafText.text = UserDataInGame.userData.goldLeaf.ToString();
         progress.UpdateProgressMeter();
+    }
+    
+    public void ClickInfo()
+    {
+        if (!infoClicked)
+        {
+            worldTreeBackground.GetComponent<Image>().color = new Color32(75, 73, 73, 255);
+            worldTreeObj.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 37);
+        }
+        else
+        {
+            worldTreeBackground.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            worldTreeObj.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
+        }
+        worldTreeInfo.SetActive(!worldTreeInfo.activeSelf);
+        infoClicked = !infoClicked;
     }
 
     public void ClickDonate()
