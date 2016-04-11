@@ -3,6 +3,13 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class IntroSceneButton : MonoBehaviour {
+    public GameObject loading;
+    public GameObject chainsaw;
+
+    void Awake()
+    {
+        loading.SetActive(false);
+    }
 
 	public void onClickPlay()
 	{
@@ -32,8 +39,11 @@ public class IntroSceneButton : MonoBehaviour {
         {
             ItemSlot.boostSuePaper = false;
         }
+        loading.SetActive(true);
+        chainsaw.GetComponent<Animator>().SetBool("damageTree", false);
+        Debug.Log("FUCK MASTER PRO");
         SceneManager.LoadScene("GameScene");
-	}
+    }
 
 	public void onClickLogout()
 	{
