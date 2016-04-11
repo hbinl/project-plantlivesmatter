@@ -8,6 +8,7 @@ public class GameBG : MonoBehaviour {
 
     void Start()
     {
+        //ItemSlot.christmasPack = true;
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (ItemSlot.christmasPack == true)
         {

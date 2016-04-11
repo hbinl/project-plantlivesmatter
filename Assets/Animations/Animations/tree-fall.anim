@@ -17,20 +17,37 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: {x: 0, y: 0, z: 0.2741}
-        inSlope: {x: 0, y: 0, z: 105.7138}
-        outSlope: {x: 0, y: 0, z: 105.7138}
+        value: {x: 0, y: 0, z: 0.030199999}
+        inSlope: {x: 0, y: 0, z: 97.163}
+        outSlope: {x: 0, y: 0, z: 97.163}
         tangentMode: 0
       - time: 1
-        value: {x: 0, y: 0, z: 105.9879}
-        inSlope: {x: 0, y: 0, z: 105.7138}
-        outSlope: {x: 0, y: 0, z: 105.7138}
+        value: {x: 0, y: 0, z: 97.1932}
+        inSlope: {x: 0, y: 0, z: 97.163}
+        outSlope: {x: 0, y: 0, z: 97.163}
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     path: tree_top
-  m_PositionCurves: []
+  m_PositionCurves:
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: {x: -0.95, y: -4.55, z: 0.056716748}
+        inSlope: {x: 0.0000005364418, y: 0, z: 0}
+        outSlope: {x: 0.0000005364418, y: 0, z: 0}
+        tangentMode: 0
+      - time: 1
+        value: {x: -0.94999945, y: -4.55, z: 0.056716748}
+        inSlope: {x: 0.0000005364418, y: 0, z: 0}
+        outSlope: {x: 0.0000005364418, y: 0, z: 0}
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: tree_top
   m_ScaleCurves: []
   m_FloatCurves:
   - curve:
@@ -89,6 +106,12 @@ AnimationClip:
       classID: 1
       customType: 0
       isPPtrCurve: 0
+    - path: 1305624313
+      attribute: 1
+      script: {fileID: 0}
+      classID: 4
+      customType: 0
+      isPPtrCurve: 0
     pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
@@ -111,6 +134,36 @@ AnimationClip:
     m_HeightFromFeet: 0
     m_Mirror: 0
   m_EditorCurves:
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: 0
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 31
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_IsActive
+    path: christmas-tree_top
+    classID: 1
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: 0
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 31
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_IsActive
+    path: christmas-tree_bottom
+    classID: 1
+    script: {fileID: 0}
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -155,14 +208,14 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: 0.2741
-        inSlope: 105.7138
-        outSlope: 105.7138
+        value: 0.030199999
+        inSlope: 97.163
+        outSlope: 97.163
         tangentMode: 10
       - time: 1
-        value: 105.9879
-        inSlope: 105.7138
-        outSlope: 105.7138
+        value: 97.1932
+        inSlope: 97.163
+        outSlope: 97.163
         tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -175,31 +228,61 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 31
+        value: -0.95
+        inSlope: 0.0000005364418
+        outSlope: 0.0000005364418
+        tangentMode: 10
+      - time: 1
+        value: -0.94999945
+        inSlope: 0.0000005364418
+        outSlope: 0.0000005364418
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_IsActive
-    path: christmas-tree_top
-    classID: 1
+    attribute: m_LocalPosition.x
+    path: tree_top
+    classID: 4
     script: {fileID: 0}
   - curve:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 31
+        value: -4.55
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
+      - time: 1
+        value: -4.55
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_IsActive
-    path: christmas-tree_bottom
-    classID: 1
+    attribute: m_LocalPosition.y
+    path: tree_top
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: 0.056716748
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
+      - time: 1
+        value: 0.056716748
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.z
+    path: tree_top
+    classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves:
   - curve:

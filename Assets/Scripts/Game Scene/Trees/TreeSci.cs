@@ -59,6 +59,7 @@ public class TreeSci : MonoBehaviour {
         animator = GetComponent<Animator>();
         if (ItemSlot.christmasPack == true)
         {
+            Debug.Log("true");
             animator.runtimeAnimatorController = christmasAnim;
             christmasObj.SetActive(true);
             defaultObj.SetActive(false);
