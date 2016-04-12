@@ -32,7 +32,7 @@ public class TileScript : MonoBehaviour {
 	void OnMouseDown() // Mouse Over
 	{
 		// if the the player can spawn the tree and the place is occupied or not
-		if (GameControl.coinValue >= 100 && !occupied && GameControl.treeButtonUI && !GameControl.wavesEnded) 
+		if (GameControl.coinValue >= 100 && !occupied && GameControl.treeButtonUI && !GameControl.wavesEnded && Time.timeScale == 1) 
 		{
 			GameControl.coinValue -= 100;
 
