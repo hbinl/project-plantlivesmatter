@@ -82,7 +82,7 @@ public class EnemyChainsaw : MonoBehaviour {
 	public void OnMouseOver()
 	{
 		// if right click on the tree and is not clicking any UI
-		if (Input.GetMouseButtonDown(0) && !UIUtilities.isCursorOnUI())
+		if (Input.GetMouseButtonDown(0) && !UIUtilities.isCursorOnUI() && Time.timeScale == 1)
 		{
 			if (GameControl.useSuePaper())
 			{

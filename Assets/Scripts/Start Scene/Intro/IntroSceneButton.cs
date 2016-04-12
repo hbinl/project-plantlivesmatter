@@ -3,6 +3,12 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class IntroSceneButton : MonoBehaviour {
+    public GameObject loading;
+
+    void Awake()
+    {
+        loading.SetActive(false);
+    }
 
 	public void onClickPlay()
 	{
@@ -32,8 +38,8 @@ public class IntroSceneButton : MonoBehaviour {
         {
             ItemSlot.boostSuePaper = false;
         }
-        SceneManager.LoadScene("GameScene");
-	}
+        loading.SetActive(true);
+    }
 
 	public void onClickLogout()
 	{

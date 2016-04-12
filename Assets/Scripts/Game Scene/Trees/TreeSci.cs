@@ -18,8 +18,10 @@ public class TreeSci : MonoBehaviour {
     public Canvas objCanvas;
     public RuntimeAnimatorController christmasAnim;
 
-    public GameObject christmasObj;
-    public GameObject defaultObj;
+    public GameObject christmasTop;
+    public GameObject defaultTop;
+    public GameObject christmasBottom;
+    public GameObject defautBottom;
 
     public string ini_stage
     {
@@ -61,13 +63,17 @@ public class TreeSci : MonoBehaviour {
         {
             Debug.Log("true");
             animator.runtimeAnimatorController = christmasAnim;
-            christmasObj.SetActive(true);
-            defaultObj.SetActive(false);
+            christmasTop.SetActive(true);
+            defaultTop.SetActive(false);
+            christmasBottom.SetActive(true);
+            defautBottom.SetActive(false);
         }
         else
         {
-            christmasObj.SetActive(false);
-            defaultObj.SetActive(true);
+            christmasTop.SetActive(false);
+            defaultTop.SetActive(true);
+            christmasBottom.SetActive(false);
+            defautBottom.SetActive(true);
         }
     }
 

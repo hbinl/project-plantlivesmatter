@@ -110,7 +110,7 @@ public class EnemyFlame : MonoBehaviour {
 	public void OnMouseOver()
 	{
 		// if right click on the tree and is not clicking any UI
-		if (Input.GetMouseButtonDown(0) && !UIUtilities.isCursorOnUI())
+		if (Input.GetMouseButtonDown(0) && !UIUtilities.isCursorOnUI() && Time.timeScale == 1)
 		{
 			Debug.Log("Enemy Clicked");
 			if (GameControl.useSuePaper())
