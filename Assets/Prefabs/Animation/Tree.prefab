@@ -529,8 +529,10 @@ MonoBehaviour:
   onFire: 0
   objCanvas: {fileID: 0}
   christmasAnim: {fileID: 9100000, guid: 2bcc48314664d834f993eaabd5bc67bc, type: 2}
-  christmasObj: {fileID: 154250}
-  defaultObj: {fileID: 113100}
+  christmasTop: {fileID: 154250}
+  defaultTop: {fileID: 113100}
+  christmasBottom: {fileID: 188936}
+  defautBottom: {fileID: 168380}
 --- !u!114 &11470034
 MonoBehaviour:
   m_ObjectHideFlags: 1
