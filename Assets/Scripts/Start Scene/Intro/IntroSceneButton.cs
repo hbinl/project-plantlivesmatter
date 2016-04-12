@@ -39,6 +39,7 @@ public class IntroSceneButton : MonoBehaviour {
             ItemSlot.boostSuePaper = false;
         }
         loading.SetActive(true);
+        SceneManager.LoadScene ("GameScene");
     }
 
 	public void onClickLogout()
