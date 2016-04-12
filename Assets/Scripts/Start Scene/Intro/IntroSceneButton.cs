@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class IntroSceneButton : MonoBehaviour {
     public GameObject loading;
     
-    void Start()
+    void Awake()
     {
         loading.SetActive(false);
     }
