@@ -13,14 +13,16 @@ public class WorldTreeController : MonoBehaviour {
     public float progress_percentage;
     public ProgressTracker progress;
 
-    public bool infoClicked;
+    public bool infoClicked = false;
     public GameObject worldTreeBackground;
     public GameObject worldTreeInfo;
     public GameObject worldTreeObj;
 
+
     void Awake()
     {
-        worldTreeInfo.SetActive(infoClicked);
+
+        //worldTreeInfo.SetActive(infoClicked); 
     }
 
     void Start()
@@ -29,8 +31,9 @@ public class WorldTreeController : MonoBehaviour {
         string[] data = File.ReadAllLines(path);
         WorldTreeProgress.worldTreeData.goldLeafRecieved = Int32.Parse(data[0]);
         UpdateProgress();
-        worldTreeInfo.SetActive(false);
-        infoClicked = false;
+        //infoClicked = false;
+        //worldTreeInfo.SetActive(infoClicked);
+        
         worldTreeBackground.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
         worldTreeObj.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
 
@@ -55,6 +58,7 @@ public class WorldTreeController : MonoBehaviour {
             worldTreeObj.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 37);
             progressText.GetComponent<Text>().color = new Color32(255, 255, 255, 37);
             worldTreeInfo.SetActive(true);
+
         }
         else
         {
