@@ -142,17 +142,17 @@ public class UserMovementTracker : MonoBehaviour {
 		moveTrack = "";
 	}
 
-	public static void SaveToFile() {
-//		Debug.Log (UserDataInGame.userData.username);
+//	public static void SaveToFile() {
+////		Debug.Log (UserDataInGame.userData.username);
 
-		string nowDateAndTime = Convert.ToString( DateTime.Now.ToOADate());
-		nowDateAndTime = nowDateAndTime.Replace ('.', '_');
-		string path = Application.persistentDataPath + "/m_" + UserDataInGame.userData.username + "_" + nowDateAndTime ;
+//		string nowDateAndTime = Convert.ToString( DateTime.Now.ToOADate());
+//		nowDateAndTime = nowDateAndTime.Replace ('.', '_');
+//		string path = Application.persistentDataPath + "/m_" + UserDataInGame.userData.username + "_" + nowDateAndTime ;
 
-		File.Create(path).Dispose();
+//		File.Create(path).Dispose();
 
-		File.WriteAllText (path, trackResult);
-	}
+//		File.WriteAllText (path, trackResult);
+//	}
 
 	public static string CheckGridPosition(Vector3 pos)
 	{

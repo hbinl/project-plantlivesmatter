@@ -69,14 +69,26 @@ public class ItemSlot : MonoBehaviour {
 
     public void TriggerItem_1()
     {
-        if (UserDataInGame.userData.goldLeaf >= costItem_1 && UserDataInGame.userData.boughtItem_1 == 0)
+        if (UserDataInGame.userData.goldLeaf >= costItem_1)
         {
-            christmasPack = true;
-            UserDataInGame.userData.goldLeaf -= costItem_1;
-            UserDataInGame.userData.boughtItem_1 = 1;
-            UpdateUserData(UserDataInGame.userData.username);
-            boughtItem_1.SetActive(true);
-            priceLabel_1.SetActive(false);
+            if (UserDataInGame.userData.boughtItem_1 == 0)
+            {
+                christmasPack = true;
+                UserDataInGame.userData.goldLeaf -= costItem_1;
+                UserDataInGame.userData.boughtItem_1 = 1;
+                UpdateUserData(UserDataInGame.userData.username);
+                boughtItem_1.SetActive(true);
+                priceLabel_1.SetActive(false);
+            }
+            else
+            {
+                christmasPack = false;
+                UserDataInGame.userData.boughtItem_1 = 0;
+                UpdateUserData(UserDataInGame.userData.username);
+                boughtItem_1.SetActive(false);
+                priceLabel_1.SetActive(true);
+            }
+            
         }
     }
 

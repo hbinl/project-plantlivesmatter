@@ -44,7 +44,7 @@ public class WorldTreeController : MonoBehaviour {
     {
        
         Debug.Log(WorldTreeProgress.worldTreeData.goldLeafRecieved);
-        progress_percentage = (WorldTreeProgress.worldTreeData.goldLeafRecieved / 10000f) * 100;
+        progress_percentage = (WorldTreeProgress.worldTreeData.goldLeafRecieved / 1000f) * 100;
         progressText.text = "Progress: " + (int) progress_percentage + "% ";
         goldLeafText.text = UserDataInGame.userData.goldLeaf.ToString();
         progress.UpdateProgressMeter();
@@ -73,7 +73,7 @@ public class WorldTreeController : MonoBehaviour {
 
     public void ClickDonate()
     {
-        if (UserDataInGame.userData.goldLeaf >= 1)
+        if (UserDataInGame.userData.goldLeaf >= 1 && progress_percentage < 100f)
         {
             WorldTreeProgress.worldTreeData.goldLeafRecieved += 1;
             UserDataInGame.userData.goldLeaf -= 1;

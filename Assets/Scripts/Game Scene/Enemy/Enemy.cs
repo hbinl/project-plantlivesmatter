@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour {
 		enemyIsActive = true;
 		touchedTree = false;
         health = 100f;
-        damageDealt = 0.1f;
+        damageDealt = 0.2f;
 		movementSpeed = 1f;
         if (this.gameObject.transform.position.x < 0)
             faceDirectionRight = true;

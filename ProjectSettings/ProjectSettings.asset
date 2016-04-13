@@ -173,7 +173,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 0}
+      m_Icon: {fileID: 2800000, guid: 5dab01661fac64eebb3df87e65af4fdc, type: 3}
       m_Width: 128
       m_Height: 128
   m_BuildTargetBatching: []
@@ -342,11 +342,11 @@ PlayerSettings:
     20: MOBILE_INPUT
   metroPackageName: Project-PLM
   metroPackageVersion: 1.0.0.0
-  metroCertificatePath: 
+  metroCertificatePath: Assets\WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: 
-  metroCertificateIssuer: 
-  metroCertificateNotAfter: 0000000000000000
+  metroCertificateSubject: CNF4
+  metroCertificateIssuer: CNF4
+  metroCertificateNotAfter: 806dcb49cab3d201
   metroApplicationDescription: Project-PLM
   wsaImages: {}
   metroTileShortName: Project-PLM

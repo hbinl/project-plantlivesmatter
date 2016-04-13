@@ -12,6 +12,31 @@ public class UIScript : MonoBehaviour {
     public bool sueActive;
     private Color original = new Color(255,255,255);
 
+    public static float healTimer = 3;
+    public GameObject timerSlider;
+
+    void Start()
+    {
+        timerSlider.SetActive(false);
+    }
+
+    public void Update()
+    {
+        if (healTimer < 3f)
+        {
+            timerSlider.SetActive(true);
+            healTimer += Time.deltaTime;
+            timerSlider.GetComponent<Slider>().value = healTimer;
+        }
+        else
+        {
+            // can be any number as long as bigger than 1f which is inside the if command
+            healTimer = 10f;
+            timerSlider.GetComponent<Slider>().value = 0f;
+            timerSlider.SetActive(false);
+        }
+    }
+
 	public void SueButtonClick()
 	{
 		if (!GameControl.wavesEnded && Time.timeScale != 0)
@@ -65,7 +90,7 @@ public class UIScript : MonoBehaviour {
 
 	public void MedicineButtonClick()
 	{
-        if (!GameControl.wavesEnded && Time.timeScale != 0)
+        if (!GameControl.wavesEnded && Time.timeScale != 0 && healTimer >= 3f)
         {
             defaultButtonColor();
             GetComponent<AudioSource>().Play();

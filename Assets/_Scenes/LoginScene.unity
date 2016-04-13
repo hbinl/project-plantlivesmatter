@@ -2183,6 +2183,7 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -2444,7 +2445,7 @@ MonoBehaviour:
   inputUser: {fileID: 1250852654}
   inputPassword: {fileID: 228637165}
   login_form: {fileID: 620090367}
-  titleText: {fileID: 0}
+  titleText: {fileID: 1338259501}
 --- !u!1 &1736400754
 GameObject:
   m_ObjectHideFlags: 0

@@ -284,7 +284,7 @@ public class GameControl : MonoBehaviour {
         UpdateUserHighScore(UserDataInGame.userData.username);
 
         // tracing
-        UserMovementTracker.SaveToFile();
+        //UserMovementTracker.SaveToFile();
     }
 
 	void UpdateUserData(string user) {

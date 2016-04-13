@@ -23,6 +23,8 @@ public class TreeSci : MonoBehaviour {
     public GameObject christmasBottom;
     public GameObject defautBottom;
 
+    
+
     public string ini_stage
     {
         get { return stage; }
@@ -90,6 +92,8 @@ public class TreeSci : MonoBehaviour {
         {
             defaultTimer -= Time.deltaTime;
         }
+
+        
 
 		// to burn the fire every second
         if (aSecond <= 0)
@@ -168,7 +172,7 @@ public class TreeSci : MonoBehaviour {
 	public void WaterOnClick()
 	{
 		// Water cost 10 coins
-		if (GameControl.coinValue > 10 && onFire)
+		if (GameControl.coinValue > 10 && onFire && Time.timeScale == 1)
 		{
 			GameControl.coinValue -= 10;
 			onFire = false;
@@ -185,8 +189,10 @@ public class TreeSci : MonoBehaviour {
 	public void HealOnClick()
 	{
 		// Heal cost 30 each time clicked and heals 100%
-		if (GameControl.coinValue > 30 && !(hp > 99f))
+		if (GameControl.coinValue >= 30 && !(hp > 99f) && UIScript.healTimer > 3f && Time.timeScale == 1)
 		{
+            UIScript.healTimer = 0f;
+
 			GameControl.coinValue -= 30;
 			hp = 100f;
 
@@ -200,15 +206,18 @@ public class TreeSci : MonoBehaviour {
 
 	public void SellOnClick()
 	{
-		// add tree sold to user data
-		UserInGameProgress.treeSold += 1;
+		if (Time.timeScale == 1)
+        {
+            // add tree sold to user data
+            UserInGameProgress.treeSold += 1;
 
-		// Money increase depends on the tree health
-		GameControl.coinValue += (int) (hp * 0.8f);
-		Destroy(this.gameObject);
+            // Money increase depends on the tree health
+            GameControl.coinValue += (int)(hp * 0.8f);
+            Destroy(this.gameObject);
 
-		// tracking
-		UserMovementTracker.TreeTrack(transform.position, "S");
+            // tracking
+            UserMovementTracker.TreeTrack(transform.position, "S");
+        }
 	}
 
 	public void OnMouseDown()

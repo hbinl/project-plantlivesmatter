@@ -245,7 +245,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 994616388}
+      - m_Target: {fileID: 994616389}
         m_MethodName: onClickLoadStore
         m_Mode: 1
         m_Arguments:
@@ -484,7 +484,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &892061120
 Transform:
   m_ObjectHideFlags: 0
@@ -627,6 +627,7 @@ GameObject:
   - 114: {fileID: 994616385}
   - 114: {fileID: 994616384}
   - 114: {fileID: 994616388}
+  - 114: {fileID: 994616389}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -727,6 +728,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loading: {fileID: 892061119}
+--- !u!114 &994616389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 994616383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3545a48e55700a84780eabd53bf72167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &995999070
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,7 +887,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 994616388}
+      - m_Target: {fileID: 994616389}
         m_MethodName: onClickLoadTutorial
         m_Mode: 1
         m_Arguments:
@@ -1091,7 +1103,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1189,7 +1201,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 994616388}
+      - m_Target: {fileID: 994616389}
         m_MethodName: onClickLoadWorldTree
         m_Mode: 1
         m_Arguments:
@@ -1456,7 +1468,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 994616388}
+      - m_Target: {fileID: 994616389}
         m_MethodName: onClickLogout
         m_Mode: 1
         m_Arguments:
@@ -1576,7 +1588,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 994616388}
+      - m_Target: {fileID: 994616389}
         m_MethodName: onClickLoadHighScore
         m_Mode: 1
         m_Arguments:

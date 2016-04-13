@@ -2429,6 +2429,7 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -2461,7 +2462,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1410194178}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 980f211d5472143a38060fa601571e64, type: 3}
+  m_Script: {fileID: 11500000, guid: 3545a48e55700a84780eabd53bf72167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1434433860

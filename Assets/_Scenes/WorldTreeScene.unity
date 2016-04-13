@@ -237,8 +237,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 11.000008, y: 0.000015258789}
+  m_SizeDelta: {x: 0.000015258789, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &404777637
 MonoBehaviour:
@@ -717,9 +717,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 10000
+  m_MaxValue: 1000
   m_WholeNumbers: 1
-  m_Value: 0
+  m_Value: 50
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1015,16 +1015,16 @@ RectTransform:
   m_GameObject: {fileID: 1550997261}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.035, y: 1.031, z: 1}
   m_Children:
   - {fileID: 404777636}
   - {fileID: 1976969235}
   m_Father: {fileID: 924861077}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 218}
-  m_SizeDelta: {x: 0, y: 435}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -229.5, y: -217}
+  m_SizeDelta: {x: 440, y: 440}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &1575779693
 GameObject:
@@ -1245,14 +1245,14 @@ RectTransform:
   m_GameObject: {fileID: 1657491195}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.96, y: 0.96, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 924861077}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 10.1, y: 218}
-  m_SizeDelta: {x: 455, y: 455}
+  m_AnchoredPosition: {x: 10.2, y: 218}
+  m_SizeDelta: {x: 455, y: 453.13}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1657491197
 MonoBehaviour:
@@ -1605,10 +1605,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2057928616}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 980f211d5472143a38060fa601571e64, type: 3}
+  m_Script: {fileID: 11500000, guid: 3545a48e55700a84780eabd53bf72167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loading: {fileID: 0}
 --- !u!114 &2057928618
 MonoBehaviour:
   m_ObjectHideFlags: 0
